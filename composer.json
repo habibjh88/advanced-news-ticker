@@ -1,0 +1,30 @@
+{
+	"name": "devofwp/advanced-news-ticker",
+	"description": "Advanced News Ticker plugin",
+	"keywords": [
+		"WordPress",
+		"Plugin",
+		"Starter"
+	],
+	"homepage": "https://github.com/DevofWP",
+	"license": "GPL-3.0",
+	"version": "4.0.0",
+	"authors": [
+		{
+			"name": "DevofWP",
+			"email": "support@devofwp.com",
+			"homepage": "https://devofwp.com",
+			"role": "Developer"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"AdvancedNewsTicker\\": "./app"
+		}
+	},
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": false
+		}
+	}
+}

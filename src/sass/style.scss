@@ -1,0 +1,501 @@
+$primary_color: red;
+$secondary_color: black;
+$white_color: #FFF;
+$tickerPrimary: var(--ticker-primary-color, $primary_color);
+$tickerSecondary: var(--ticker-secondary-color, $secondary_color);
+
+.ant-newsticker {
+    opacity: 0;
+}
+
+.elementor-icon svg {
+    fill: currentColor;
+}
+
+.ant-breaking-news-ticker {
+    display: block;
+    width: 100%;
+    background: #FFFFFF;
+    height: 29px;
+    line-height: 29px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    border-radius: 2px;
+    text-align: left;
+    font-size: 14px;
+    border: none;
+
+    &.bn-fixed-top {
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+
+    &.bn-fixed-bottom {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .ticker-label {
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        position: absolute;
+        background-color: $tickerPrimary;
+        text-align: center;
+        color: #FFF;
+        font-weight: normal;
+        z-index: 3;
+        padding: 0 15px;
+        white-space: nowrap;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        transition: 0.4s;
+        cursor: default;
+        column-gap: 8px;
+
+        .breaking-title {
+            padding-top: 2px;
+        }
+
+        .elementor-icon {
+            color: #ffffff;
+            font-size: 14px;
+        }
+    }
+
+    .ticker-news {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        right: 0;
+        overflow: hidden;
+    }
+
+    .ticker-news ul {
+        display: block;
+        height: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        position: absolute;
+    }
+
+    .ticker-news ul li {
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        text-decoration: none;
+        -webkit-transition: color .2s linear;
+        -moz-transition: color .2s linear;
+        -o-transition: color .2s linear;
+        transition: color .2s linear;
+        position: absolute;
+        width: 100%;
+        display: none;
+        color: #333;
+    }
+
+    .ticker-news ul li a {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-decoration: none;
+        padding: 0 10px;
+        color: #333;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        column-gap: 6px;
+
+        &:hover,
+        .elementor-icon {
+            color: $tickerPrimary;
+        }
+    }
+
+    .ticker-controls {
+        right: var(--raadd-ticker-pos, 0);
+        bottom: 0;
+        top: 0;
+        display: flex;
+        gap: 3px;
+        position: absolute;
+        overflow: hidden;
+        height: 100%;
+        align-items: center;
+
+        button {
+            color: $white_color;
+            flex: 1;
+            cursor: pointer;
+            border: none;
+            text-align: center;
+            background-color: $tickerSecondary;
+            outline: none;
+            padding: 0;
+            width: 30px;
+            height: 28px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 11px;
+
+            &:hover {
+                background-color: $tickerPrimary;
+                color: $white_color;
+            }
+
+            @media (max-width: 500px) {
+                &:not(:last-child) {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .elementor-icon {
+        color: currentColor;
+    }
+
+    //Arrow Button
+    .ticker-arrow {
+        display: flex;
+
+        .bn-prev .elementor-icon {
+            transform: rotate(180deg);
+        }
+    }
+
+    //Play button
+
+
+    .ticker-action.ticker-play {
+        width: 8px;
+        height: 10px;
+        background: currentColor;
+        clip-path: polygon(0 0, 0% 100%, 100% 50%);
+    }
+
+
+    .ticker-action.ticker-pause {
+        width: 8px;
+        height: 10px;
+        border-left: 1.5px solid currentColor;
+        border-right: 1.5px solid currentColor;
+    }
+
+    .elementor-icon {
+        font-size: 1em;
+        display: flex;
+    }
+}
+
+.bn-direction-rtl {
+    direction: rtl;
+
+    .ticker-label {
+        left: auto;
+        right: 0;
+    }
+
+    .ticker-controls {
+        right: auto;
+        left: var(--raadd-ticker-pos, 0);
+    }
+}
+
+
+.bn-effect-scroll {
+    .ticker-news ul {
+        display: block;
+        width: 100%;
+        position: relative;
+    }
+
+    .ticker-news ul li {
+        position: relative;
+        width: auto;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &.bn-direction-rtl .ticker-news ul li {
+        float: right;
+    }
+}
+
+
+//Style 1
+.ticker-style-1 .ant-breaking-news-ticker {
+    .ticker-label {
+        font-size: .9em;
+    }
+}
+
+//Style 2
+.ticker-style-2 .ant-breaking-news-ticker {
+
+    height: 40px;
+
+    .ticker-news {
+        margin-left: 15px;
+    }
+
+    .ticker-label {
+        background-color: $tickerPrimary;
+
+        &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: -6px;
+            width: 15px;
+            height: 15px;
+            transform: translateY(-50%) rotate(45deg);
+            background: var(--ticker-label-bg, $tickerPrimary);
+        }
+    }
+}
+
+//Style 3
+.ticker-style-3 .ant-breaking-news-ticker {
+    background: #EDF6F9;
+    height: 40px;
+    border-radius: 6px !important;
+
+    .ticker-controls {
+        right: 6px;
+    }
+
+    .ticker-label {
+        background: $tickerPrimary;
+    }
+}
+
+//Style 4
+.ticker-style-4 {
+    .ant-breaking-news-ticker {
+        background: #fff1f1;
+        height: 40px;
+        border-radius: 30px !important;
+
+        .ticker-controls {
+            right: 6px;
+        }
+
+        .ticker-label {
+            background: $tickerPrimary;
+            border-radius: 30px;
+        }
+
+        .ticker-controls button {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+        }
+    }
+}
+
+//Style 5
+.ticker-style-5 .ant-breaking-news-ticker {
+    background: #F2F7F9;
+    height: 40px;
+    border-radius: 30px !important;
+
+    .ticker-controls {
+        right: 6px;
+    }
+
+    .ticker-label {
+        background: $tickerPrimary;
+        border-radius: 30px 0 0 30px;
+    }
+
+    .ticker-controls button {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+    }
+}
+
+//Style 6
+.ticker-style-6 .ant-breaking-news-ticker {
+    background: #F2F2F2;
+    height: 40px;
+    border-radius: 30px !important;
+
+    .ticker-controls {
+        right: 6px;
+    }
+
+    .ticker-label {
+        background: $tickerPrimary;
+        border-radius: 30px 0 0 30px;
+
+        &:after {
+            content: "";
+            width: 29.4px;
+            height: 29px;
+            background: $tickerPrimary;
+            border-radius: 7px;
+            transform: rotate(45deg) skew(10deg, 10deg);
+            right: -14px;
+            position: absolute;
+            z-index: -1;
+        }
+    }
+
+    .ticker-news {
+        margin-left: 15px;
+    }
+
+
+    .ticker-controls button {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+    }
+}
+
+//Style 7
+.ticker-style-7 {
+    --ticker-secondary-color: #a90000;
+
+    .ant-breaking-news-ticker {
+        background: $tickerPrimary;
+        height: 40px;
+        border-radius: 8px !important;
+
+        .ticker-controls {
+            right: var(--raadd-ticker-pos, 6px);
+        }
+
+        .ticker-label {
+            background: none;
+            font-weight: bold;
+            font-size: 17px;
+
+            &:after {
+                content: "";
+                width: 2px;
+                height: 17px;
+                background: $white_color;
+                right: 0;
+                position: absolute;
+            }
+        }
+
+        .ticker-news ul li :is(a, .elementor-icon) {
+            color: $white_color;
+        }
+
+        .ticker-controls button {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+
+            &:hover {
+                background: $white_color;
+                color: $tickerPrimary;
+            }
+        }
+    }
+}
+
+
+//Style 8
+
+.ticker-style-8 {
+    --ticker-secondary-color: yellow;
+
+    .ant-breaking-news-ticker {
+        background: none;
+
+        &:before {
+            content: "";
+            width: calc(100% - 28px);
+            height: 68%;
+            background: $tickerPrimary;
+            transform: skewX(-20deg);
+            position: absolute;
+            top: auto;
+            left: 20px;
+            bottom: 0;
+            border-left: 8px solid $tickerSecondary;
+            border-right: 8px solid $tickerSecondary;
+        }
+
+        .ticker-news {
+            height: 68%;
+            top: auto;
+            margin-left: 10px;
+
+            @media (max-width: 500px) {
+                margin-left: 30px;
+            }
+
+            .elementor-icon,
+            a {
+                color: $white_color;
+
+                &:hover {
+                    color: $tickerSecondary;
+                }
+            }
+
+            ul li, li a {
+                height: 100%;
+            }
+        }
+
+        .ticker-label {
+            height: 78%;
+            transform: skewX(-20deg);
+            left: 10px;
+            background: $tickerSecondary;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 5px 4px 0 rgba(0, 0, 0, .2);
+            border-left: 4px solid $tickerPrimary;
+
+            &, .elementor-icon {
+                color: $tickerPrimary;
+            }
+
+            > * {
+                transform: skewX(20deg);
+            }
+        }
+
+        .ticker-controls button {
+            background: $white_color;
+            color: $tickerPrimary;
+
+            &:hover {
+                background: $tickerSecondary;
+            }
+        }
+
+        .ticker-controls {
+            top: auto;
+            height: 68%;
+            right: 24px;
+            transform: skewX(-20deg);
+        }
+
+    }
+}
