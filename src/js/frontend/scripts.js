@@ -15,7 +15,7 @@
         newsTicker: function () {
             $('.ant-newsticker').each(function (e) {
                 var element = $(this);
-                element.css('opacity','1')
+                element.css({"opacity": 1, "transition": "opacity 0.4s ease-in-out"});
                 var data = element.data('newsticker');
                 if ($.fn.breakingNews) {
                     element.breakingNews(data);

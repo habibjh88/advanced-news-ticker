@@ -1,19 +1,19 @@
 {
-	"name": "devofwp/advanced-news-ticker",
+	"name": "habibjh88/advanced-news-ticker",
 	"description": "Advanced News Ticker plugin",
 	"keywords": [
 		"WordPress",
 		"Plugin",
 		"Starter"
 	],
-	"homepage": "https://github.com/DevofWP",
+	"homepage": "https://github.com/habibjh88",
 	"license": "GPL-3.0",
 	"version": "4.0.0",
 	"authors": [
 		{
-			"name": "DevofWP",
-			"email": "support@devofwp.com",
-			"homepage": "https://devofwp.com",
+			"name": "habibjh88",
+			"email": "habibjh88@gmail.com",
+			"homepage": "https://habibportfolio.com",
 			"role": "Developer"
 		}
 	],

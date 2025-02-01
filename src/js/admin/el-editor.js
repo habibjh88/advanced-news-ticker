@@ -19,8 +19,6 @@ const rawEditorHelpers = {
     rawSelect2Init: (event, obj, $) => {
         const rawSelect = '#elementor-control-default-' + obj.data._cid;
 
-        console.log(antSelect2Obj.ajaxurl)
-
         setTimeout(function () {
             const IDSelect2 = $(rawSelect).select2({
                 minimumInputLength: obj.data.minimum_input_length,
@@ -34,6 +32,7 @@ const rawEditorHelpers = {
                     data(params) {
                         return {
                             action: 'ant_select2_object_search',
+                            _ajax_nonce: antSelect2Obj.nonce,
                             post_type: obj.data.source_type,
                             source_name: obj.data.source_name,
                             search: params.term,
@@ -66,13 +65,13 @@ const rawEditorHelpers = {
                             '<span class="elementor-control-spinner">&nbsp;<i class="eicon-spinner eicon-animation-spin"></i>&nbsp;</span>'
                         );
                         $.ajax({
+                            url: antSelect2Obj.ajaxurl, // + '?action=ant_select2_get_title',
                             method: 'POST',
-                            url:
-                                antSelect2Obj.ajaxurl +
-                                '?action=rawadd_select2_get_title',
                             data: {
+                                action:'ant_select2_get_title',
                                 post_type: obj.data.source_type,
                                 source_name: obj.data.source_name,
+                                _ajax_nonce: antSelect2Obj.nonce,
                                 id: ids,
                             },
                         }).done(function (response) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  DevofWP
+ * @author  habibjh88
  * @since   1.0
  * @version 1.0
  */
@@ -10,7 +10,6 @@ namespace AdvancedNewsTicker\Elementor\Addons;
 use Elementor\Controls_Manager;
 use AdvancedNewsTicker\Helper\Fns;
 use AdvancedNewsTicker\Abstracts\ElementorBase;
-use AdvancedNewsTicker\Traits\QueryTraits;
 use Elementor\Group_Control_Typography;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,8 +21,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class NewsTicker extends ElementorBase {
 
-	use QueryTraits;
-
 	/**
 	 * Class Constructor
 	 *
@@ -32,14 +29,19 @@ class NewsTicker extends ElementorBase {
 	 *
 	 * @throws \Exception
 	 */
-	public function __construct( $data = [], $args = NULL ) {
+	public function __construct( $data = [], $args = null ) {
 		$this->ant_name = __( 'News Ticker', 'advanced-news-ticker' );
 		$this->ant_base = 'ant-news-ticker';
 		parent::__construct( $data, $args );
 	}
 
+
 	public function get_script_depends() {
-		return [ 'ant-newsticker' ];
+		return [ 'advanced-news-ticker-main' ];
+	}
+
+	public function get_style_depends() {
+		return [ 'advanced-news-ticker' ];
 	}
 
 	/**
@@ -50,143 +52,10 @@ class NewsTicker extends ElementorBase {
 	protected function register_controls() {
 		$this->general_settings();
 		$this->query();
+		$this->ticker_style();
 		$this->breaking_title();
 		$this->post_title();
 		$this->newsticker_controls();
-		$this->wrapper_controls();
-	}
-
-	protected function query() {
-		$this->start_controls_section(
-			'query_section',
-			[
-				'label' => esc_html__( 'Query', 'raw-addons' ),
-				'tab'   => Controls_Manager::TAB_CONTENT,
-			]
-		);
-		$this->add_control(
-			'post_limit',
-			[
-				'label'       => __( 'Post Per Page', 'advanced-news-ticker' ),
-				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter Post Limit', 'advanced-news-ticker' ),
-				'description' => __( 'Enter number of post to show.', 'advanced-news-ticker' ),
-				'default'     => '12',
-			]
-		);
-
-		$this->add_control(
-			'post_id',
-			[
-				'type'                 => 'ant-select2',
-				'label'                => __( 'By Posts', 'advanced-news-ticker' ),
-				'source_name'          => 'post',
-				'source_type'          => 'post',
-				'multiple'             => TRUE,
-				'label_block'          => TRUE,
-				'minimum_input_length' => 3,
-			]
-		);
-
-		$this->add_control(
-			'category',
-			[
-				'type'                 => 'ant-select2',
-				'label'                => esc_html__( 'By Categories', 'advanced-news-ticker' ),
-				'source_name'          => 'taxonomy',
-				'source_type'          => 'category',
-				'multiple'             => TRUE,
-				'label_block'          => TRUE,
-				'minimum_input_length' => 1,
-			]
-		);
-
-		$this->add_control(
-			'post_tag',
-			[
-				'type'                 => 'ant-select2',
-				'label'                => esc_html__( 'By Tags', 'advanced-news-ticker' ),
-				'source_name'          => 'taxonomy',
-				'source_type'          => 'post_tag',
-				'multiple'             => TRUE,
-				'label_block'          => TRUE,
-				'minimum_input_length' => 1,
-			]
-		);
-
-		$this->add_control(
-			'tax_relation',
-			[
-				'label'   => __( 'Taxonomy Relation', 'advanced-news-ticker' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					'OR'  => __( 'OR', 'advanced-news-ticker' ),
-					'AND' => __( 'AND', 'advanced-news-ticker' ),
-				],
-				'default' => 'OR',
-			]
-		);
-
-		$this->add_control(
-			'offset',
-			[
-				'label'       => __( 'Post offset', 'advanced-news-ticker' ),
-				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter Post offset', 'advanced-news-ticker' ),
-				'description' => __( 'Number of post to displace or pass over. The offset parameter is ignored when post limit => -1 (show all posts) is used.', 'advanced-news-ticker' ),
-			]
-		);
-
-		$this->add_control(
-			'exclude',
-			[
-				'type'                 => 'ant-select2',
-				'label'                => __( 'Exclude posts', 'advanced-news-ticker' ),
-				'description'          => __( 'Choose posts for exclude', 'advanced-news-ticker' ),
-				'source_name'          => 'post',
-				'source_type'          => 'post',
-				'multiple'             => TRUE,
-				'label_block'          => TRUE,
-				'minimum_input_length' => 3,
-			]
-		);
-
-		$this->add_control(
-			'orderby',
-			[
-				'label'   => __( 'Order by', 'advanced-news-ticker' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'date',
-				'options' => [
-					'date'           => __( 'Date', 'advanced-news-ticker' ),
-					'ID'             => __( 'Order by post ID', 'advanced-news-ticker' ),
-					'author'         => __( 'Author', 'advanced-news-ticker' ),
-					'title'          => __( 'Title', 'advanced-news-ticker' ),
-					'modified'       => __( 'Last modified date', 'advanced-news-ticker' ),
-					'parent'         => __( 'Post parent ID', 'advanced-news-ticker' ),
-					'comment_count'  => __( 'Number of comments', 'advanced-news-ticker' ),
-					'menu_order'     => __( 'Menu order', 'advanced-news-ticker' ),
-					'meta_value'     => __( 'Meta value', 'advanced-news-ticker' ),
-					'meta_value_num' => __( 'Meta value number', 'advanced-news-ticker' ),
-					'rand'           => __( 'Random order', 'advanced-news-ticker' ),
-				],
-			]
-		);
-
-		$this->add_control(
-			'order',
-			[
-				'label'   => __( 'Sort order', 'advanced-news-ticker' ),
-				'type'    => Controls_Manager::SELECT,
-				'default' => 'DESC',
-				'options' => [
-					'ASC'  => __( 'ASC', 'advanced-news-ticker' ),
-					'DESC' => __( 'DESC', 'advanced-news-ticker' ),
-				],
-			]
-		);
-
-		$this->end_controls_section();
 	}
 
 	protected function general_settings() {
@@ -210,42 +79,35 @@ class NewsTicker extends ElementorBase {
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-1.svg' ) ),
 					],
 					'2' => [
-						'title'  => esc_html__( 'Layout 2', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-2.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 2', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-2.svg' ) ),
 					],
 					'3' => [
-						'title'  => esc_html__( 'Layout 3', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-3.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 3', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-3.svg' ) ),
 					],
 					'4' => [
-						'title'  => esc_html__( 'Layout 4', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-4.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 4', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-4.svg' ) ),
 					],
 					'5' => [
-						'title'  => esc_html__( 'Layout 5', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-5.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 5', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-5.svg' ) ),
 					],
 					'6' => [
-						'title'  => esc_html__( 'Layout 6', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-6.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 6', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-6.svg' ) ),
 					],
 					'7' => [
-						'title'  => esc_html__( 'Layout 7', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-7.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 7', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-7.svg' ) ),
 					],
 					'8' => [
-						'title'  => esc_html__( 'Layout 8', 'advanced-news-ticker' ),
-						'url'    => esc_url( Fns::get_assets_url( 'images/layout/newsticker-7.svg' ) ),
-						'is_pro' => ! advancedNewsTicker()->has_pro(),
+						'title' => esc_html__( 'Layout 8', 'advanced-news-ticker' ),
+						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-8.svg' ) ),
 					],
 				],
-				'classes'      => 'advanced-news-ticker-col-2',
+				'classes'      => 'columns-2',
 				'default'      => '1',
 				'prefix_class' => 'ticker-style-',
 				'render_type'  => 'template',
@@ -255,16 +117,16 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'breaking_title',
 			[
-				'label'   => esc_html__( 'Breaking Title', 'neeon-core' ),
+				'label'   => esc_html__( 'Breaking Title', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::TEXT,
-				'default' => esc_html__( 'Breaking News', 'neeon-core' ),
+				'default' => esc_html__( 'Breaking News', 'advanced-news-ticker' ),
 			]
 		);
 
 		$this->add_control(
 			'ticker_settings',
 			[
-				'label' => esc_html__( 'Ticker Settings', 'neeon-core' ),
+				'label' => esc_html__( 'Ticker Settings', 'advanced-news-ticker' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -272,30 +134,64 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'effect',
 			[
-				'label'   => esc_html__( 'Effect', 'neeon-core' ),
+				'label'   => esc_html__( 'Effect', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'slide-left'  => esc_html__( 'Slide Left', 'neeon-core' ),
-					'slide-down'  => esc_html__( 'Slide Down', 'neeon-core' ),
-					'slide-up'    => esc_html__( 'Slide Up', 'neeon-core' ),
-					'slide-right' => esc_html__( 'Slide Right', 'neeon-core' ),
-					'typography'  => esc_html__( 'Typography', 'neeon-core' ),
-					'scroll'      => esc_html__( 'Scroll', 'neeon-core' ),
-					'fade'        => esc_html__( 'Fade', 'neeon-core' ),
+					'slide-left'  => esc_html__( 'Slide Left', 'advanced-news-ticker' ),
+					'slide-down'  => esc_html__( 'Slide Down', 'advanced-news-ticker' ),
+					'slide-up'    => esc_html__( 'Slide Up', 'advanced-news-ticker' ),
+					'slide-right' => esc_html__( 'Slide Right', 'advanced-news-ticker' ),
+					'typography'  => esc_html__( 'Typography', 'advanced-news-ticker' ),
+					'scroll'      => esc_html__( 'Scroll', 'advanced-news-ticker' ),
+					'fade'        => esc_html__( 'Fade', 'advanced-news-ticker' ),
 				],
 				'default' => 'slide-left',
 			]
 		);
 
 		$this->add_control(
+			'delayTimer',
+			[
+				'label'     => __( 'Delay Timer', 'neuzin-core' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 3000,
+				'condition' => [
+					'effect!' => 'scroll',
+				]
+			]
+		);
+
+		$this->add_control(
+			'scrollSpeed',
+			[
+				'label'     => __( 'scrollSpeed', 'neuzin-core' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 2,
+				'condition' => [
+					'effect' => 'scroll',
+				]
+			]
+		);
+
+		$this->add_control(
+			'play',
+			[
+				'label'        => esc_html__( 'Auto Play', 'neuzin-core' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			]
+		);
+
+		$this->add_control(
 			'position',
 			[
-				'label'   => esc_html__( 'Position', 'neeon-core' ),
+				'label'   => esc_html__( 'Position', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					''             => esc_html__( 'Default', 'neeon-core' ),
-					'fixed-top'    => esc_html__( 'Fixed Top', 'neeon-core' ),
-					'fixed-bottom' => esc_html__( 'Fixed Bottom', 'neeon-core' ),
+					''             => esc_html__( 'Default', 'advanced-news-ticker' ),
+					'fixed-top'    => esc_html__( 'Fixed Top', 'advanced-news-ticker' ),
+					'fixed-bottom' => esc_html__( 'Fixed Bottom', 'advanced-news-ticker' ),
 				],
 				'default' => '',
 			]
@@ -304,10 +200,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'custom_pos_popover',
 			[
-				'label'        => esc_html__( 'Custom Position', 'textdomain' ),
+				'label'        => esc_html__( 'Custom Position', 'advanced-news-ticker' ),
 				'type'         => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-				'label_off'    => esc_html__( 'Default', 'textdomain' ),
-				'label_on'     => esc_html__( 'Custom', 'textdomain' ),
+				'label_off'    => esc_html__( 'Default', 'advanced-news-ticker' ),
+				'label_on'     => esc_html__( 'Custom', 'advanced-news-ticker' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
 				'condition'    => [
@@ -430,30 +326,193 @@ class NewsTicker extends ElementorBase {
 			]
 		);
 
-		$this->add_control(
-			'ticker_primary_color',
+		$this->end_controls_section();
+	}
+
+	protected function query() {
+		$this->start_controls_section(
+			'query_section',
 			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Primary Color', 'neuzin-core' ),
-				'selectors' => [
-					'body {{WRAPPER}} .ant-breaking-news-ticker' => '--ticker-primary-color: {{VALUE}};',
+				'label' => esc_html__( 'Query', 'advanced-news-ticker' ),
+				'tab'   => Controls_Manager::TAB_CONTENT,
+			]
+		);
+		$post_types = Fns::get_post_types();
+		$this->add_control(
+			'post_type',
+			[
+				'label'   => esc_html__( 'Post Type', 'advanced-news-ticker' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => $post_types,
+				'default' => 'post',
+			]
+		);
+		$this->add_control(
+			'post_limit',
+			[
+				'label'       => __( 'Post Per Page', 'advanced-news-ticker' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Enter Post Limit', 'advanced-news-ticker' ),
+				'description' => __( 'Enter number of post to show.', 'advanced-news-ticker' ),
+				'default'     => '12',
+			]
+		);
+
+		foreach ( $post_types as $post_type => $post_label ) {
+			$this->add_control(
+				$post_type . '_ids',
+				[
+					'type'                 => 'ant-select2',
+					'label'                => __( 'Choose ', 'advanced-news-ticker' ) . $post_label,
+					'source_name'          => 'post_type',
+					'source_type'          => $post_type,
+					'multiple'             => true,
+					'label_block'          => true,
+					'minimum_input_length' => 3,
+					'condition'            => [
+						'post_type' => $post_type,
+					],
+				]
+			);
+		}
+		$taxonomies = get_taxonomies( [], 'objects' );
+
+		foreach ( $taxonomies as $taxonomy => $object ) {
+
+			if ( ! isset( $object->object_type[0] )
+			     || ! in_array( $object->object_type[0], array_keys( $post_types ) )
+			     || in_array( $taxonomy, Fns::get_excluded_taxonomy() )
+			) {
+				continue;
+			}
+			$this->add_control(
+				$taxonomy . '_ids',
+				[
+					'label'       => esc_html__( 'By ', 'advanced-news-ticker' ) . $object->label,
+					'type'        => Controls_Manager::SELECT2,
+					'label_block' => true,
+					'multiple'    => true,
+					'options'     => Fns::get_categories_by_id( $taxonomy ),
+					'condition'   => [
+						'post_type' => $object->object_type,
+					],
+					'description' => "Post by " . $object->label,
+				]
+			);
+		}
+
+		/*$this->add_control(
+			'category',
+			[
+				'type'                 => 'ant-select2',
+				'label'                => esc_html__( 'By Categories', 'advanced-news-ticker' ),
+				'source_name'          => 'taxonomy',
+				'source_type'          => 'category',
+				'multiple'             => true,
+				'label_block'          => true,
+				'minimum_input_length' => 1,
+			]
+		);
+
+		$this->add_control(
+			'post_tag',
+			[
+				'type'                 => 'ant-select2',
+				'label'                => esc_html__( 'By Tags', 'advanced-news-ticker' ),
+				'source_name'          => 'taxonomy',
+				'source_type'          => 'post_tag',
+				'multiple'             => true,
+				'label_block'          => true,
+				'minimum_input_length' => 1,
+			]
+		);*/
+
+		$this->add_control(
+			'tax_relation',
+			[
+				'label'   => __( 'Taxonomy Relation', 'advanced-news-ticker' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					'OR'  => __( 'OR', 'advanced-news-ticker' ),
+					'AND' => __( 'AND', 'advanced-news-ticker' ),
+				],
+				'default' => 'OR',
+			]
+		);
+
+		$this->add_control(
+			'offset',
+			[
+				'label'       => __( 'Post offset', 'advanced-news-ticker' ),
+				'type'        => Controls_Manager::TEXT,
+				'placeholder' => __( 'Enter Post offset', 'advanced-news-ticker' ),
+				'description' => __( 'Number of post to displace or pass over. The offset parameter is ignored when post limit => -1 (show all posts) is used.', 'advanced-news-ticker' ),
+			]
+		);
+
+		$this->add_control(
+			'exclude',
+			[
+				'type'                 => 'ant-select2',
+				'label'                => __( 'Exclude posts', 'advanced-news-ticker' ),
+				'description'          => __( 'Choose posts for exclude', 'advanced-news-ticker' ),
+				'source_name'          => 'post',
+				'source_type'          => 'post',
+				'multiple'             => true,
+				'label_block'          => true,
+				'minimum_input_length' => 3,
+			]
+		);
+
+		$this->add_control(
+			'orderby',
+			[
+				'label'   => __( 'Order by', 'advanced-news-ticker' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'date',
+				'options' => [
+					'date'           => __( 'Date', 'advanced-news-ticker' ),
+					'ID'             => __( 'Order by post ID', 'advanced-news-ticker' ),
+					'author'         => __( 'Author', 'advanced-news-ticker' ),
+					'title'          => __( 'Title', 'advanced-news-ticker' ),
+					'modified'       => __( 'Last modified date', 'advanced-news-ticker' ),
+					'parent'         => __( 'Post parent ID', 'advanced-news-ticker' ),
+					'comment_count'  => __( 'Number of comments', 'advanced-news-ticker' ),
+					'menu_order'     => __( 'Menu order', 'advanced-news-ticker' ),
+					'meta_value'     => __( 'Meta value', 'advanced-news-ticker' ),
+					'meta_value_num' => __( 'Meta value number', 'advanced-news-ticker' ),
+					'rand'           => __( 'Random order', 'advanced-news-ticker' ),
 				],
 			]
 		);
 
 		$this->add_control(
-			'ticker_secondary_color',
+			'meta_key',
 			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Secondary Color', 'neuzin-core' ),
-				'selectors' => [
-					'body {{WRAPPER}} .ant-breaking-news-ticker' => '--ticker-secondary-color: {{VALUE}};',
+				'label'     => esc_html__( 'Meta Key', 'advanced-news-ticker' ),
+				'type'      => Controls_Manager::TEXT,
+				'condition' => [
+					'orderby' => [ 'meta_value', 'meta_value_num' ],
+				]
+			]
+		);
+
+		$this->add_control(
+			'order',
+			[
+				'label'   => __( 'Sort order', 'advanced-news-ticker' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'DESC',
+				'options' => [
+					'ASC'  => __( 'ASC', 'advanced-news-ticker' ),
+					'DESC' => __( 'DESC', 'advanced-news-ticker' ),
 				],
 			]
 		);
 
 		$this->end_controls_section();
 	}
+
 
 	protected function breaking_title() {
 		$this->start_controls_section(
@@ -553,7 +612,7 @@ class NewsTicker extends ElementorBase {
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'skin'             => 'inline',
-				'label_block'      => FALSE,
+				'label_block'      => false,
 				'default'          => [
 					'value'   => 'fas fa-bolt',
 					'library' => 'fa-solid',
@@ -711,7 +770,7 @@ class NewsTicker extends ElementorBase {
 				'label'            => __( 'Post Title Icon', 'advanced-news-ticker' ),
 				'type'             => Controls_Manager::ICONS,
 				'skin'             => 'inline',
-				'label_block'      => FALSE,
+				'label_block'      => false,
 				'fa4compatibility' => 'icon',
 				'default'          => [
 					'value'   => 'far fa-dot-circle',
@@ -781,7 +840,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'title_spacing',
 			[
-				'label'              => __( 'Icon Spacing', 'neuzin-core' ),
+				'label'              => __( 'Icon Spacing', 'advanced-news-ticker' ),
 				'type'               => Controls_Manager::DIMENSIONS,
 				'size_units'         => [ 'px' ],
 				'selectors'          => [
@@ -793,7 +852,7 @@ class NewsTicker extends ElementorBase {
 					'right'    => '',
 					'bottom'   => '',
 					'left'     => '',
-					'isLinked' => FALSE,
+					'isLinked' => false,
 				],
 			]
 		);
@@ -812,6 +871,21 @@ class NewsTicker extends ElementorBase {
 			[
 				'label' => __( 'Controls', 'advanced-news-ticker' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_control(
+			'arrow_icon',
+			[
+				'label'            => __( 'Arrow Icon', 'advanced-news-ticker' ),
+				'type'             => Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'skin'             => 'inline',
+				'label_block'      => false,
+				'default'          => [
+					'value'   => 'fas fa-chevron-right',
+					'library' => 'fa-solid',
+				],
 			]
 		);
 
@@ -842,7 +916,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'button_width',
 			[
-				'label'      => __( 'Button Width', 'neuzin-core' ),
+				'label'      => __( 'Button Width', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -861,7 +935,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'button_height',
 			[
-				'label'      => __( 'Button Height', 'neuzin-core' ),
+				'label'      => __( 'Button Height', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -880,7 +954,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'btn_wrapper_position',
 			[
-				'label'      => __( 'Button Horizontal Position', 'neuzin-core' ),
+				'label'      => __( 'Button Horizontal Position', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -899,7 +973,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'button_gap',
 			[
-				'label'      => __( 'Button Gap', 'neuzin-core' ),
+				'label'      => __( 'Button Gap', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -986,13 +1060,35 @@ class NewsTicker extends ElementorBase {
 		$this->end_controls_section();
 	}
 
-	protected function wrapper_controls() {
+	protected function ticker_style() {
 		$this->start_controls_section(
 			'wrapper_settings',
 			[
-				'label' => __( 'Wrapper', 'advanced-news-ticker' ),
+				'label' => __( 'Ticker Style', 'advanced-news-ticker' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 
+			]
+		);
+
+		$this->add_control(
+			'ticker_primary_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Primary Color', 'advanced-news-ticker' ),
+				'selectors' => [
+					'body {{WRAPPER}} .ant-breaking-news-ticker' => '--ticker-primary-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'ticker_secondary_color',
+			[
+				'type'      => Controls_Manager::COLOR,
+				'label'     => esc_html__( 'Secondary Color', 'advanced-news-ticker' ),
+				'selectors' => [
+					'body {{WRAPPER}} .ant-breaking-news-ticker' => '--ticker-secondary-color: {{VALUE}};',
+				],
 			]
 		);
 
@@ -1036,13 +1132,15 @@ class NewsTicker extends ElementorBase {
 	 * @return void
 	 */
 	protected function render() {
-		$data     = $this->get_settings();
-		$args     = Fns::query_args( $data );
-		$query    = new \WP_Query( $args );
-		$layout   = $data['layout'] ?? '1';
+		$data   = $this->get_settings();
+		$args   = Fns::query_args( $data );
+		$query  = new \WP_Query( $args );
+		$layout = $data['layout'] ?? '1';
+
 		$sendData = [
 			'breaking_title'      => $data['breaking_title'],
 			'breaking_icon'       => $data['breaking_icon'],
+			'arrow_icon'          => $data['arrow_icon'],
 			'post_title_icon'     => $data['post_title_icon'],
 			'controls_visibility' => $data['controls_visibility'],
 			'pause_visibility'    => $data['pause_visibility'],
@@ -1058,10 +1156,13 @@ class NewsTicker extends ElementorBase {
 			$height_calculation = 60;
 		}
 		$ticker_obj = [
-			'position'  => $data['position'] ?? '',
-			'direction' => is_rtl() ? 'rtl' : 'ltr',
-			'effect'    => $data['effect'] ?? '',
-			'height'    => intval( $height_calculation ),
+			'position'    => $data['position'] ?? '',
+			'direction'   => is_rtl() ? 'rtl' : 'ltr',
+			'effect'      => $data['effect'] ?? '',
+			'height'      => intval( $height_calculation ),
+			'delayTimer'  => $data['delayTimer'] ?? 4000,
+			'play'        => boolval( $data['play'] ?? true ),
+			'scrollSpeed' => $data['scrollSpeed'] ?? 2
 		];
 
 		$sendData['ticker_obj'] = $ticker_obj;

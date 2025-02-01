@@ -1,6 +1,6 @@
 <?php return array(
     'root' => array(
-        'name' => 'devofwp/advanced-news-ticker',
+        'name' => 'habibjh88/advanced-news-ticker',
         'pretty_version' => '4.0.0',
         'version' => '4.0.0.0',
         'reference' => null,
@@ -10,7 +10,7 @@
         'dev' => true,
     ),
     'versions' => array(
-        'devofwp/advanced-news-ticker' => array(
+        'habibjh88/advanced-news-ticker' => array(
             'pretty_version' => '4.0.0',
             'version' => '4.0.0.0',
             'reference' => null,

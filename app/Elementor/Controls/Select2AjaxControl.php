@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  DevofWP
+ * @author  habibjh88
  * @since   1.0
  * @version 1.0
  */
@@ -35,6 +35,7 @@ class Select2AjaxControl extends Base_Data_Control {
 			[
 				'ajaxurl'     => esc_url( admin_url( 'admin-ajax.php' ) ),
 				'search_text' => esc_html__( 'Please Select', 'advanced-news-ticker' ),
+				'nonce'       => wp_create_nonce( 'ant-select2-nonce' ),
 			]
 		);
 		?>

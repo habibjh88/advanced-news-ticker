@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Plugin Name: Advanced News Ticker
- * Plugin URI: https://github.com/devofwp/advanced-news-ticker
- * Description: AdvancedNewsTicker is a plugin for make a news ticker easily
- * Author: DevOfWP
+ * Plugin Name: Advanced News Ticker for Elementor
+ * Plugin URI: https://github.com/habibjh88/advanced-news-ticker
+ * Description: AdvancedNewsTicker is a plugin for make a breaking news ticker easily
+ * Author: habibjh88
  * Version: 1.0.0
  * Text Domain: advanced-news-ticker
  * Domain Path: /languages
- * Author URI: https://devofwp.com/
+ * Author URI: https://habibportfolio.com/
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  *
@@ -37,6 +37,5 @@ if ( class_exists( 'AdvancedNewsTicker\\Init' ) ) :
 	function advancedNewsTicker() {
 		return AdvancedNewsTicker\Init::instance();
 	}
-
 	advancedNewsTicker();
 endif;

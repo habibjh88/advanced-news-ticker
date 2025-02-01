@@ -1,12 +1,8 @@
 $primary_color: red;
-$secondary_color: black;
+$secondary_color: #cc0000;
 $white_color: #FFF;
 $tickerPrimary: var(--ticker-primary-color, $primary_color);
 $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
-
-.ant-newsticker {
-    opacity: 0;
-}
 
 .elementor-icon svg {
     fill: currentColor;
@@ -82,7 +78,8 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
     }
 
     .ticker-news ul {
-        display: block;
+        display: flex;
+        align-item: center;
         height: 100%;
         list-style: none;
         padding: 0;
@@ -122,12 +119,12 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
 
         &:hover,
         .elementor-icon {
-            color: $tickerPrimary;
+            color: $tickerPrimary !important;
         }
     }
 
     .ticker-controls {
-        right: var(--raadd-ticker-pos, 0);
+        right: var(--raadd-ticker-pos, 4px);
         bottom: 0;
         top: 0;
         display: flex;
@@ -167,7 +164,7 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
     }
 
     .elementor-icon {
-        color: currentColor;
+        color: currentColor !important;
     }
 
     //Arrow Button
@@ -193,13 +190,15 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
     .ticker-action.ticker-pause {
         width: 8px;
         height: 10px;
-        border-left: 1.5px solid currentColor;
-        border-right: 1.5px solid currentColor;
+        border-left: 2px solid currentColor;
+        border-right: 2px solid currentColor;
+        transform: scaleX(.95);
     }
 
     .elementor-icon {
         font-size: 1em;
         display: flex;
+        transition: none;
     }
 }
 

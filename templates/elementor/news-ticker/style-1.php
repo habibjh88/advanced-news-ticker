@@ -8,7 +8,7 @@
  * @var $ticker_item
  * @var $catid
  * @var $query_type
- * @author  DevOfWP
+ * @author  habibjh88
  * @since   1.0
  * @version 1.0
  *
@@ -16,24 +16,9 @@
 
 use Elementor\Icons_Manager;
 
-error_log( print_r( $breaking_icon, TRUE ) . "\n", 3, __DIR__ . '/log.txt' );
-
-$navIcon = [
-	'value'   => 'fas fa-chevron-right',
-	'library' => 'fa-solid',
-];
-
-$pauseIcon = [
-	'value'   => 'fas fa-pause',
-	'library' => 'fa-solid',
-];
-$playIcon  = [
-	'value'   => 'fas fa-play',
-	'library' => 'fa-solid',
-];
 ?>
 <?php if ( $query->have_posts() ) : ?>
-    <div class="ant-breaking-news-ticker ant-newsticker" data-newsticker="<?php echo esc_js( json_encode( $ticker_obj ) ) ?>">
+    <div class="ant-breaking-news-ticker ant-newsticker" data-newsticker="<?php echo esc_js( json_encode( $ticker_obj ) ) ?>" style="opacity: 0">
 		<?php if ( $breaking_title ) : ?>
             <div class="ticker-label">
 				<?php
@@ -55,7 +40,11 @@ $playIcon  = [
 		<?php endif; ?>
         <div class="ticker-news">
             <ul>
-				<?php while ( $query->have_posts() ) : $query->the_post(); ?>
+				<?php while ( $query->have_posts() ) : $query->the_post();
+					if ( ! get_the_title() ) {
+						continue;
+					}
+					?>
                     <li>
                         <a href="<?php the_permalink(); ?>">
 							<?php
@@ -71,40 +60,25 @@ $playIcon  = [
 				<?php endwhile; ?>
             </ul>
         </div>
-		<?php if ( $controls_visibility ) :
-			$left = is_rtl() ? 'right' : 'left';
-			$right = is_rtl() ? 'left' : 'right';
-			?>
+		<?php if ( $controls_visibility ) :?>
             <div class="ticker-controls">
                 <button class="ticker-arrow">
                     <span class="bn-prev">
-                        <span class='elementor-icon'><?php Icons_Manager::render_icon( $navIcon ); ?></span>
+                        <span class='elementor-icon'><?php Icons_Manager::render_icon( $arrow_icon ); ?></span>
                     </span>
                 </button>
 				<?php if ( $pause_visibility ) : ?>
-                   <!-- <button class="ticker-pause">
-                        <span class="ticker-action">
-                            <span class='elementor-icon'><?php /*Icons_Manager::render_icon( $pauseIcon, ['class'=>'pause-icon'] ); */?></span>
-                            <span class='elementor-icon'><?php /*Icons_Manager::render_icon( $playIcon, ['class'=>'play-icon'] ); */?></span>
-                        </span>
-                    </button>-->
-
-                    <button class="ticker-pause">
-                        <span class="ticker-action">
-
-                        </span>
-                    </button>
-
+                    <button class="ticker-pause"><span class="ticker-action"></span></button>
 				<?php endif; ?>
                 <button class="ticker-arrow">
                     <span class="bn-next">
-                        <span class='elementor-icon'><?php Icons_Manager::render_icon( $navIcon ); ?></span>
+                        <span class='elementor-icon'><?php Icons_Manager::render_icon( $arrow_icon ); ?></span>
                     </span>
                 </button>
             </div>
 		<?php endif; ?>
     </div>
 <?php else: ?>
-    <p><?php echo esc_html__( "No posts found", "raw_addonsg" ) ?></p>
+    <p><?php echo esc_html__( "No posts found", "advanced-news-ticker" ) ?></p>
 <?php endif; ?>
 <?php wp_reset_postdata(); ?>

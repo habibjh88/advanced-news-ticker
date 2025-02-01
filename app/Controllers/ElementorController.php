@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  DevofWP
+ * @author  habibjh88
  * @since   1.0
  * @version 1.0
  */
@@ -92,15 +92,8 @@ class ElementorController {
 	 * @return void
 	 */
 	public function editor_style() {
-		$icon         = Fns::get_assets_url( 'images/icon.png' );
-		$editor_style = '.elementor-element .icon .rdtheme-el-custom{content: url(' . $icon . ');width: 28px;}';
-		$editor_style .= '.elementor-panel .select2-container {min-width: 100px !important; min-height: 30px !important;}';
-		$editor_style .= '.elementor-panel .elementor-control-type-heading .elementor-control-title {color: #93013d !important}';
-		$editor_style .= '.elementor-panel .section-main-heading {background:#0c0d0e;pointer-events:none}';
-		$editor_style .= '.elementor-panel .section-main-heading .elementor-section-toggle {display:none}';
-		$editor_style .= '.elementor-panel .section-main-heading .elementor-panel-heading {color:#FFFFFF;height: 40px;text-transform: uppercase;}';
-		$editor_style .= '.elementor-control.elementor-control-type-heading.main-heading{background-color: #e4e6f0;padding: 12px;margin-bottom: 15px;}';
-		$editor_style .= '.elementor-control.elementor-control-type-heading.main-heading .elementor-control-title {text-transform: uppercase;color:#000000 !important}';
+		$icon         = Fns::get_assets_url( 'images/icon.svg' );
+		$editor_style = '.elementor-element .icon .rdtheme-el-custom{content: url(' . $icon . ');width: 34px;}';
 
 		wp_add_inline_style( 'elementor-editor', $editor_style );
 	}
@@ -193,7 +186,7 @@ class ElementorController {
 		}
 
 		$query   = "select post_title,ID  from $wpdb->posts where post_status = 'publish' {$where} {$limit}";
-		$results = $wpdb->get_results( $query );
+		$results = $wpdb->get_results( $query ); //phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 		if ( ! empty( $results ) ) {
 			foreach ( $results as $row ) {
@@ -211,20 +204,21 @@ class ElementorController {
 	 */
 	public function select2_ajax_posts_filter_autocomplete() {
 
+		check_ajax_referer( 'ant-select2-nonce' );
 		$query_per_page = 15;
 		$post_type      = 'post';
 		$source_name    = 'post_type';
-		$paged          = $_POST['page'] ?? 1;
+		$paged          = ! empty( $_POST['page'] ) ? sanitize_text_field( wp_unslash( $_POST['page'] ) ) : 1;
 
 		if ( ! empty( $_POST['post_type'] ) ) {
-			$post_type = sanitize_text_field( $_POST['post_type'] );
+			$post_type = sanitize_text_field( sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) );
 		}
 
 		if ( ! empty( $_POST['source_name'] ) ) {
-			$source_name = sanitize_text_field( $_POST['source_name'] );
+			$source_name = sanitize_text_field( wp_unslash( $_POST['source_name'] ) );
 		}
 
-		$search  = ! empty( $_POST['search'] ) ? sanitize_text_field( $_POST['search'] ) : '';
+		$search  = ! empty( $_POST['search'] ) ? sanitize_text_field( wp_unslash( $_POST['search'] ) ) : '';
 		$results = $post_list = [];
 		switch ( $source_name ) {
 			case 'taxonomy':
@@ -284,16 +278,17 @@ class ElementorController {
 	 * @return void
 	 */
 	public function select2_ajax_get_posts_value_titles() {
-
+		check_ajax_referer( 'ant-select2-nonce' );
 		if ( empty( $_POST['id'] ) ) {
 			wp_send_json_error( [] );
 		}
 
-		if ( empty( array_filter( $_POST['id'] ) ) ) {
+		//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		if ( empty( array_filter( wp_unslash( $_POST['id'] ) ) ) ) {
 			wp_send_json_error( [] );
 		}
 		$ids         = array_map( 'intval', $_POST['id'] );
-		$source_name = ! empty( $_POST['source_name'] ) ? sanitize_text_field( $_POST['source_name'] ) : '';
+		$source_name = ! empty( $_POST['source_name'] ) ? sanitize_text_field( wp_unslash( $_POST['source_name'] ) ) : '';
 
 		switch ( $source_name ) {
 			case 'taxonomy':
@@ -304,8 +299,8 @@ class ElementorController {
 					'include'    => implode( ',', $ids ),
 				];
 
-				if ( $_POST['post_type'] !== 'all' ) {
-					$args['taxonomy'] = sanitize_text_field( $_POST['post_type'] );
+				if ( ! empty($_POST['post_type']) && $_POST['post_type'] !== 'all' ) {
+					$args['taxonomy'] = sanitize_text_field( wp_unslash( $_POST['post_type'] ) );
 				}
 
 				$response = wp_list_pluck( get_terms( $args ), 'name', 'term_id' );
@@ -324,7 +319,7 @@ class ElementorController {
 			default:
 				$post_info = get_posts(
 					[
-						'post_type' => sanitize_text_field( $_POST['post_type'] ),
+						'post_type' => ! empty($_POST['post_type']) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : 'post',
 						'include'   => implode( ',', $ids ),
 					]
 				);

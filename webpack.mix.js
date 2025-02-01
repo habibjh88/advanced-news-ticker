@@ -26,7 +26,7 @@ if (mix.inProduction()) {
             return console.error(err)
         } // if file or folder does not exist
         wpPot({
-            package: 'Raw Addons',
+            package: 'Advanced News Ticker',
             bugReport: '',
             src: '**/*.php',
             domain: 'advanced-news-ticker',
@@ -38,6 +38,7 @@ if (mix.inProduction()) {
 }
 
 mix.sass('src/sass/style.scss', `assets/css/style${min}.css`)
+mix.sass('src/sass/el-image-selector.scss', `assets/css/el-image-selector.css`)
 .options({
     terser: {
         extractComments: false,
@@ -68,12 +69,15 @@ if (process.env.npm_config_package) {
         let includes = [
             'app',
             'assets',
-            'assets',
+            'languages',
+            'src',
             'templates',
             'vendor',
-            'app',
-            'wpml-config.xml',
             'index.php',
+            'readme.txt',
+            'composer.json',
+            'package.json',
+            'webpack.mix.js',
             `${package_slug}.php`,
         ]
         fs.ensureDir(copyTo, function (err) {

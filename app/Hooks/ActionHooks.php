@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  DevofWP
+ * @author  habibjh88
  * @since   1.0
  * @version 1.0
  */
@@ -63,6 +63,7 @@ class ActionHooks {
 				return $content;
 			}
 
+			//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 			$user_ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ); // retrieve the current IP address of the visitor.
 			$key     = 'raw_addons_cache_' . $user_ip . '_' . $post_id;
 			$value   = [ $user_ip, $post_id ];

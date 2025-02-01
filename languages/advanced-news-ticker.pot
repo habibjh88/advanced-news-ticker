@@ -1,0 +1,475 @@
+# Copyright (C) 2025 Advanced News Ticker
+# This file is distributed under the same license as the Advanced News Ticker package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Advanced News Ticker\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2025-02-01 17:47+0000\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../app/Controllers/ElementorController.php:111
+msgid "Raw Addons"
+msgstr ""
+
+#: ../app/Controllers/ElementorController.php:131
+msgid "Raw Icons"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:24
+msgid "Designation"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:25
+msgid "Phone Number"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:26
+msgid "Facebook"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:27
+msgid "Twitter"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:28
+msgid "LinkedIn"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:29
+msgid "Vimeo"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:30
+msgid "Youtube"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:31
+msgid "Instagram"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:32
+msgid "Pinterest"
+msgstr ""
+
+#: ../app/Hooks/FilterHooks.php:33
+msgid "Whatsapp"
+msgstr ""
+
+#: ../app/Traits/SingletonTraits.php:42, ../app/Traits/SingletonTraits.php:51
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:33
+msgid "News Ticker"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:65
+msgid "General"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:74
+msgid "Choose Layout"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:75
+msgid "Choose layout"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:78
+msgid "Layout 1"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:82
+msgid "Layout 2"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:86
+msgid "Layout 3"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:90
+msgid "Layout 4"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:94
+msgid "Layout 5"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:98
+msgid "Layout 6"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:102
+msgid "Layout 7"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:106
+msgid "Layout 8"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:120, ../app/Elementor/Addons/NewsTicker.php:521
+msgid "Breaking Title"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:122
+msgid "Breaking News"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:129
+msgid "Ticker Settings"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:137
+msgid "Effect"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:140
+msgid "Slide Left"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:141
+msgid "Slide Down"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:142
+msgid "Slide Up"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:143
+msgid "Slide Right"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:144, ../app/Elementor/Addons/NewsTicker.php:530, ../app/Elementor/Addons/NewsTicker.php:715
+msgid "Typography"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:145
+msgid "Scroll"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:146
+msgid "Fade"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:189
+msgid "Position"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:192, ../app/Elementor/Addons/NewsTicker.php:205
+msgid "Default"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:193
+msgid "Fixed Top"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:194
+msgid "Fixed Bottom"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:203
+msgid "Custom Position"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:206
+msgid "Custom"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:220, ../app/Elementor/Addons/NewsTicker.php:630
+msgid "Left"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:238
+msgid "Top"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:256, ../app/Elementor/Addons/NewsTicker.php:631
+msgid "Right"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:273
+msgid "Bottom"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:294
+msgid "Height"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:308
+msgid "Controls Button Visibility"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:309, ../app/Elementor/Addons/NewsTicker.php:320
+msgid "On"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:310, ../app/Elementor/Addons/NewsTicker.php:321
+msgid "Off"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:319
+msgid "Pause Button Visibility"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:336
+msgid "Query"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:344
+msgid "Post Type"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:353
+msgid "Post Per Page"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:355
+msgid "Enter Post Limit"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:356
+msgid "Enter number of post to show."
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:366
+msgid "Choose "
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:391
+msgid "By "
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:433
+msgid "Taxonomy Relation"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:436
+msgid "OR"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:437
+msgid "AND"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:446
+msgid "Post offset"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:448
+msgid "Enter Post offset"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:449
+msgid "Number of post to displace or pass over. The offset parameter is ignored when post limit => -1 (show all posts) is used."
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:457
+msgid "Exclude posts"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:458
+msgid "Choose posts for exclude"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:470
+msgid "Order by"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:474
+msgid "Date"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:475
+msgid "Order by post ID"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:476
+msgid "Author"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:477
+msgid "Title"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:478
+msgid "Last modified date"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:479
+msgid "Post parent ID"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:480
+msgid "Number of comments"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:481
+msgid "Menu order"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:482
+msgid "Meta value"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:483
+msgid "Meta value number"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:484
+msgid "Random order"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:492
+msgid "Meta Key"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:503
+msgid "Sort order"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:507
+msgid "ASC"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:508
+msgid "DESC"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:538, ../app/Elementor/Addons/NewsTicker.php:1117
+msgid "Radius"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:549
+msgid "padding"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:563, ../app/Elementor/Addons/NewsTicker.php:644, ../app/Elementor/Addons/NewsTicker.php:724, ../app/Elementor/Addons/NewsTicker.php:1007
+msgid "Color"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:574, ../app/Elementor/Addons/NewsTicker.php:1099
+msgid "Background"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:584, ../app/Elementor/Addons/NewsTicker.php:744
+msgid "Title Offset Y"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:604, ../app/Elementor/Addons/NewsTicker.php:763
+msgid "Icon Settings"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:611
+msgid "Breaking Icon"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:626
+msgid "Icon Position"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:632
+msgid "Both"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:657, ../app/Elementor/Addons/NewsTicker.php:799
+msgid "Icon Size"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:679, ../app/Elementor/Addons/NewsTicker.php:821
+msgid "Icon Offset Y"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:705
+msgid "Post Title"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:735, ../app/Elementor/Addons/NewsTicker.php:1038
+msgid "Color:hover"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:770
+msgid "Post Title Icon"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:786
+msgid "Icon Color"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:843
+msgid "Icon Spacing"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:872
+msgid "Controls"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:880
+msgid "Arrow Icon"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:895
+msgid "Controls Wrapper Radius"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:907
+msgid "Controls Button Radius"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:919
+msgid "Button Width"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:938
+msgid "Button Height"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:957
+msgid "Button Horizontal Position"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:976
+msgid "Button Gap"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:999
+msgid "Normal"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:1018
+msgid "Background Color"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:1030
+msgid "Hover"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:1049
+msgid "Background Color:hover"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:1067
+msgid "Ticker Style"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:1077
+msgid "Primary Color"
+msgstr ""
+
+#: ../app/Elementor/Addons/NewsTicker.php:1088
+msgid "Secondary Color"
+msgstr ""
+
+#: ../app/Elementor/Controls/Select2AjaxControl.php:37
+msgid "Please Select"
+msgstr ""
+
+#: ../templates/elementor/news-ticker/style-1.php:82
+msgid "No posts found"
+msgstr ""

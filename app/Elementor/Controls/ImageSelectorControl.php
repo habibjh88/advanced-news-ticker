@@ -1,6 +1,6 @@
 <?php
 /**
- * @author  DevofWP
+ * @author  habibjh88
  * @since   1.0
  * @version 1.0
  */
@@ -38,7 +38,7 @@ class ImageSelectorControl extends Base_Data_Control {
 	 * Enqueue control scripts and styles.
 	 */
 	public function enqueue() {
-		wp_enqueue_style( 'advanced-news-ticker-image-selector', Fns::get_assets_url('css/admin/el-image-selector.css'), [], '1.0' );
+		wp_enqueue_style( 'advanced-news-ticker-image-selector', Fns::get_assets_url( 'css/el-image-selector.css' ), [], '1.0' );
 	}
 
 	/**
@@ -58,23 +58,24 @@ class ImageSelectorControl extends Base_Data_Control {
 	public function content_template() {
 		$control_uid = $this->get_control_uid( '{{ value }}' );
 		?>
-		<div class="elementor-control-field">
-			<label class="elementor-control-title">{{{ data.label }}}</label>
-			<div class="elementor-control-image-selector-wrapper">
-				<# _.each( data.options, function( options, value ) { #>
-				<div class="image-selector-inner{{ options.is_pro ? ' ant-pro' : '' }}" title="{{ ! options.is_pro ? '' : 'Upgrade to PRO!' }}" data-tooltip="{{ ! options.is_pro ? options.title : 'Upgrade to PRO!' }}">
-					<input id="<?php echo esc_attr( $control_uid ); ?>" type="radio" name="elementor-image-selector-{{ data.name }}-{{ data._cid }}" value="{{ value }}" data-setting="{{ data.name }}">
-					<label class="elementor-image-selector-label tooltip-target{{ options.is_pro ? ' is-pro' : '' }}" for="<?php echo esc_attr( $control_uid ); ?>" data-tooltip="{{ options.title }}" title="{{ options.title }}">
-						<img src="{{ options.url }}" alt="{{ options.title }}">
-						<span class="elementor-screen-only">{{{ options.title }}}</span>
-					</label>
-				</div>
-				<# } ); #>
-			</div>
-			<# if ( data.description ) { #>
-			<div class="elementor-control-field-description ant-description">{{{ data.description }}}</div>
-			<# } #>
-		</div>
+        <div class="elementor-control-field">
+            <label class="elementor-control-title">{{{ data.label }}}</label>
+            <div class="elementor-control-image-selector-wrapper">
+                <# _.each( data.options, function( options, value ) { #>
+                <div class="image-selector-inner{{ options.is_pro ? ' ant-pro' : '' }}" title="{{ ! options.is_pro ? '' : 'Upgrade to PRO!' }}" data-tooltip="{{ ! options.is_pro ? options.title : 'Upgrade to PRO!' }}">
+                    <input id="<?php echo esc_attr( $control_uid ); ?>" type="radio" name="elementor-image-selector-{{ data.name }}-{{ data._cid }}" value="{{ value }}" data-setting="{{ data.name }}">
+                    <label class="elementor-image-selector-label tooltip-target{{ options.is_pro ? ' is-pro' : '' }}" for="<?php echo esc_attr( $control_uid ); ?>" data-tooltip="{{ options.title }}" title="{{ options.title }}">
+                        <!--phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage-->
+                        <img src="{{ options.url }}" alt="{{ options.title }}">
+                        <span class="elementor-screen-only">{{{ options.title }}}</span>
+                    </label>
+                </div>
+                <# } ); #>
+            </div>
+            <# if ( data.description ) { #>
+            <div class="elementor-control-field-description ant-description">{{{ data.description }}}</div>
+            <# } #>
+        </div>
 		<?php
 	}
 }
