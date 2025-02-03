@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name: Advanced News Ticker for Elementor
+ * Plugin Name: Advanced News Ticker
  * Plugin URI: https://github.com/habibjh88/advanced-news-ticker
- * Description: AdvancedNewsTicker is a plugin for make a breaking news ticker easily
+ * Description: Advanced News Ticker is a powerful WordPress plugin designed to effortlessly create dynamic breaking news tickers for Elementor, with fully customizable layouts and settings
  * Author: habibjh88
  * Version: 1.0.0
  * Text Domain: advanced-news-ticker

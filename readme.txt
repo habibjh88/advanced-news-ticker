@@ -1,6 +1,6 @@
-=== Advanced News Ticker for Elementor ===
+=== Advanced News Ticker ===
 
-Contributors: habibjh
+Contributors: habibjh88
 Tags: News Ticker, Ticker, Breaking News, Post Ticker, Scrolling News
 Requires at least: 5.9
 Tested up to: 6.7
@@ -8,11 +8,11 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Advanced News Ticker for Elementor offers 8 customizable layouts to display news, headlines, and breaking news, fully integrated with Elementor.
+Advanced News Ticker offers 8 customizable layouts to display news, headlines, and breaking news, fully integrated with Elementor.
 
 == Description ==
 
-**Advanced News Ticker for Elementor** is a powerful and highly customizable plugin designed to enhance your website's news presentation capabilities. With 8 uniquely crafted layouts, this plugin seamlessly integrates with Elementor, providing a dynamic and visually appealing way to display breaking news, headlines, announcements, and trending updates.
+**Advanced News Ticker** is a powerful and highly customizable plugin designed to enhance your website's news presentation capabilities. With 8 uniquely crafted layouts, this plugin seamlessly integrates with Elementor, providing a dynamic and visually appealing way to display breaking news, headlines, announcements, and trending updates.
 
 Whether you're running a news portal, blog, magazine, or any content-driven website, this plugin offers the flexibility and tools needed to keep your audience informed and engaged.
 
@@ -31,7 +31,7 @@ Whether you're running a news portal, blog, magazine, or any content-driven webs
 = Using The WordPress Dashboard =
 
 1. Navigate to the **'Add New'** in the plugins dashboard
-2. Search for **'Advanced News Ticker for Elementor'**
+2. Search for **'Advanced News Ticker'**
 3. Click **'Install Now'**
 4. **Activate** the plugin on the Plugin dashboard
 
@@ -54,7 +54,7 @@ Whether you're running a news portal, blog, magazine, or any content-driven webs
 == Frequently Asked Questions ==
 
 **Q1: Is this plugin compatible with all WordPress themes?**
-A: Yes, the Advanced News Ticker for Elementor is designed to be compatible with most WordPress themes that support Elementor.
+A: Yes, the Advanced News Ticker is designed to be compatible with most WordPress themes that support Elementor.
 
 **Q2: Can I display custom post types in the ticker?**
 A: Absolutely! The Query Builder allows you to fetch content from custom post types, categories, tags, and more.

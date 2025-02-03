@@ -139,55 +139,6 @@ class Fns {
 		echo esc_attr( $attr );
 	}
 
-	/**
-	 * Allow HTML Tag
-	 *
-	 * @param $content
-	 * @param $tag
-	 * @param $class
-	 *
-	 * @return void
-	 */
-	public static function allow_html_tag( $content, $tag = 'h2', $class = '', $link = null ) {
-		if ( ! $content ) {
-			return;
-		}
-
-		$allowed_tags = apply_filters( 'raw_addons_allowed_html_headings_tag', [
-			'h1',
-			'h2',
-			'h3',
-			'h4',
-			'h5',
-			'h6',
-			'p',
-			'div',
-		] );
-
-		$title_tag = in_array( strtolower( $tag ), $allowed_tags, true ) ? $tag : 'div';
-
-		if ( null !== $link ) {
-			printf(
-				'<%1$s class="%2$s"><a %3$s>%4$s</a></%5$s>',
-				esc_attr( $title_tag ),
-				esc_attr( $class ),
-				self::link_attr( $link, false ),
-				self::html( $content, 'plain', false ),
-				esc_attr( $title_tag )
-			);
-
-		} else {
-			printf(
-				'<%s class="%s">%s</%s>',
-				esc_attr( $title_tag ),
-				esc_attr( $class ),
-				self::html( $content, 'plain', false ),
-				esc_attr( $title_tag )
-			);
-		}
-
-	}
-
 
 	/**
 	 * Post Query Arguments
