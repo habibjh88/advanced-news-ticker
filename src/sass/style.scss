@@ -57,10 +57,6 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
         cursor: default;
         column-gap: 8px;
 
-        .breaking-title {
-            padding-top: 2px;
-        }
-
         .elementor-icon {
             color: #ffffff;
             font-size: 14px;
@@ -116,11 +112,12 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
         display: flex;
         align-items: center;
         column-gap: 6px;
+        transition: 0.4s;
 
-        &:hover,
-        .elementor-icon {
-            color: $tickerPrimary !important;
+        &:hover, .elementor-icon {
+            color: $tickerPrimary;
         }
+
     }
 
     .ticker-controls {
@@ -164,7 +161,7 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
     }
 
     .elementor-icon {
-        color: currentColor !important;
+        color: currentColor;
     }
 
     //Arrow Button
@@ -399,6 +396,10 @@ $tickerSecondary: var(--ticker-secondary-color, $secondary_color);
         }
 
         .ticker-news ul li :is(a, .elementor-icon) {
+            color: $white_color;
+        }
+
+        .ticker-news ul li a:hover {
             color: $white_color;
         }
 

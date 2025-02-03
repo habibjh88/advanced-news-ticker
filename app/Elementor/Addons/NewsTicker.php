@@ -152,7 +152,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'delayTimer',
 			[
-				'label'     => __( 'Delay Timer', 'neuzin-core' ),
+				'label'     => __( 'Delay Timer', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::NUMBER,
 				'default'   => 3000,
 				'condition' => [
@@ -164,7 +164,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'scrollSpeed',
 			[
-				'label'     => __( 'scrollSpeed', 'neuzin-core' ),
+				'label'     => __( 'scrollSpeed', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::NUMBER,
 				'default'   => 2,
 				'condition' => [
@@ -176,7 +176,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'play',
 			[
-				'label'        => esc_html__( 'Auto Play', 'neuzin-core' ),
+				'label'        => esc_html__( 'Auto Play', 'advanced-news-ticker' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',

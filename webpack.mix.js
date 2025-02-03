@@ -11,13 +11,13 @@ const package_path = path.resolve(__dirname)
 const package_slug = path.basename(path.resolve(package_path))
 const temDirectory = package_path + '/build'
 
-require('@tinypixelco/laravel-mix-wp-blocks')
+// require('@tinypixelco/laravel-mix-wp-blocks')
 
 // Autloading jQuery to make it accessible to all the packages, because, you know, reasons
 // You can comment this line if you don't need jQuery.
-mix.autoload({
-    jquery: ['$', 'window.jQuery', 'jQuery'],
-})
+// mix.autoload({
+//     jquery: ['$', 'window.jQuery', 'jQuery'],
+// })
 
 if (mix.inProduction()) {
     let languages = path.resolve('languages')
@@ -47,10 +47,12 @@ mix.sass('src/sass/el-image-selector.scss', `assets/css/el-image-selector.css`)
 }).postCss(`assets/css/style.css`, `assets/css/style-rtl${min}.css`, [
     require('rtlcss'),
 ])
+//Main Js
+mix.js('src/js/main.js', `demo-js/main.js`)
+mix.scripts('src/js/frontend/scripts.js', `assets/js/scripts.js`)
 //Admin
 mix.scripts('src/js/admin/el-editor.js', `assets/js/admin/el-editor.js`)
-//Front-end
-mix.scripts('src/js/frontend/scripts.js', `assets/js/scripts.js`)
+//Lib
 mix.scripts('src/lib/newsticker.js', `assets/js/lib/newsticker.js`)
 
 //Merge all front-end js file
