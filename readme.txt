@@ -4,7 +4,7 @@ Contributors: habibjh88
 Tags: News Ticker, Ticker, Breaking News, Post Ticker, Scrolling News
 Requires at least: 5.9
 Tested up to: 6.7
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,17 +78,18 @@ A: The plugin offers extensive styling options under Ticker Style, Breaking Titl
 
 == Changelog ==
 
+= 1.0.2 =
+Fixed: Text domain issue fixed.
+
+= 1.0.1 =
+Modify: Plugin name modify.
+
 = 1.0.0 =
 * Initial release with 8 unique layouts.
 * General Settings, Query Builder, Ticker Style, Breaking Title Settings, Post Title Settings, and Controls Settings included.
 
 == Upgrade Notice ==
 
-= 1.0.1 =
-Fixed: Text domain issue fixed.
-Modify: Plugin name modify.
-
-= 1.0.0 =
 Initial release with comprehensive features for dynamic news ticker displays.
 
 == Credits ==

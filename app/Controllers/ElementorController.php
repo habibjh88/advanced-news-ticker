@@ -50,7 +50,7 @@ class ElementorController {
 
 		wp_enqueue_script(
 			'ant-editor-script',
-			Fns::get_assets_url( 'js/admin/el-editor.js' ),
+			Fns::get_assets_url( 'js/el-editor.js' ),
 			[
 				'jquery',
 				'elementor-editor',
@@ -93,7 +93,7 @@ class ElementorController {
 	 */
 	public function editor_style() {
 		$icon         = Fns::get_assets_url( 'images/icon.svg' );
-		$editor_style = '.elementor-element .icon .rdtheme-el-custom{content: url(' . $icon . ');width: 34px;}';
+		$editor_style = '.elementor-element .icon .ant-el-custom{content: url(' . $icon . ');width: 34px;}';
 
 		wp_add_inline_style( 'elementor-editor', $editor_style );
 	}

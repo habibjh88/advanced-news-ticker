@@ -24,7 +24,7 @@ abstract class ElementorBase extends Widget_Base {
 
 	public function __construct( $data = [], $args = null ) {
 		$this->ant_category = ADVANCED_NEWS_TICKER_PREFIX . '-widgets'; // Category /@dev
-		$this->ant_icon     = 'rdtheme-el-custom';
+		$this->ant_icon     = 'ant-el-custom';
 		parent::__construct( $data, $args );
 	}
 

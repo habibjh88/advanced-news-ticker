@@ -1,501 +1,441 @@
-$primary_color: red;
-$secondary_color: #cc0000;
-$white_color: #FFF;
-$tickerPrimary: var(--ticker-primary-color, $primary_color);
-$tickerSecondary: var(--ticker-secondary-color, $secondary_color);
-
-.elementor-icon svg {
-    fill: currentColor;
-}
-
-.ant-breaking-news-ticker {
-    display: block;
-    width: 100%;
-    background: #FFFFFF;
-    height: 29px;
-    line-height: 29px;
-    box-sizing: border-box;
+$newsTickerColor: var(--tpg-primary-color, #024FF3);
+//@import "swiper.scss";
+.rt-news-ticker-inner {
     position: relative;
+    align-items: center;
+    height: 50px;
+    display: flex;
+    gap: 15px;
+    border-radius: 6px;
     overflow: hidden;
-    border-radius: 2px;
-    text-align: left;
-    font-size: 14px;
-    border: none;
+    background: #EDF6F9;
 
-    &.bn-fixed-top {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: 0;
+    .control-visible-yes & {
+        padding-right: 120px;
     }
 
-    &.bn-fixed-bottom {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
+    @media (max-width: 579px) {
+        padding-left: 8px;
+        overflow: visible;
+        margin-top: 34px;
+        border-top-left-radius: 0;
+        .control-visible-yes & {
+            padding-right: 86px;
+        }
 
-    .ticker-label {
-        left: 0;
-        top: 0;
-        bottom: 0;
-        height: 100%;
-        position: absolute;
-        background-color: $tickerPrimary;
-        text-align: center;
-        color: #FFF;
-        font-weight: normal;
-        z-index: 3;
-        padding: 0 15px;
-        white-space: nowrap;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-        transition: 0.4s;
-        cursor: default;
-        column-gap: 8px;
-
-        .elementor-icon {
-            color: #ffffff;
-            font-size: 14px;
+        .swiper-button-prev,
+        .swiper-pause {
+            display: none !important;
         }
     }
 
-    .ticker-news {
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
+    .live-animation-yes & .ticker-live-icon {
+        animation: tpgLive 1.4s infinite ease-in-out;
+    }
+
+    svg {
+        width: 1em;
+        height: 1em;
+    }
+
+    .e-font-icon-svg path {
+        fill: currentColor;
+    }
+
+    .tpg-news-ticker {
+        position: static;
+        flex: 1;
         height: 100%;
-        right: 0;
-        overflow: hidden;
     }
 
-    .ticker-news ul {
-        display: flex;
-        align-item: center;
-        height: 100%;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        position: absolute;
+    .swiper-wrapper {
+        padding-bottom: 0 !important;
     }
 
-    .ticker-news ul li {
-        white-space: nowrap;
-        overflow: hidden !important;
-        text-overflow: ellipsis;
-        text-decoration: none;
-        -webkit-transition: color .2s linear;
-        -moz-transition: color .2s linear;
-        -o-transition: color .2s linear;
-        transition: color .2s linear;
-        position: absolute;
-        width: 100%;
-        display: none;
-        color: #333;
-    }
+    .swiper-slide {
+        font-size: 15px;
 
-    .ticker-news ul li a {
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        text-decoration: none;
-        padding: 0 10px;
-        color: #333;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        column-gap: 6px;
-        transition: 0.4s;
-
-        &:hover, .elementor-icon {
-            color: $tickerPrimary;
-        }
-
-    }
-
-    .ticker-controls {
-        right: var(--raadd-ticker-pos, 4px);
-        bottom: 0;
-        top: 0;
-        display: flex;
-        gap: 3px;
-        position: absolute;
-        overflow: hidden;
-        height: 100%;
-        align-items: center;
-
-        button {
-            color: $white_color;
-            flex: 1;
-            cursor: pointer;
-            border: none;
-            text-align: center;
-            background-color: $tickerSecondary;
-            outline: none;
-            padding: 0;
-            width: 30px;
-            height: 28px;
+        div {
+            height: 97%;
+            opacity: 0;
             display: flex;
-            justify-content: center;
             align-items: center;
-            font-size: 11px;
+        }
 
-            &:hover {
-                background-color: $tickerPrimary;
-                color: $white_color;
-            }
+        &.swiper-slide-active div {
+            opacity: 1;
+        }
 
-            @media (max-width: 500px) {
-                &:not(:last-child) {
-                    display: none;
-                }
-            }
+    }
+
+    .post-link {
+        color: #212121;
+        white-space: nowrap;
+        margin-right: 10px;
+        text-decoration: none;
+
+        &:hover {
+            color: $newsTickerColor
         }
     }
 
-    .elementor-icon {
-        color: currentColor;
+    .ticker-content svg {
+        margin-right: 10px;
+        font-size: 10px;
+        color: $newsTickerColor
     }
 
-    //Arrow Button
-    .ticker-arrow {
-        display: flex;
-
-        .bn-prev .elementor-icon {
-            transform: rotate(180deg);
-        }
-    }
-
-    //Play button
-
-
-    .ticker-action.ticker-play {
-        width: 8px;
-        height: 10px;
-        background: currentColor;
-        clip-path: polygon(0 0, 0% 100%, 100% 50%);
-    }
-
-
-    .ticker-action.ticker-pause {
-        width: 8px;
-        height: 10px;
-        border-left: 2px solid currentColor;
-        border-right: 2px solid currentColor;
-        transform: scaleX(.95);
-    }
-
-    .elementor-icon {
-        font-size: 1em;
-        display: flex;
-        transition: none;
-    }
-}
-
-.bn-direction-rtl {
-    direction: rtl;
-
-    .ticker-label {
-        left: auto;
-        right: 0;
-    }
-
-    .ticker-controls {
-        right: auto;
-        left: var(--raadd-ticker-pos, 0);
-    }
-}
-
-
-.bn-effect-scroll {
-    .ticker-news ul {
-        display: block;
-        width: 100%;
-        position: relative;
-    }
-
-    .ticker-news ul li {
-        position: relative;
-        width: auto;
+    .ticker-title {
+        white-space: nowrap;
+        height: 100%;
+        color: #FFFFFF;
+        background: $newsTickerColor;
+        padding: 3px 20px 3px 20px;
         display: inline-flex;
         justify-content: center;
         align-items: center;
-    }
+        gap: 7px;
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: uppercase;
 
-    &.bn-direction-rtl .ticker-news ul li {
-        float: right;
-    }
-}
+        > * {
+            display: inline-flex;
+        }
 
+        svg {
+            font-size: 20px;
+        }
 
-//Style 1
-.ticker-style-1 .ant-breaking-news-ticker {
-    .ticker-label {
-        font-size: .9em;
-    }
-}
-
-//Style 2
-.ticker-style-2 .ant-breaking-news-ticker {
-
-    height: 40px;
-
-    .ticker-news {
-        margin-left: 15px;
-    }
-
-    .ticker-label {
-        background-color: $tickerPrimary;
-
-        &::before {
-            content: "";
+        @media (max-width: 579px) {
             position: absolute;
-            top: 50%;
-            right: -6px;
-            width: 15px;
-            height: 15px;
-            transform: translateY(-50%) rotate(45deg);
-            background: var(--ticker-label-bg, $tickerPrimary);
-        }
-    }
-}
-
-//Style 3
-.ticker-style-3 .ant-breaking-news-ticker {
-    background: #EDF6F9;
-    height: 40px;
-    border-radius: 6px !important;
-
-    .ticker-controls {
-        right: 6px;
-    }
-
-    .ticker-label {
-        background: $tickerPrimary;
-    }
-}
-
-//Style 4
-.ticker-style-4 {
-    .ant-breaking-news-ticker {
-        background: #fff1f1;
-        height: 40px;
-        border-radius: 30px !important;
-
-        .ticker-controls {
-            right: 6px;
-        }
-
-        .ticker-label {
-            background: $tickerPrimary;
-            border-radius: 30px;
-        }
-
-        .ticker-controls button {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-        }
-    }
-}
-
-//Style 5
-.ticker-style-5 .ant-breaking-news-ticker {
-    background: #F2F7F9;
-    height: 40px;
-    border-radius: 30px !important;
-
-    .ticker-controls {
-        right: 6px;
-    }
-
-    .ticker-label {
-        background: $tickerPrimary;
-        border-radius: 30px 0 0 30px;
-    }
-
-    .ticker-controls button {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-    }
-}
-
-//Style 6
-.ticker-style-6 .ant-breaking-news-ticker {
-    background: #F2F2F2;
-    height: 40px;
-    border-radius: 30px !important;
-
-    .ticker-controls {
-        right: 6px;
-    }
-
-    .ticker-label {
-        background: $tickerPrimary;
-        border-radius: 30px 0 0 30px;
-
-        &:after {
-            content: "";
-            width: 29.4px;
-            height: 29px;
-            background: $tickerPrimary;
-            border-radius: 7px;
-            transform: rotate(45deg) skew(10deg, 10deg);
-            right: -14px;
-            position: absolute;
+            height: 36px;
+            bottom: 99%;
+            left: -1px;
+            border-radius: 10px 10px 0 0;
             z-index: -1;
         }
     }
 
-    .ticker-news {
-        margin-left: 15px;
-    }
+    .navigation {
+        position: absolute;
+        top: 0;
+        right: 9px;
+        gap: 3px;
+        height: 100%;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
+        .news-ticker-nav {
+            position: static;
+            margin: 0;
+            padding: 0;
+            background: $newsTickerColor;
+            color: #FFFFFF;
+            width: 32px;
+            height: 32px;
+            transition: 0.4s;
+            font-size: 13px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
 
-    .ticker-controls button {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-    }
-}
+            &:hover {
+                background: $newsTickerColor;
+                color: #FFF;
+            }
 
-//Style 7
-.ticker-style-7 {
-    --ticker-secondary-color: #a90000;
-
-    .ant-breaking-news-ticker {
-        background: $tickerPrimary;
-        height: 40px;
-        border-radius: 8px !important;
-
-        .ticker-controls {
-            right: var(--raadd-ticker-pos, 6px);
+            &:before, &:after {
+                content: none !important;
+            }
         }
 
-        .ticker-label {
-            background: none;
-            font-weight: bold;
-            font-size: 17px;
+        .swiper-pause {
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+
+            &.pause-enable {
+                box-shadow: inset 0 0 0 1px red;
+            }
+
+            span {
+                display: inline-flex;
+                height: 44%;
+                width: 2px;
+                border-radius: 5px;
+                background-color: currentColor;
+            }
+        }
+    }
+
+    .ticker-style-2 & {
+
+        .ticker-title {
+            svg, i {
+                color: #FFFFFF;
+            }
+        }
+    }
+
+    .ticker-style-2 & {
+        background-color: #00B0D3;
+
+        .ticker-title {
+            @media (max-width: 580px) {
+                background-color: #00B0D3;
+                border-bottom: 1px solid #bed8de;
+            }
+            @media (min-width: 580px) {
+                background: none;
+                padding-right: 0;
+                position: relative;
+                &:after {
+                    content: "";
+                    width: 2px;
+                    height: 17px;
+                    border-radius: 4px;
+                    background: #FFFFFF;
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .ticker-content svg,
+        .post-link {
+            color: #FFFFFF;
+        }
+
+        .navigation .news-ticker-nav {
+            background: #FFF;
+            color: #00B0D3;
+        }
+    }
+
+    .ticker-style-3 & {
+        border: 1px solid $newsTickerColor;
+
+        .ticker-title {
+            background: linear-gradient(111deg, $newsTickerColor 87%, transparent 87%);
+            padding: 3px 30px 3px 10px;
+        }
+    }
+
+    .ticker-style-4 & {
+        border: 1px solid $newsTickerColor;
+        border-radius: 0;
+        overflow: visible;
+        background: #FFF;
+
+        @media (min-width: 580px) {
+            margin-left: 46px;
+        }
+
+        .ticker-title {
+            padding: 3px 30px 3px 20px;
+            transform: skewX(-15deg);
+            margin-left: -22px;
+            margin-top: -0.5px;
+            height: calc(100% + 2px);
+
+            > * {
+                transform: skewX(15deg);
+            }
+
+            @media (max-width: 580px) {
+                margin-left: 6px;
+            }
+        }
+
+        .navigation .news-ticker-nav {
+            background: #F2F2F2;
+            color: #111111;
+        }
+    }
+
+
+    .ticker-style-5 & {
+        &,
+        .ticker-title {
+            border-radius: 30px;
+        }
+
+        .navigation {
+            .news-ticker-nav {
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .ticker-style-6 &,
+    .ticker-style-7 & {
+        background: #F2F2F2;
+        border-radius: 30px;
+
+        .ticker-title {
+            border-radius: 30px 0 0 30px;
+            height: calc(100% - 8px);
+            margin-left: 4px;
+            background: #FD0DA5;
+        }
+
+        .ticker-content svg {
+            color: #FD0DA5;
+        }
+
+        .navigation {
+            .news-ticker-nav {
+                border-radius: 50%;
+                background: #FFFFFF;
+
+                &:not(:hover) svg {
+                    color: #111
+                }
+
+                &:hover {
+                    background: #FD0DA5;
+                }
+            }
+        }
+    }
+
+    .ticker-style-7 & {
+        background: #F2F2F2;
+        border-radius: 30px;
+        @media (max-width: 579px) {
+            padding-left: 15px;
+        }
+
+        .ticker-title {
+            padding: 3px 10px 3px 20px;
+            margin-right: 15px;
+            border-radius: 30px 0 0 30px;
+            height: calc(100% - 8px);
+            margin-left: 4px;
+            background: #FD0DA5;
+            z-index: 1;
+
+            @media (min-width: 580px) {
+                position: relative;
+            }
 
             &:after {
                 content: "";
-                width: 2px;
-                height: 17px;
-                background: $white_color;
-                right: 0;
+                width: 29.4px;
+                height: 29px;
+                background: #fd0ea5;
+                border-radius: 7px;
+                transform: rotate(45deg) skew(10deg, 10deg);
+                right: -14px;
                 position: absolute;
+                z-index: -1;
             }
         }
 
-        .ticker-news ul li :is(a, .elementor-icon) {
-            color: $white_color;
+    }
+
+    .ticker-style-8 & {
+        overflow: visible;
+        background: #E80404;
+        margin-left: 10px;
+
+        .ticker-title {
+            transform: skewX(-10deg);
+            border-radius: 7px;
+            box-shadow: -6px 6px 0 #E80404;
+            margin-top: -12px;
+            background: #EFE009;
+            color: #111111;
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 2px;
+
+            > * {
+                transform: skewX(10deg);
+            }
         }
 
-        .ticker-news ul li a:hover {
-            color: $white_color;
+        .ticker-content {
+            &,
+            > * {
+                color: #FFFFFF;
+            }
         }
 
-        .ticker-controls button {
-            width: 26px;
-            height: 26px;
-            border-radius: 50%;
+        .navigation {
+            .news-ticker-nav {
+                background: #FFFFFF;
 
-            &:hover {
-                background: $white_color;
-                color: $tickerPrimary;
+                &:not(:hover) svg {
+                    color: #111
+
+                }
+
+                &:hover {
+                    background: #111111;
+                }
             }
         }
     }
 }
 
 
-//Style 8
+.tpg-marquee-ticker {
+    padding-right: 15px;
+    display: flex;
 
-.ticker-style-8 {
-    --ticker-secondary-color: yellow;
+    .news-scroll {
+        display: flex;
+        align-items: center;
 
-    .ant-breaking-news-ticker {
-        background: none;
-
-        &:before {
-            content: "";
-            width: calc(100% - 28px);
-            height: 68%;
-            background: $tickerPrimary;
-            transform: skewX(-20deg);
-            position: absolute;
-            top: auto;
-            left: 20px;
-            bottom: 0;
-            border-left: 8px solid $tickerSecondary;
-            border-right: 8px solid $tickerSecondary;
+        .post-link {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .ticker-news {
-            height: 68%;
-            top: auto;
-            margin-left: 10px;
-
-            @media (max-width: 500px) {
-                margin-left: 30px;
-            }
-
-            .elementor-icon,
-            a {
-                color: $white_color;
-
-                &:hover {
-                    color: $tickerSecondary;
-                }
-            }
-
-            ul li, li a {
-                height: 100%;
-            }
+        .ticker-content svg {
+            margin-top: -2px;
         }
+    }
+}
 
-        .ticker-label {
-            height: 78%;
-            transform: skewX(-20deg);
-            left: 10px;
-            background: $tickerSecondary;
-            font-weight: bold;
-            font-size: 18px;
-            box-shadow: 5px 4px 0 rgba(0, 0, 0, .2);
-            border-left: 4px solid $tickerPrimary;
 
-            &, .elementor-icon {
-                color: $tickerPrimary;
-            }
+.animation-type {
+    .post-link {
+        width: 0;
+        display: inline-block;
+        overflow: hidden;
+        transition: var(--transitionDuration, 5000ms) linear;
+    }
 
-            > * {
-                transform: skewX(20deg);
-            }
-        }
+    .swiper-slide-active .post-link {
+        width: 100% !important;
+    }
+}
 
-        .ticker-controls button {
-            background: $white_color;
-            color: $tickerPrimary;
+@-webkit-keyframes tpgLive {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0.8)
+    }
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
 
-            &:hover {
-                background: $tickerSecondary;
-            }
-        }
-
-        .ticker-controls {
-            top: auto;
-            height: 68%;
-            right: 24px;
-            transform: skewX(-20deg);
-        }
-
+@keyframes tpgLive {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        -webkit-transform: scale(0.8);
+    }
+    40% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
     }
 }

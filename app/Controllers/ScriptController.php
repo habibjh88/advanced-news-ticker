@@ -18,7 +18,6 @@ class ScriptController {
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ], 1 );
-//		add_action( 'elementor/frontend/after_enqueue_scripts', [ $this, 'enqueue_scripts' ], 999 );
 	}
 
 	public static function get_version() {
@@ -31,20 +30,17 @@ class ScriptController {
 	 * @return void
 	 */
 	public function enqueue_scripts() {
-		$script_debug       = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
-		$js_file_path       = $script_debug ? "assets/js/scripts.js" : "assets/js/frontend/frontend.min.js";
-		$js_file_dependency = $script_debug ? [ 'jquery', 'advanced-newsticker' ] : [ 'jquery' ];
-
+		$min_suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? null : '.min';
+		$css_path = is_rtl() ? "styles-rtl{$min_suffix}.css" : "style{$min_suffix}.css";
 		//Register JS File
-		wp_register_script( 'advanced-newsticker', ADVANCED_NEWS_TICKER_BASE_URL . 'assets/js/lib/newsticker.js', [], self::get_version(), true );
-		wp_register_script( 'advanced-news-ticker-main', ADVANCED_NEWS_TICKER_BASE_URL . $js_file_path, $js_file_dependency, self::get_version(), true );
+		wp_register_script( 'ant-scripts', ADVANCED_NEWS_TICKER_BASE_URL . "assets/js/scripts{$min_suffix}.js", [ 'swiper' ], self::get_version(), true );
 
 		//Register CSS File
-		wp_register_style( 'advanced-news-ticker', ADVANCED_NEWS_TICKER_BASE_URL . "assets/css/style.css", '', self::get_version() );
+		wp_register_style( 'ant-styles', ADVANCED_NEWS_TICKER_BASE_URL . "assets/css/{$css_path}", [ 'swiper' ], self::get_version() );
 
-		//Localize Script for 'advanced-news-ticker-main' js
+		//Localize Script for 'ant-scripts' js
 		wp_localize_script(
-			'advanced-news-ticker-main',
+			'ant-scripts',
 			'AntObj',
 			[
 				'isRtl'   => is_rtl(),

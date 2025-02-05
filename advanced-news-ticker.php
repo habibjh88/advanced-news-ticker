@@ -5,7 +5,7 @@
  * Plugin URI: https://github.com/habibjh88/advanced-news-ticker
  * Description: Advanced News Ticker is a powerful WordPress plugin designed to effortlessly create dynamic breaking news tickers for Elementor, with fully customizable layouts and settings
  * Author: habibjh88
- * Version: 1.0.1
+ * Version: 1.0.2
  * Text Domain: advanced-news-ticker
  * Domain Path: /languages
  * Author URI: https://habibportfolio.com/
@@ -22,7 +22,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 if ( ! defined( 'ADVANCED_NEWS_TICKER' ) ) {
 	define( 'ADVANCED_NEWS_TICKER_CODE', 'ant4924' );
-	define( 'ADVANCED_NEWS_TICKER', '1.0.1' );
+	define( 'ADVANCED_NEWS_TICKER', '1.0.2' );
 	define( 'ADVANCED_NEWS_TICKER_PREFIX', 'raw_addons' );
 	define( 'ADVANCED_NEWS_TICKER_BASE_URL', plugin_dir_url( __FILE__ ) );
 	define( 'ADVANCED_NEWS_TICKER_BASE_DIR', plugin_dir_path( __FILE__ ) );

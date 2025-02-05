@@ -11,6 +11,8 @@ use Elementor\Controls_Manager;
 use AdvancedNewsTicker\Helper\Fns;
 use AdvancedNewsTicker\Abstracts\ElementorBase;
 use Elementor\Group_Control_Typography;
+use Elementor\Icons_Manager;
+use Elementor\Group_Control_Background;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -35,13 +37,12 @@ class NewsTicker extends ElementorBase {
 		parent::__construct( $data, $args );
 	}
 
-
 	public function get_script_depends() {
-		return [ 'advanced-news-ticker-main' ];
+		return [ 'ant-scripts' ];
 	}
 
 	public function get_style_depends() {
-		return [ 'advanced-news-ticker' ];
+		return [ 'ant-styles' ];
 	}
 
 	/**
@@ -52,10 +53,10 @@ class NewsTicker extends ElementorBase {
 	protected function register_controls() {
 		$this->general_settings();
 		$this->query();
-		$this->ticker_style();
-		$this->breaking_title();
-		$this->post_title();
-		$this->newsticker_controls();
+		$this->news_ticker_style();
+		$this->news_ticker_title();
+		$this->news_ticker_post();
+		$this->news_ticker_control();
 	}
 
 	protected function general_settings() {
@@ -115,7 +116,7 @@ class NewsTicker extends ElementorBase {
 		);
 
 		$this->add_control(
-			'breaking_title',
+			'title',
 			[
 				'label'   => esc_html__( 'Breaking Title', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::TEXT,
@@ -132,203 +133,52 @@ class NewsTicker extends ElementorBase {
 		);
 
 		$this->add_control(
-			'effect',
+			'direction',
 			[
-				'label'   => esc_html__( 'Effect', 'advanced-news-ticker' ),
+				'label'   => esc_html__( 'Direction', 'the-post-grid' ),
 				'type'    => Controls_Manager::SELECT,
+				'default' => 'horizontal',
 				'options' => [
-					'slide-left'  => esc_html__( 'Slide Left', 'advanced-news-ticker' ),
-					'slide-down'  => esc_html__( 'Slide Down', 'advanced-news-ticker' ),
-					'slide-up'    => esc_html__( 'Slide Up', 'advanced-news-ticker' ),
-					'slide-right' => esc_html__( 'Slide Right', 'advanced-news-ticker' ),
-					'typography'  => esc_html__( 'Typography', 'advanced-news-ticker' ),
-					'scroll'      => esc_html__( 'Scroll', 'advanced-news-ticker' ),
-					'fade'        => esc_html__( 'Fade', 'advanced-news-ticker' ),
+					'horizontal' => esc_html__( 'Slide Horizontal', 'the-post-grid' ),
+					'vertical'   => esc_html__( 'Slide Vertical', 'the-post-grid' ),
+					'type'       => esc_html__( 'Typing', 'the-post-grid' ),
+					'marquee'    => esc_html__( 'Marquee', 'the-post-grid' ),
 				],
-				'default' => 'slide-left',
 			]
 		);
 
 		$this->add_control(
-			'delayTimer',
+			'speed',
 			[
-				'label'     => __( 'Delay Timer', 'advanced-news-ticker' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 3000,
-				'condition' => [
-					'effect!' => 'scroll',
-				]
+				'label'   => esc_html__( 'Speed', 'the-post-grid' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 300,
 			]
 		);
 
 		$this->add_control(
-			'scrollSpeed',
+			'delay',
 			[
-				'label'     => __( 'scrollSpeed', 'advanced-news-ticker' ),
-				'type'      => Controls_Manager::NUMBER,
-				'default'   => 2,
-				'condition' => [
-					'effect' => 'scroll',
-				]
+				'label'   => esc_html__( 'Delay', 'the-post-grid' ),
+				'type'    => Controls_Manager::NUMBER,
+				'default' => 1500,
 			]
 		);
 
 		$this->add_control(
-			'play',
+			'pause_on_hover',
 			[
-				'label'        => esc_html__( 'Auto Play', 'advanced-news-ticker' ),
+				'label'        => esc_html__( 'Pause On Hover', 'the-post-grid' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'default'      => 'yes',
-				'return_value' => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'position',
-			[
-				'label'   => esc_html__( 'Position', 'advanced-news-ticker' ),
-				'type'    => Controls_Manager::SELECT,
-				'options' => [
-					''             => esc_html__( 'Default', 'advanced-news-ticker' ),
-					'fixed-top'    => esc_html__( 'Fixed Top', 'advanced-news-ticker' ),
-					'fixed-bottom' => esc_html__( 'Fixed Bottom', 'advanced-news-ticker' ),
-				],
-				'default' => '',
-			]
-		);
-
-		$this->add_control(
-			'custom_pos_popover',
-			[
-				'label'        => esc_html__( 'Custom Position', 'advanced-news-ticker' ),
-				'type'         => \Elementor\Controls_Manager::POPOVER_TOGGLE,
-				'label_off'    => esc_html__( 'Default', 'advanced-news-ticker' ),
-				'label_on'     => esc_html__( 'Custom', 'advanced-news-ticker' ),
+				'label_on'     => esc_html__( 'On', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Off', 'the-post-grid' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
-				'condition'    => [
-					'position' => [ 'fixed-top', 'fixed-bottom' ],
-				],
-			]
-		);
-
-		$this->start_popover();
-
-		$this->add_responsive_control(
-			'left_pos',
-			[
-				'label'      => __( 'Left', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ '%' ],
-				'range'      => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker' => 'left: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'top_pos',
-			[
-				'label'      => __( 'Top', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ '%' ],
-				'range'      => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker' => 'top: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'right_pos',
-			[
-				'label'      => __( 'Right', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ '%' ],
-				'range'      => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker' => 'right: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-		$this->add_responsive_control(
-			'bottom_pos',
-			[
-				'label'      => __( 'Bottom', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ '%' ],
-				'range'      => [
-					'px' => [
-						'min' => 0,
-						'max' => 100,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker' => 'bottom: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->end_popover();
-
-		$this->add_control(
-			'height',
-			[
-				'type'        => Controls_Manager::NUMBER,
-				'label'       => esc_html__( 'Height', 'advanced-news-ticker' ),
-				'placeholder' => 20,
-				'min'         => 16,
-				'render_type' => 'template',
-				'selectors'   => [
-					'{{WRAPPER}} .ant-breaking-news-ticker' => 'height: {{VALUE}}px;',
-				],
-			]
-		);
-
-		$this->add_control(
-			'controls_visibility',
-			[
-				'type'      => \Elementor\Controls_Manager::SWITCHER,
-				'label'     => esc_html__( 'Controls Button Visibility', 'advanced-news-ticker' ),
-				'label_on'  => esc_html__( 'On', 'advanced-news-ticker' ),
-				'label_off' => esc_html__( 'Off', 'advanced-news-ticker' ),
-				'default'   => 'yes',
-			]
-		);
-
-		$this->add_control(
-			'pause_visibility',
-			[
-				'type'      => \Elementor\Controls_Manager::SWITCHER,
-				'label'     => esc_html__( 'Pause Button Visibility', 'advanced-news-ticker' ),
-				'label_on'  => esc_html__( 'On', 'advanced-news-ticker' ),
-				'label_off' => esc_html__( 'Off', 'advanced-news-ticker' ),
-				'default'   => 'yes',
-				'condition' => [
-					'controls_visibility' => 'yes',
-				],
 			]
 		);
 
 		$this->end_controls_section();
 	}
-
 	protected function query() {
 		$this->start_controls_section(
 			'query_section',
@@ -378,7 +228,6 @@ class NewsTicker extends ElementorBase {
 		$taxonomies = get_taxonomies( [], 'objects' );
 
 		foreach ( $taxonomies as $taxonomy => $object ) {
-
 			if ( ! isset( $object->object_type[0] )
 			     || ! in_array( $object->object_type[0], array_keys( $post_types ) )
 			     || in_array( $taxonomy, Fns::get_excluded_taxonomy() )
@@ -493,7 +342,7 @@ class NewsTicker extends ElementorBase {
 				'type'      => Controls_Manager::TEXT,
 				'condition' => [
 					'orderby' => [ 'meta_value', 'meta_value_num' ],
-				]
+				],
 			]
 		);
 
@@ -513,346 +362,60 @@ class NewsTicker extends ElementorBase {
 		$this->end_controls_section();
 	}
 
-
-	protected function breaking_title() {
+	/**
+	 * Newsticker Style
+	 *
+	 * @return void
+	 */
+	public function news_ticker_style() {
 		$this->start_controls_section(
-			'breaking_settings',
+			'news_ticker_style',
 			[
-				'label' => __( 'Breaking Title', 'advanced-news-ticker' ),
+				'label' => esc_html__( 'News Ticker', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
 		$this->add_group_control(
-			Group_Control_Typography::get_type(),
+			\Elementor\Group_Control_Border::get_type(),
 			[
-				'name'     => 'title_typo',
-				'label'    => esc_html__( 'Typography', 'advanced-news-ticker' ),
-				'selector' => '{{WRAPPER}} .ant-breaking-news-ticker .ticker-label',
+				'name'     => 'ticker_border',
+				'label'    => esc_html__( 'Border', 'the-post-grid' ),
+				'selector' => '{{WRAPPER}} .rt-news-ticker-inner',
+			]
+		);
+
+		$this->add_control(
+			'ticker_background_color',
+			[
+				'label'     => esc_html__( 'Ticker Background', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}}.ticker-style-8 .rt-news-ticker-inner .ticker-title' => 'box-shadow: -6px 6px 0 {{VALUE}}',
+				],
+			]
+		);
+		$this->add_control(
+			'height',
+			[
+				'label'     => esc_html__( 'Height', 'the-post-grid' ),
+				'type'      => Controls_Manager::NUMBER,
+				'min'       => 30,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner' => 'height:{{VALUE}}px;',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
-			'breaking_title_radius',
+			'border_radius',
 			[
-				'label'      => __( 'Radius', 'advanced-news-ticker' ),
+				'label'      => esc_html__( 'Border Radius', 'the-post-grid' ),
 				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-			]
-		);
-		$this->add_responsive_control(
-			'breaking_title_padding',
-			[
-				'label'              => __( 'padding', 'advanced-news-ticker' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'allowed_dimensions' => 'horizontal',
-				'size_units'         => [ 'px' ],
-				'selectors'          => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-			]
-		);
-
-		$this->add_control(
-			'breaking_title_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label' => 'color: {{VALUE}} !important;',
-				],
-			]
-		);
-
-		$this->add_control(
-			'breaking_title_bg',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Background', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label' => 'background-color: {{VALUE}} !important;',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'breaking_title_tune',
-			[
-				'label'      => __( 'Title Offset Y', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => - 10,
-						'max'  => 10,
-						'step' => 0.1,
-					],
-				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label' => 'transform: translateY({{SIZE}}px);',
-				],
-			]
-		);
-
-		$this->add_control(
-			'breaking_title_icon_heading',
-			[
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Icon Settings', 'advanced-news-ticker' ),
-			]
-		);
-
-		$this->add_control(
-			'breaking_icon',
-			[
-				'label'            => __( 'Breaking Icon', 'advanced-news-ticker' ),
-				'type'             => Controls_Manager::ICONS,
-				'fa4compatibility' => 'icon',
-				'skin'             => 'inline',
-				'label_block'      => false,
-				'default'          => [
-					'value'   => 'fas fa-bolt',
-					'library' => 'fa-solid',
-				],
-			]
-		);
-
-		$this->add_control(
-			'breaking_icon_post',
-			[
-				'label'     => __( 'Icon Position', 'advanced-news-ticker' ),
-				'type'      => \Elementor\Controls_Manager::SELECT,
-				'default'   => 'left',
-				'options'   => [
-					'left'  => esc_html__( 'Left', 'advanced-news-ticker' ),
-					'right' => esc_html__( 'Right', 'advanced-news-ticker' ),
-					'both'  => esc_html__( 'Both', 'advanced-news-ticker' ),
-				],
-				'condition' => [
-					'breaking_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_control(
-			'breaking_icon_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label .elementor-icon' => 'color: {{VALUE}} !important;',
-				],
-				'condition' => [
-					'breaking_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'breaking_icon_size',
-			[
-				'label'      => __( 'Icon Size', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 5,
-						'max'  => 100,
-						'step' => 1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label .elementor-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-				],
-				'condition'  => [
-					'breaking_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'breaking_icon_tune',
-			[
-				'label'      => __( 'Icon Offset Y', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => - 10,
-						'max'  => 10,
-						'step' => 0.1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-label .elementor-icon' => 'transform: translateY({{SIZE}}px);',
-				],
-				'condition'  => [
-					'breaking_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->end_controls_section();
-	}
-
-	protected function post_title() {
-		$this->start_controls_section(
-			'post_title_settings',
-			[
-				'label' => __( 'Post Title', 'advanced-news-ticker' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-
-			]
-		);
-
-		$this->add_group_control(
-			Group_Control_Typography::get_type(),
-			[
-				'name'     => 'post_title_typo',
-				'label'    => esc_html__( 'Typography', 'advanced-news-ticker' ),
-				'selector' => '{{WRAPPER}} .ant-breaking-news-ticker .ticker-news a',
-			]
-		);
-
-		$this->add_control(
-			'post_title_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news a' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'post_title_color_hover',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Color:hover', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news a:hover' => 'color: {{VALUE}};',
-				],
-			]
-		);
-		$this->add_responsive_control(
-			'post_title_tune',
-			[
-				'label'      => __( 'Title Offset Y', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => - 10,
-						'max'  => 10,
-						'step' => 0.1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news a' => 'transform: translateY({{SIZE}}px);',
-				],
-			]
-		);
-		$this->add_control(
-			'post_title_icon_heading',
-			[
-				'type'  => Controls_Manager::HEADING,
-				'label' => esc_html__( 'Icon Settings', 'advanced-news-ticker' ),
-			]
-		);
-
-		$this->add_control(
-			'post_title_icon',
-			[
-				'label'            => __( 'Post Title Icon', 'advanced-news-ticker' ),
-				'type'             => Controls_Manager::ICONS,
-				'skin'             => 'inline',
-				'label_block'      => false,
-				'fa4compatibility' => 'icon',
-				'default'          => [
-					'value'   => 'far fa-dot-circle',
-					'library' => 'fa-regular',
-				],
-			]
-		);
-
-		$this->add_control(
-			'post_title_icon_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Icon Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news .elementor-icon' => 'color: {{VALUE}} !important;',
-				],
-				'condition' => [
-					'post_title_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'post_title_size',
-			[
-				'label'      => __( 'Icon Size', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 5,
-						'max'  => 100,
-						'step' => 1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news .elementor-icon' => 'font-size: {{SIZE}}{{UNIT}};',
-				],
-				'condition'  => [
-					'post_title_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'title_icon_tune',
-			[
-				'label'      => __( 'Icon Offset Y', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => - 10,
-						'max'  => 10,
-						'step' => 0.1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news .elementor-icon' => 'transform: translateY({{SIZE}}px);',
-				],
-				'condition'  => [
-					'post_title_icon[value]!' => '',
-				],
-			]
-		);
-
-		$this->add_control(
-			'title_spacing',
-			[
-				'label'              => __( 'Icon Spacing', 'advanced-news-ticker' ),
-				'type'               => Controls_Manager::DIMENSIONS,
-				'size_units'         => [ 'px' ],
-				'selectors'          => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-news .elementor-icon' => 'margin: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
-				],
-				'allowed_dimensions' => 'horizontal',
-				'default'            => [
-					'top'      => '',
-					'right'    => '',
-					'bottom'   => '',
-					'left'     => '',
-					'isLinked' => false,
+					'{{WRAPPER}} .rt-news-ticker-inner' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -861,270 +424,335 @@ class NewsTicker extends ElementorBase {
 	}
 
 	/**
-	 * Controls
+	 * Newsticker Title settings
 	 *
 	 * @return void
 	 */
-	protected function newsticker_controls() {
+	public function news_ticker_title() {
 		$this->start_controls_section(
-			'controls_settings',
+			'tpg_news_ticker_title',
 			[
-				'label' => __( 'Controls', 'advanced-news-ticker' ),
+				'label' => esc_html__( 'Breaking Title', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
 
-		$this->add_control(
-			'arrow_icon',
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
 			[
-				'label'            => __( 'Arrow Icon', 'advanced-news-ticker' ),
-				'type'             => Controls_Manager::ICONS,
-				'fa4compatibility' => 'icon',
-				'skin'             => 'inline',
-				'label_block'      => false,
-				'default'          => [
-					'value'   => 'fas fa-chevron-right',
-					'library' => 'fa-solid',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'Controls_wrap_radius',
-			[
-				'label'      => __( 'Controls Wrapper Radius', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'button_radius',
-			[
-				'label'      => __( 'Controls Button Radius', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}}',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'button_width',
-			[
-				'label'      => __( 'Button Width', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 10,
-						'max'  => 80,
-						'step' => 1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button' => 'width:{{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'button_height',
-			[
-				'label'      => __( 'Button Height', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 1,
-						'max'  => 60,
-						'step' => 1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button' => 'height:{{SIZE}}{{UNIT}};max-height:100%;',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'btn_wrapper_position',
-			[
-				'label'      => __( 'Button Horizontal Position', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 0,
-						'max'  => 200,
-						'step' => 1,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls' => '--raadd-ticker-pos:{{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_responsive_control(
-			'button_gap',
-			[
-				'label'      => __( 'Button Gap', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::SLIDER,
-				'size_units' => [ 'px' ],
-				'range'      => [
-					'px' => [
-						'min'  => 0,
-						'max'  => 30,
-						'step' => 0.5,
-					],
-				],
-				'selectors'  => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls' => 'gap:{{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->start_controls_tabs(
-			'controls_tabs'
-		);
-
-		$this->start_controls_tab(
-			'controls_normal_tab',
-			[
-				'label' => __( 'Normal', 'advanced-news-ticker' ),
+				'name'     => 'breaking_title_typography',
+				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
+				'selector' => '{{WRAPPER}} .rt-news-ticker-inner .ticker-title',
 			]
 		);
 
 		$this->add_control(
-			'controls_color',
+			'breaking_title_color',
 			[
+				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Color', 'advanced-news-ticker' ),
 				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'controls_bg',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Background Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button' => 'background-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_tab();
-
-		$this->start_controls_tab(
-			'controls_hover_tab',
-			[
-				'label' => __( 'Hover', 'advanced-news-ticker' ),
-			]
-		);
-
-		$this->add_control(
-			'controls_color_hover',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Color:hover', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button:hover' => 'color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'controls_bg_hover',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Background Color:hover', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker .ticker-controls button:hover' => 'background-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->end_controls_tab();
-
-		$this->end_controls_tabs();
-
-		$this->end_controls_section();
-	}
-
-	protected function ticker_style() {
-		$this->start_controls_section(
-			'wrapper_settings',
-			[
-				'label' => __( 'Ticker Style', 'advanced-news-ticker' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
-
-			]
-		);
-
-		$this->add_control(
-			'ticker_primary_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Primary Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'body {{WRAPPER}} .ant-breaking-news-ticker' => '--ticker-primary-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'ticker_secondary_color',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Secondary Color', 'advanced-news-ticker' ),
-				'selectors' => [
-					'body {{WRAPPER}} .ant-breaking-news-ticker' => '--ticker-secondary-color: {{VALUE}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'wrapper_bg',
-			[
-				'type'      => Controls_Manager::COLOR,
-				'label'     => esc_html__( 'Background', 'advanced-news-ticker' ),
-				'selectors' => [
-					'{{WRAPPER}} .ant-breaking-news-ticker' => 'background-color: {{VALUE}};',
+					'{{WRAPPER}} .rt-news-ticker-inner .ticker-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->add_group_control(
-			\Elementor\Group_Control_Border::get_type(),
+			Group_Control_Background::get_type(),
 			[
-				'name'     => 'wrap_border',
-				'selector' => '{{WRAPPER}} .ant-breaking-news-ticker',
+				'name'           => 'title_background_color',
+				'label'          => esc_html__( 'Title Background', 'the-post-grid' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'selector'       => '{{WRAPPER}} .rt-news-ticker-inner .ticker-title',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Background', 'the-post-grid' ),
+					],
+					'color'      => [
+						'label' => 'Background Color',
+					],
+					'color_b'    => [
+						'label' => 'Background Color 2',
+					],
+				],
+			]
+		);
+
+		$this->add_control(
+			'show_icon',
+			[
+				'label'   => esc_html__( 'Icon', 'the-post-grid' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'bolt-round',
+				'options' => [
+					'bolt-round' => esc_html__( 'Bolt Round', 'the-post-grid' ),
+					'bolt'       => esc_html__( 'Bolt', 'the-post-grid' ),
+					'live'       => esc_html__( 'Live', 'the-post-grid' ),
+					'custom'     => esc_html__( 'Custom Icon', 'the-post-grid' ),
+					'none'       => esc_html__( 'No Icon', 'the-post-grid' ),
+				],
+			]
+		);
+
+		$this->add_control(
+			'title_icon',
+			[
+				'label'     => esc_html__( 'Choose Icon', 'textdomain' ),
+				'type'      => Controls_Manager::ICONS,
+				'condition' => [
+					'show_icon' => 'custom',
+				],
+			]
+		);
+
+		$this->add_control(
+			'live_animation',
+			[
+				'label'        => esc_html__( 'Live Animation', 'textdomain' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'default'      => false,
+				'return_value' => 'yes',
+				'prefix_class' => 'live-animation-',
+				'condition'    => [
+					'show_icon!' => 'none',
+				],
 			]
 		);
 
 		$this->add_responsive_control(
-			'box_radius',
+			'breaking_icon_size',
 			[
-				'label'      => __( 'Radius', 'advanced-news-ticker' ),
-				'type'       => Controls_Manager::DIMENSIONS,
-				'size_units' => [ 'px', '%' ],
+				'label'      => esc_html__( 'Icon Size', 'the-post-grid' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 5,
+						'max'  => 100,
+						'step' => 1,
+					],
+				],
 				'selectors'  => [
-					'body {{WRAPPER}} .ant-breaking-news-ticker' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}} !important;',
+					'{{WRAPPER}} .ticker-title :is(i, svg)' => 'font-size: {{SIZE}}px;',
+				],
+				'condition'  => [
+					'show_icon!' => 'none',
+				],
+			]
+		);
+
+		$this->add_control(
+			'breaking_icon_color',
+			[
+				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .ticker-title :is(i, svg)' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'show_icon!' => 'none',
+				],
+			]
+		);
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Newsticker Post Title
+	 *
+	 * @return void
+	 */
+	public function news_ticker_post() {
+		$this->start_controls_section(
+			'tpg_news_ticker_post',
+			[
+				'label' => esc_html__( 'Post Title', 'the-post-grid' ),
+				'tab'   => Controls_Manager::TAB_STYLE,
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'post_typography',
+				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
+				'selector' => '{{WRAPPER}} .rt-news-ticker-inner .post-link',
+			]
+		);
+
+		$this->add_control(
+			'post_title_link',
+			[
+				'label'        => esc_html__( 'Enable Link?', 'the-post-grid' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'post_icon',
+			[
+				'label'   => esc_html__( 'Icon', 'the-post-grid' ),
+				'type'    => Controls_Manager::SELECT,
+				'options' => [
+					'none'         => esc_html__( 'None', 'the-post-grid' ),
+					'star'         => esc_html__( 'Star Icon', 'the-post-grid' ),
+					'star-outline' => esc_html__( 'Star-Outline Icon', 'the-post-grid' ),
+					'dot'          => esc_html__( 'Dot Icon', 'the-post-grid' ),
+				],
+				'default' => 'dot',
+			]
+		);
+
+		$this->add_responsive_control(
+			'post_icon_gap',
+			[
+				'label'      => esc_html__( 'Icon Gap', 'the-post-grid' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 0,
+						'max'  => 100,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .rt-news-ticker-inner .ticker-content svg' => 'margin-right: {{SIZE}}px;',
+					'{{WRAPPER}} .rt-news-ticker-inner .post-link'          => 'margin-right: {{SIZE}}px;',
+				],
+				'condition'  => [
+					'post_icon!' => 'none',
+				],
+			]
+		);
+
+		$this->add_control(
+			'post_title_color',
+			[
+				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .post-link' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'post_title_color_hover',
+			[
+				'label'     => esc_html__( 'Title Color:hover', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .post-link:hover' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'post_title_link' => 'yes',
+				],
+			]
+		);
+
+		$this->add_control(
+			'post_icon_color',
+			[
+				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .ticker-content :is(i, svg)' => 'color: {{VALUE}}',
+				],
+				'condition' => [
+					'post_icon!' => 'none',
+				],
+			]
+		);
+		$this->end_controls_section();
+	}
+
+	/**
+	 * Newsticker Control
+	 *
+	 * @return void
+	 */
+	public function news_ticker_control() {
+		$this->start_controls_section(
+			'tpg_news_ticker_control',
+			[
+				'label'     => esc_html__( 'Control Button', 'the-post-grid' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [
+					'direction!' => 'marquee',
+				],
+			]
+		);
+
+		$this->add_control(
+			'control_visibility',
+			[
+				'label'        => esc_html__( 'Visibility', 'the-post-grid' ),
+				'type'         => \Elementor\Controls_Manager::SWITCHER,
+				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
+				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
+				'return_value' => 'yes',
+				'default'      => 'yes',
+				'prefix_class' => 'control-visible-',
+			]
+		);
+
+		$this->add_control(
+			'control_color',
+			[
+				'label'     => esc_html__( 'Control Color', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'control_color_h',
+			[
+				'label'     => esc_html__( 'Control Color:hover', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav:hover' => 'color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'control_bg',
+			[
+				'label'     => esc_html__( 'Control Background', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav' => 'background-color: {{VALUE}}',
+				],
+			]
+		);
+
+		$this->add_control(
+			'control_bg_h',
+			[
+				'label'     => esc_html__( 'Control Background:hover', 'the-post-grid' ),
+				'type'      => Controls_Manager::COLOR,
+				'selectors' => [
+					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav:hover' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->end_controls_section();
 	}
+
+
+
+
+
+
+
 
 	/**
 	 * Content Render
@@ -1137,38 +765,214 @@ class NewsTicker extends ElementorBase {
 		$query  = new \WP_Query( $args );
 		$layout = $data['layout'] ?? '1';
 
-		$sendData = [
-			'breaking_title'      => $data['breaking_title'],
-			'breaking_icon'       => $data['breaking_icon'],
-			'arrow_icon'          => $data['arrow_icon'],
-			'post_title_icon'     => $data['post_title_icon'],
-			'controls_visibility' => $data['controls_visibility'],
-			'pause_visibility'    => $data['pause_visibility'],
-			'breaking_icon_post'  => $data['breaking_icon_post'],
-		];
+		?>
+        <div class="rttpg-news-tickewr-main clearfix">
+            <div class="rt-news-ticker-inner animation-<?php echo esc_attr( $data['direction'] ); ?>">
+				<?php if ( $data['title'] ) : ?>
+                    <div class="ticker-title">
+						<?php
+						if ( 'none' !== $data['show_icon'] ) {
+							?>
+                            <span class="ticker-live-icon">
+							<?php
+							if ( 'custom' == $data['show_icon'] && ! empty( $data['title_icon']['value'] ) ) {
+								Icons_Manager::render_icon( $data['title_icon'], [ 'aria-hidden' => 'true' ] );
+							} else {
+								$this->get_breaking_icon( $data['show_icon'] );
+							}
+							?>
+							</span>
+							<?php
+						}
+						?>
+                        <span><?php echo esc_html( $data['title'] ); ?></span>
+                    </div>
+				<?php endif; ?>
 
-		$height_calculation = 40;
-		if ( ! empty( $data['height'] ) && $data['height'] > 20 ) {
-			$height_calculation = $data['height'];
-		} elseif ( '1' == $layout ) {
-			$height_calculation = 30;
-		} elseif ( '8' == $layout ) {
-			$height_calculation = 60;
+				<?php if ( $query->have_posts() ) : ?>
+					<?php
+					if ( 'marquee' === $data['direction'] ) {
+						$this->marquee_slider( $query, $data );
+					} else {
+						$this->swiper_slider( $query, $data );
+					}
+					?>
+				<?php endif; ?>
+            </div>
+        </div>
+        <?php
+	}
+
+	public function swiper_slider( $query, $data ) {
+
+		$speed = $data['speed'] ?? 300;
+
+		if ( $data['direction'] == 'type' ) {
+			$speed = 0;
 		}
-		$ticker_obj = [
-			'position'    => $data['position'] ?? '',
-			'direction'   => is_rtl() ? 'rtl' : 'ltr',
-			'effect'      => $data['effect'] ?? '',
-			'height'      => intval( $height_calculation ),
-			'delayTimer'  => $data['delayTimer'] ?? 4000,
-			'play'        => boolval( $data['play'] ?? true ),
-			'scrollSpeed' => $data['scrollSpeed'] ?? 2
+
+		$swiperConfig = [
+			'slidesPerView'     => 1,
+			'speed'             => $speed,
+			'effect'            => 'fade',
+			'loop'              => true,
+			'allowTouchMove'    => false,
+			'pauseOnMouseEnter' => (bool) $data['pause_on_hover'],
+			'autoplay'          => [
+				'delay'                => $data['delay'] ?? 2000,
+				'disableOnInteraction' => true,
+			],
+			'navigation'        => [
+				'nextEl' => '.newsticker-button-next',
+				'prevEl' => '.newsticker-button-prev',
+			],
 		];
 
-		$sendData['ticker_obj'] = $ticker_obj;
-		$sendData['query']      = $query;
+		if ( in_array( $data['direction'], [ 'vertical', 'horizontal' ] ) ) {
+			$swiperConfig['parallax'] = true;
+		}
+		$direction = '';
+		if ( 'vertical' === $data['direction'] ) {
+			$direction = 'data-swiper-parallax-y=-40';
+		}
 
-		Fns::get_template( "elementor/news-ticker/style-1", $sendData );
+		if ( 'horizontal' === $data['direction'] ) {
+			$direction = 'data-swiper-parallax=-120';
+		}
+		?>
+        <div class="swiper tpg-news-ticker news-ticker-slider" data-swiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
+
+            <div class="swiper-wrapper">
+				<?php
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					?>
+                    <div class="swiper-slide">
+                        <div style="--transitionDuration:<?php echo esc_attr( $data['delay'] ); ?>ms" class="ticker-content" <?php echo esc_attr( $direction ); ?>>
+							<?php
+							if ( 'none' !== $data['post_icon'] ) {
+								$this->get_breaking_icon( $data['post_icon'] );
+							}
+							?>
+							<?php if ( 'yes' == $data['post_title_link'] ) { ?>
+                                <a class="post-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+							<?php } else { ?>
+                                <span class="post-link"><?php the_title(); ?></span>
+							<?php } ?>
+                        </div>
+                    </div>
+				<?php endwhile; ?>
+				<?php wp_reset_query(); ?>
+            </div>
+			<?php if ( 'yes' == $data['control_visibility'] ) : ?>
+                <div class="navigation">
+                    <div class="newsticker-button-prev news-ticker-nav">
+						<?php $this->get_breaking_icon( 'prev' ); ?>
+                    </div>
+                    <div class="swiper-pause news-ticker-nav">
+						<?php $this->get_breaking_icon( 'pause' ); ?>
+                    </div>
+                    <div class="newsticker-button-next news-ticker-nav">
+						<?php $this->get_breaking_icon( 'next' ); ?>
+                    </div>
+                </div>
+			<?php endif; ?>
+        </div>
+		<?php
+	}
+
+
+	public function marquee_slider( $query, $data ) {
+		$hoverEffect = '';
+		if ( 'yes' === $data['pause_on_hover'] ) {
+			$hoverEffect = 'onmouseover=this.stop() onmouseout=this.start()';
+		}
+		?>
+        <div class="tpg-news-ticker tpg-marquee-ticker">
+            <marquee class="news-scroll ticker-content"
+                     behavior="scroll"
+                     direction="left"
+				<?php echo esc_attr( $hoverEffect ); ?>
+            >
+				<?php
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					if ( 'none' !== $data['post_icon'] ) {
+						$this->get_breaking_icon( $data['post_icon'] );
+					}
+					if ( 'yes' == $data['post_title_link'] ) {
+						?>
+                        <a class="post-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					<?php } else { ?>
+                        <span class="post-link"><?php the_title(); ?></span>
+						<?php
+					}
+				endwhile;
+				?>
+				<?php wp_reset_query(); ?>
+            </marquee>
+        </div>
+		<?php
+	}
+
+
+	/**
+	 * Get breaking icon
+	 *
+	 * @param $icon
+	 *
+	 * @return void
+	 */
+	public function get_breaking_icon( $icon = '' ): void {
+		switch ( $icon ) {
+			case 'bolt-round':
+				echo '<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7365 0.963608C6.1091 0.963608 0.736511 6.33619 0.736511 12.9636C0.736511 19.591 6.1091 24.9636 12.7365 24.9636C19.3639 24.9636 24.7365 19.591 24.7365 12.9636C24.7365 6.33619 19.3639 0.963608 12.7365 0.963608ZM13.8782 6.47904C13.9052 6.2628 13.7864 6.05462 13.5865 5.96784C13.3866 5.88106 13.1534 5.93646 13.0139 6.10388L6.46846 13.9584C6.34653 14.1048 6.32024 14.3084 6.40103 14.4809C6.48183 14.6534 6.65511 14.7636 6.8456 14.7636H12.1804L11.5948 19.4482C11.5678 19.6644 11.6866 19.8726 11.8865 19.9594C12.0864 20.0462 12.3196 19.9908 12.4591 19.8233L19.0045 11.9688C19.1265 11.8225 19.1528 11.6188 19.072 11.4463C18.9912 11.2738 18.8179 11.1636 18.6274 11.1636H13.2926L13.8782 6.47904ZM12.7365 13.7818H7.89371L12.6962 8.01874L12.2494 11.5936C12.2319 11.7333 12.2753 11.8738 12.3685 11.9794C12.4617 12.085 12.5957 12.1454 12.7365 12.1454H17.5793L12.7768 17.9085L13.2236 14.3336C13.2411 14.1939 13.1977 14.0534 13.1045 13.9478C13.0113 13.8423 12.8773 13.7818 12.7365 13.7818Z" fill="currentColor"/>
+				</svg>';
+				break;
+			case 'bolt':
+				echo ' <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.87273 1.45456L1.32727 9.30911H7.21818L6.56363 14.5455L13.1091 6.69092H7.21818L7.87273 1.45456Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>';
+				break;
+			case 'live':
+				echo '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 13C10.3137 13 13 10.3137 13 7C13 3.68629 10.3137 1 7 1C3.68629 1 1 3.68629 1 7C1 10.3137 3.68629 13 7 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 8.8C7.99411 8.8 8.8 7.99411 8.8 7C8.8 6.00589 7.99411 5.2 7 5.2C6.00589 5.2 5.2 6.00589 5.2 7C5.2 7.99411 6.00589 8.8 7 8.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>';
+				break;
+			case 'prev':
+				echo '<svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 11L1 5.99998L6 0.999985" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>';
+				break;
+			case 'next':
+				echo ' <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 11L6 5.99998L1 0.999985" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>';
+				break;
+			case 'pause':
+				echo '<svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.5 1H1V15H4.5V1Z" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M11.5 1H8V15H11.5V1Z" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>';
+				break;
+			case 'star':
+				echo '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path d="M4.02818 0.879112C4.36444 0.197874 5.33587 0.197874 5.67214 0.879112L6.42415 2.4026C6.55756 2.67288 6.81531 2.8603 7.11355 2.90389L8.79674 3.14991C9.54833 3.25977 9.84788 4.18362 9.30375 4.7136L8.08724 5.89849C7.87102 6.10908 7.77233 6.41262 7.82335 6.71011L8.11027 8.38295C8.23871 9.13183 7.45262 9.70288 6.78013 9.34922L5.27682 8.55864C5.00972 8.41818 4.6906 8.41818 4.42349 8.55864L2.92019 9.34922C2.2477 9.70288 1.46161 9.13183 1.59005 8.38294L1.87696 6.71011C1.92798 6.41262 1.82929 6.10908 1.61308 5.89849L0.396561 4.7136C-0.147566 4.18362 0.151985 3.25977 0.903574 3.14991L2.58676 2.90389C2.885 2.8603 3.14276 2.67288 3.27617 2.4026L4.02818 0.879112Z" fill="currentColor"/>
+				</svg>';
+				break;
+			case 'star-outline':
+				echo '<svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.02818 1.71462C5.36444 1.03338 6.33587 1.03338 6.67214 1.71462L7.42415 3.23811C7.55756 3.50839 7.81531 3.69581 8.11355 3.7394L9.79674 3.98542C10.5483 4.09528 10.8479 5.01913 10.3038 5.54911L9.08724 6.734C8.87102 6.94459 8.77233 7.24813 8.82335 7.54562L9.11027 9.21846C9.23871 9.96734 8.45262 10.5384 7.78013 10.1847L6.27682 9.39416C6.00972 9.25369 5.6906 9.25369 5.42349 9.39415L3.92019 10.1847C3.2477 10.5384 2.46161 9.96734 2.59005 9.21845L2.87696 7.54562C2.92798 7.24813 2.82929 6.94459 2.61308 6.734L1.39656 5.54911C0.852434 5.01913 1.15199 4.09528 1.90357 3.98542L3.58676 3.7394C3.885 3.69581 4.14276 3.50839 4.27617 3.23811L5.02818 1.71462Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>';
+				break;
+			case 'dot':
+				echo '<svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<rect width="8" height="8" rx="4" fill="currentColor"/>
+				</svg>';
+				break;
+		}
 	}
 
 }

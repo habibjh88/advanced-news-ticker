@@ -48,20 +48,20 @@ mix.sass('src/sass/el-image-selector.scss', `assets/css/el-image-selector.css`)
     require('rtlcss'),
 ])
 //Main Js
-mix.js('src/js/main.js', `demo-js/main.js`)
-mix.scripts('src/js/frontend/scripts.js', `assets/js/scripts.js`)
+mix.js('demo-js/main.js', `demo-js/main-demo.js`)
+mix.scripts('src/js/scripts.js', `assets/js/scripts${min}.js`)
 //Admin
-mix.scripts('src/js/admin/el-editor.js', `assets/js/admin/el-editor.js`)
+mix.scripts('src/js/el-editor.js', `assets/js/el-editor.js`)
 //Lib
-mix.scripts('src/lib/newsticker.js', `assets/js/lib/newsticker.js`)
+// mix.scripts('src/lib/newsticker.js', `assets/js/lib/newsticker.js`)
 
 //Merge all front-end js file
-if (mix.inProduction()) {
+/*if (mix.inProduction()) {
     mix.scripts([
         'src/lib/newsticker.js',
         'src/js/frontend/scripts.js',
     ], 'assets/js/frontend/frontend.min.js')
-}
+}*/
 
 // Make package
 if (process.env.npm_config_package) {
