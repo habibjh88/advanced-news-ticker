@@ -95,16 +95,15 @@ class Fns {
 		);
 		$post_types = wp_list_pluck( $post_types, 'label', 'name' );
 
-		$exclude = [
+		$exclude = apply_filters('ant_exclude_post_type', [
 			'attachment',
 			'revision',
 			'nav_menu_item',
 			'elementor_library',
-			'tpg_builder',
 			'e-landing-page',
 			'elementor-raw_addons',
 			'e-floating-buttons'
-		];
+		]);
 		if ( $exc ) {
 			$exclude = array_merge( $exclude, $exc );
 		}

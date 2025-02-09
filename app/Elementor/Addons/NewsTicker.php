@@ -125,6 +125,31 @@ class NewsTicker extends ElementorBase {
 		);
 
 		$this->add_control(
+			'control_visibility',
+			[
+				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'label'     => esc_html__( 'Controls Button Visibility', 'raw-addons' ),
+				'label_on'  => esc_html__( 'On', 'raw-addons' ),
+				'label_off' => esc_html__( 'Off', 'raw-addons' ),
+				'default'   => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'pause_visibility',
+			[
+				'type'      => \Elementor\Controls_Manager::SWITCHER,
+				'label'     => esc_html__( 'Pause Button Visibility', 'raw-addons' ),
+				'label_on'  => esc_html__( 'On', 'raw-addons' ),
+				'label_off' => esc_html__( 'Off', 'raw-addons' ),
+				'default'   => 'yes',
+				'condition' => [
+					'control_visibility' => 'yes',
+				]
+			]
+		);
+
+		$this->add_control(
 			'ticker_settings',
 			[
 				'label' => esc_html__( 'Ticker Settings', 'advanced-news-ticker' ),
@@ -133,9 +158,9 @@ class NewsTicker extends ElementorBase {
 		);
 
 		$this->add_control(
-			'direction',
+			'ticker_animation',
 			[
-				'label'   => esc_html__( 'Direction', 'the-post-grid' ),
+				'label'   => esc_html__( 'Animation', 'the-post-grid' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'horizontal',
 				'options' => [
@@ -179,6 +204,7 @@ class NewsTicker extends ElementorBase {
 
 		$this->end_controls_section();
 	}
+
 	protected function query() {
 		$this->start_controls_section(
 			'query_section',
@@ -250,31 +276,6 @@ class NewsTicker extends ElementorBase {
 			);
 		}
 
-		/*$this->add_control(
-			'category',
-			[
-				'type'                 => 'ant-select2',
-				'label'                => esc_html__( 'By Categories', 'advanced-news-ticker' ),
-				'source_name'          => 'taxonomy',
-				'source_type'          => 'category',
-				'multiple'             => true,
-				'label_block'          => true,
-				'minimum_input_length' => 1,
-			]
-		);
-
-		$this->add_control(
-			'post_tag',
-			[
-				'type'                 => 'ant-select2',
-				'label'                => esc_html__( 'By Tags', 'advanced-news-ticker' ),
-				'source_name'          => 'taxonomy',
-				'source_type'          => 'post_tag',
-				'multiple'             => true,
-				'label_block'          => true,
-				'minimum_input_length' => 1,
-			]
-		);*/
 
 		$this->add_control(
 			'tax_relation',
@@ -381,7 +382,7 @@ class NewsTicker extends ElementorBase {
 			[
 				'name'     => 'ticker_border',
 				'label'    => esc_html__( 'Border', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .rt-news-ticker-inner',
+				'selector' => '{{WRAPPER}} .ant-news-ticker-inner',
 			]
 		);
 
@@ -391,8 +392,8 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Ticker Background', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner' => 'background-color: {{VALUE}}',
-					'{{WRAPPER}}.ticker-style-8 .rt-news-ticker-inner .ticker-title' => 'box-shadow: -6px 6px 0 {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner'                              => 'background-color: {{VALUE}}',
+					'{{WRAPPER}}.ticker-style-8 .ant-news-ticker-inner .ticker-title' => 'box-shadow: -6px 6px 0 {{VALUE}}',
 				],
 			]
 		);
@@ -403,7 +404,7 @@ class NewsTicker extends ElementorBase {
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 30,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner' => 'height:{{VALUE}}px;',
+					'{{WRAPPER}} .ant-news-ticker-inner' => 'height:{{VALUE}}px;',
 				],
 			]
 		);
@@ -415,7 +416,7 @@ class NewsTicker extends ElementorBase {
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .rt-news-ticker-inner' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .ant-news-ticker-inner' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -430,7 +431,7 @@ class NewsTicker extends ElementorBase {
 	 */
 	public function news_ticker_title() {
 		$this->start_controls_section(
-			'tpg_news_ticker_title',
+			'ant_news_ticker_title',
 			[
 				'label' => esc_html__( 'Breaking Title', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -442,7 +443,7 @@ class NewsTicker extends ElementorBase {
 			[
 				'name'     => 'breaking_title_typography',
 				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .rt-news-ticker-inner .ticker-title',
+				'selector' => '{{WRAPPER}} .ant-news-ticker-inner .ticker-title',
 			]
 		);
 
@@ -452,7 +453,7 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .ticker-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .ticker-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -463,7 +464,7 @@ class NewsTicker extends ElementorBase {
 				'name'           => 'title_background_color',
 				'label'          => esc_html__( 'Title Background', 'the-post-grid' ),
 				'types'          => [ 'classic', 'gradient' ],
-				'selector'       => '{{WRAPPER}} .rt-news-ticker-inner .ticker-title',
+				'selector'       => '{{WRAPPER}} .ant-news-ticker-inner .ticker-title',
 				'exclude'        => [ 'image' ],
 				'fields_options' => [
 					'background' => [
@@ -486,14 +487,26 @@ class NewsTicker extends ElementorBase {
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'bolt-round',
 				'options' => [
-					'bolt-round' => esc_html__( 'Bolt Round', 'the-post-grid' ),
-					'bolt'       => esc_html__( 'Bolt', 'the-post-grid' ),
-					'live'       => esc_html__( 'Live', 'the-post-grid' ),
-					'custom'     => esc_html__( 'Custom Icon', 'the-post-grid' ),
-					'none'       => esc_html__( 'No Icon', 'the-post-grid' ),
+					'bolt-round'   => esc_html__( 'Bolt Circle', 'the-post-grid' ),
+					'bolt-round-2' => esc_html__( 'Bolt Circle 2', 'the-post-grid' ),
+					'bolt-round-3' => esc_html__( 'Bolt Circle 3', 'the-post-grid' ),
+					'bolt'         => esc_html__( 'Bolt Light', 'the-post-grid' ),
+					'bolt-2'       => esc_html__( 'Bolt Solid', 'the-post-grid' ),
+					'dot-2'        => esc_html__( 'Dot Circle', 'the-post-grid' ),
+					'live'         => esc_html__( 'Live Circle', 'the-post-grid' ),
+					'custom'       => esc_html__( 'Custom Icon', 'the-post-grid' ),
+					'none'         => esc_html__( 'No Icon', 'the-post-grid' ),
 				],
 			]
 		);
+
+        $this->add_control(
+            'title_icon_heading',
+            [
+                'label'     => __( 'Icon Setting', 'raw-addons' ),
+                'type'      => Controls_Manager::HEADING,
+            ]
+        );
 
 		$this->add_control(
 			'title_icon',
@@ -548,7 +561,7 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .ticker-title :is(i, svg)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .ticker-title :is(i, svg)' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'show_icon!' => 'none',
@@ -565,7 +578,7 @@ class NewsTicker extends ElementorBase {
 	 */
 	public function news_ticker_post() {
 		$this->start_controls_section(
-			'tpg_news_ticker_post',
+			'ant_news_ticker_post',
 			[
 				'label' => esc_html__( 'Post Title', 'the-post-grid' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
@@ -577,7 +590,7 @@ class NewsTicker extends ElementorBase {
 			[
 				'name'     => 'post_typography',
 				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .rt-news-ticker-inner .post-link',
+				'selector' => '{{WRAPPER}} .ant-news-ticker-inner .post-link',
 			]
 		);
 
@@ -601,8 +614,43 @@ class NewsTicker extends ElementorBase {
 					'star'         => esc_html__( 'Star Icon', 'the-post-grid' ),
 					'star-outline' => esc_html__( 'Star-Outline Icon', 'the-post-grid' ),
 					'dot'          => esc_html__( 'Dot Icon', 'the-post-grid' ),
+					'dot-2'        => esc_html__( 'Dot-2 Icon', 'the-post-grid' ),
+					'custom'       => esc_html__( 'Custom', 'the-post-grid' ),
 				],
 				'default' => 'dot',
+			]
+		);
+
+		$this->add_control(
+			'custom_post_icon',
+			[
+				'label'     => esc_html__( 'Custom Icon', 'textdomain' ),
+				'type'      => Controls_Manager::ICONS,
+				'condition' => [
+					'post_icon' => 'custom',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'post_icon_size',
+			[
+				'label'      => esc_html__( 'Icon Size', 'the-post-grid' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [
+					'px' => [
+						'min'  => 4,
+						'max'  => 50,
+						'step' => 1,
+					],
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content :is(svg, i)' => 'font-size: {{SIZE}}px;',
+				],
+				'condition'  => [
+					'post_icon!' => 'none',
+				],
 			]
 		);
 
@@ -620,8 +668,8 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .rt-news-ticker-inner .ticker-content svg' => 'margin-right: {{SIZE}}px;',
-					'{{WRAPPER}} .rt-news-ticker-inner .post-link'          => 'margin-right: {{SIZE}}px;',
+					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content :is(svg, i)' => 'margin-right: {{SIZE}}px;',
+					'{{WRAPPER}} .ant-news-ticker-inner .post-link'          => 'margin-right: {{SIZE}}px;',
 				],
 				'condition'  => [
 					'post_icon!' => 'none',
@@ -635,7 +683,7 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .post-link' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .post-link' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -646,7 +694,7 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Title Color:hover', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .post-link:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .post-link:hover' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'post_title_link' => 'yes',
@@ -660,7 +708,7 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .ticker-content :is(i, svg)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content :is(i, svg)' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'post_icon!' => 'none',
@@ -677,36 +725,115 @@ class NewsTicker extends ElementorBase {
 	 */
 	public function news_ticker_control() {
 		$this->start_controls_section(
-			'tpg_news_ticker_control',
+			'ant_news_ticker_control',
 			[
 				'label'     => esc_html__( 'Control Button', 'the-post-grid' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
-					'direction!' => 'marquee',
+					'ticker_animation!' => 'marquee',
+                    'control_visibility'=>'yes'
 				],
 			]
 		);
 
+        $this->add_control(
+            'control_prev_icon',
+            [
+                'label'            => __( 'Prev Icon', 'raw-addons' ),
+                'type'             => Controls_Manager::ICONS,
+                'fa4compatibility' => 'icon',
+                'recommended'      => [
+                    'fa-solid'   => [
+                        'chevron-left',
+                        'angle-left',
+                        'angle-double-left',
+                        'caret-left',
+                        'arrow-left',
+                        'caret-square-left',
+                        'long-arrow-alt-left'
+                    ],
+                    'fa-regular' => [
+                        'caret-square-left',
+                        'arrow-right',
+                    ],
+                ],
+                'skin'             => 'inline',
+                'label_block'      => false,
+            ]
+        );
+
 		$this->add_control(
-			'control_visibility',
+			'control_next_icon',
 			[
-				'label'        => esc_html__( 'Visibility', 'the-post-grid' ),
-				'type'         => \Elementor\Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'Show', 'the-post-grid' ),
-				'label_off'    => esc_html__( 'Hide', 'the-post-grid' ),
-				'return_value' => 'yes',
-				'default'      => 'yes',
-				'prefix_class' => 'control-visible-',
+				'label'            => __( 'Next Icon', 'raw-addons' ),
+				'type'             => Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'recommended'      => [
+					'fa-solid'   => [
+						'chevron-right',
+						'angle-right',
+						'angle-double-right',
+						'caret-right',
+						'arrow-right',
+						'caret-square-right',
+						'long-arrow-alt-right'
+					],
+					'fa-regular' => [
+						'caret-square-right',
+						'arrow-right',
+					],
+				],
+				'skin'             => 'inline',
+				'label_block'      => false,
 			]
 		);
 
 		$this->add_control(
+			'control_pause_icon',
+			[
+				'label'            => __( 'Pause Icon', 'raw-addons' ),
+				'type'             => Controls_Manager::ICONS,
+				'fa4compatibility' => 'icon',
+				'recommended'      => [
+					'fa-solid'   => [
+						'pause',
+                        'pause-circle'
+					],
+					'fa-regular' => [
+						'pause-circle',
+					],
+				],
+				'skin'             => 'inline',
+				'label_block'      => false,
+			]
+		);
+
+        $this->add_responsive_control(
+            'icon_size',
+            [
+                'label'      => __( 'Icon Size', 'neuzin-core' ),
+                'type'       => Controls_Manager::SLIDER,
+                'size_units' => [ 'px' ],
+                'range'      => [
+                    'px' => [
+                        'min'  => 1,
+                        'max'  => 60,
+                        'step' => 1,
+                    ],
+                ],
+                'selectors'  => [
+                    '{{WRAPPER}} .ant-news-ticker-inner .news-ticker-nav :is(svg, i)' => 'font-size:{{SIZE}}{{UNIT}};',
+                ],
+            ]
+        );
+
+		$this->add_control(
 			'control_color',
 			[
-				'label'     => esc_html__( 'Control Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -714,10 +841,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_color_h',
 			[
-				'label'     => esc_html__( 'Control Color:hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon color:hover', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -728,7 +855,7 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Control Background', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -739,19 +866,13 @@ class NewsTicker extends ElementorBase {
 				'label'     => esc_html__( 'Control Background:hover', 'the-post-grid' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .rt-news-ticker-inner .navigation .news-ticker-nav:hover' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav:hover' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->end_controls_section();
 	}
-
-
-
-
-
-
 
 
 	/**
@@ -766,21 +887,21 @@ class NewsTicker extends ElementorBase {
 		$layout = $data['layout'] ?? '1';
 
 		?>
-        <div class="rttpg-news-tickewr-main clearfix">
-            <div class="rt-news-ticker-inner animation-<?php echo esc_attr( $data['direction'] ); ?>">
+        <div class="ant-news-tickewr-main clearfix">
+            <div class="ant-news-ticker-inner animation-<?php echo esc_attr( $data['ticker_animation'] ); ?>">
 				<?php if ( $data['title'] ) : ?>
                     <div class="ticker-title">
 						<?php
 						if ( 'none' !== $data['show_icon'] ) {
 							?>
-                            <span class="ticker-live-icon">
-							<?php
-							if ( 'custom' == $data['show_icon'] && ! empty( $data['title_icon']['value'] ) ) {
-								Icons_Manager::render_icon( $data['title_icon'], [ 'aria-hidden' => 'true' ] );
-							} else {
-								$this->get_breaking_icon( $data['show_icon'] );
-							}
-							?>
+                            <span class="ticker-live-icon asd">
+                                <?php
+                                if ( 'custom' == $data['show_icon'] && ! empty( $data['title_icon']['value'] ) ) {
+                                    Icons_Manager::render_icon( $data['title_icon'], [ 'aria-hidden' => 'true' ] );
+                                } else {
+                                    $this->get_breaking_icon( $data['show_icon'] );
+                                }
+                                ?>
 							</span>
 							<?php
 						}
@@ -791,7 +912,7 @@ class NewsTicker extends ElementorBase {
 
 				<?php if ( $query->have_posts() ) : ?>
 					<?php
-					if ( 'marquee' === $data['direction'] ) {
+					if ( 'marquee' === $data['ticker_animation'] ) {
 						$this->marquee_slider( $query, $data );
 					} else {
 						$this->swiper_slider( $query, $data );
@@ -800,14 +921,14 @@ class NewsTicker extends ElementorBase {
 				<?php endif; ?>
             </div>
         </div>
-        <?php
+		<?php
 	}
 
 	public function swiper_slider( $query, $data ) {
 
 		$speed = $data['speed'] ?? 300;
 
-		if ( $data['direction'] == 'type' ) {
+		if ( $data['ticker_animation'] == 'type' ) {
 			$speed = 0;
 		}
 
@@ -828,19 +949,19 @@ class NewsTicker extends ElementorBase {
 			],
 		];
 
-		if ( in_array( $data['direction'], [ 'vertical', 'horizontal' ] ) ) {
+		if ( in_array( $data['ticker_animation'], [ 'vertical', 'horizontal' ] ) ) {
 			$swiperConfig['parallax'] = true;
 		}
-		$direction = '';
-		if ( 'vertical' === $data['direction'] ) {
-			$direction = 'data-swiper-parallax-y=-40';
+		$animation = '';
+		if ( 'vertical' === $data['ticker_animation'] ) {
+			$animation = 'data-swiper-parallax-y=-40';
 		}
 
-		if ( 'horizontal' === $data['direction'] ) {
-			$direction = 'data-swiper-parallax=-120';
+		if ( 'horizontal' === $data['ticker_animation'] ) {
+			$animation = 'data-swiper-parallax=-120';
 		}
 		?>
-        <div class="swiper tpg-news-ticker news-ticker-slider" data-swiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
+        <div class="swiper ant-news-ticker ant-swiper" data-swiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
 
             <div class="swiper-wrapper">
 				<?php
@@ -848,12 +969,8 @@ class NewsTicker extends ElementorBase {
 					$query->the_post();
 					?>
                     <div class="swiper-slide">
-                        <div style="--transitionDuration:<?php echo esc_attr( $data['delay'] ); ?>ms" class="ticker-content" <?php echo esc_attr( $direction ); ?>>
-							<?php
-							if ( 'none' !== $data['post_icon'] ) {
-								$this->get_breaking_icon( $data['post_icon'] );
-							}
-							?>
+                        <div style="--transitionDuration:<?php echo esc_attr( $data['delay'] ); ?>ms" class="ticker-content" <?php echo esc_attr( $animation ); ?>>
+							<?php $this->get_post_icon($data); ?>
 							<?php if ( 'yes' == $data['post_title_link'] ) { ?>
                                 <a class="post-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 							<?php } else { ?>
@@ -867,13 +984,33 @@ class NewsTicker extends ElementorBase {
 			<?php if ( 'yes' == $data['control_visibility'] ) : ?>
                 <div class="navigation">
                     <div class="newsticker-button-prev news-ticker-nav">
-						<?php $this->get_breaking_icon( 'prev' ); ?>
+						<?php
+						if ( ! empty( $data['control_prev_icon']['value'] ) ) {
+							Icons_Manager::render_icon( $data['control_prev_icon'], [ 'aria-hidden' => 'true' ] );
+						} else {
+							$this->get_breaking_icon( 'prev' );
+						}
+                        ?>
                     </div>
+                    <?php if( 'yes' == $data['pause_visibility'] ) : ?>
                     <div class="swiper-pause news-ticker-nav">
-						<?php $this->get_breaking_icon( 'pause' ); ?>
+						<?php
+						if ( ! empty( $data['control_pause_icon']['value'] ) ) {
+							Icons_Manager::render_icon( $data['control_pause_icon'], [ 'aria-hidden' => 'true' ] );
+						} else {
+							$this->get_breaking_icon( 'pause' );
+						}
+						?>
                     </div>
+                    <?php endif; ?>
                     <div class="newsticker-button-next news-ticker-nav">
-						<?php $this->get_breaking_icon( 'next' ); ?>
+						<?php
+						if ( ! empty( $data['control_next_icon']['value'] ) ) {
+							Icons_Manager::render_icon( $data['control_next_icon'], [ 'aria-hidden' => 'true' ] );
+						} else {
+							$this->get_breaking_icon( 'next' );
+						}
+						?>
                     </div>
                 </div>
 			<?php endif; ?>
@@ -888,18 +1025,17 @@ class NewsTicker extends ElementorBase {
 			$hoverEffect = 'onmouseover=this.stop() onmouseout=this.start()';
 		}
 		?>
-        <div class="tpg-news-ticker tpg-marquee-ticker">
+        <div class="ant-news-ticker ant-marquee-ticker">
             <marquee class="news-scroll ticker-content"
-                     behavior="scroll"
-                     direction="left"
+                     behavior="alternate"
+                     direction="right"
 				<?php echo esc_attr( $hoverEffect ); ?>
             >
+                <div class="marquee-inner">
 				<?php
 				while ( $query->have_posts() ) :
 					$query->the_post();
-					if ( 'none' !== $data['post_icon'] ) {
-						$this->get_breaking_icon( $data['post_icon'] );
-					}
+					 $this->get_post_icon($data);
 					if ( 'yes' == $data['post_title_link'] ) {
 						?>
                         <a class="post-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
@@ -910,11 +1046,28 @@ class NewsTicker extends ElementorBase {
 				endwhile;
 				?>
 				<?php wp_reset_query(); ?>
+                </div>
             </marquee>
         </div>
 		<?php
 	}
 
+
+	public function get_post_icon( $data ) {
+		if ( 'none' !== $data['post_icon'] ) {
+			?>
+            <span class="ticker-live-icon">
+                <?php
+                if ( 'custom' == $data['post_icon'] && ! empty( $data['title_icon']['value'] ) ) {
+                    Icons_Manager::render_icon( $data['custom_post_icon'], [ 'aria-hidden' => 'true' ] );
+                } else {
+                    $this->get_breaking_icon( $data['post_icon'] );
+                }
+                ?>
+            </span>
+			<?php
+		}
+	}
 
 	/**
 	 * Get breaking icon
@@ -926,51 +1079,43 @@ class NewsTicker extends ElementorBase {
 	public function get_breaking_icon( $icon = '' ): void {
 		switch ( $icon ) {
 			case 'bolt-round':
-				echo '<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7365 0.963608C6.1091 0.963608 0.736511 6.33619 0.736511 12.9636C0.736511 19.591 6.1091 24.9636 12.7365 24.9636C19.3639 24.9636 24.7365 19.591 24.7365 12.9636C24.7365 6.33619 19.3639 0.963608 12.7365 0.963608ZM13.8782 6.47904C13.9052 6.2628 13.7864 6.05462 13.5865 5.96784C13.3866 5.88106 13.1534 5.93646 13.0139 6.10388L6.46846 13.9584C6.34653 14.1048 6.32024 14.3084 6.40103 14.4809C6.48183 14.6534 6.65511 14.7636 6.8456 14.7636H12.1804L11.5948 19.4482C11.5678 19.6644 11.6866 19.8726 11.8865 19.9594C12.0864 20.0462 12.3196 19.9908 12.4591 19.8233L19.0045 11.9688C19.1265 11.8225 19.1528 11.6188 19.072 11.4463C18.9912 11.2738 18.8179 11.1636 18.6274 11.1636H13.2926L13.8782 6.47904ZM12.7365 13.7818H7.89371L12.6962 8.01874L12.2494 11.5936C12.2319 11.7333 12.2753 11.8738 12.3685 11.9794C12.4617 12.085 12.5957 12.1454 12.7365 12.1454H17.5793L12.7768 17.9085L13.2236 14.3336C13.2411 14.1939 13.1977 14.0534 13.1045 13.9478C13.0113 13.8423 12.8773 13.7818 12.7365 13.7818Z" fill="currentColor"/>
-				</svg>';
+				echo '<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">				<path fill-rule="evenodd" clip-rule="evenodd" d="M12.7365 0.963608C6.1091 0.963608 0.736511 6.33619 0.736511 12.9636C0.736511 19.591 6.1091 24.9636 12.7365 24.9636C19.3639 24.9636 24.7365 19.591 24.7365 12.9636C24.7365 6.33619 19.3639 0.963608 12.7365 0.963608ZM13.8782 6.47904C13.9052 6.2628 13.7864 6.05462 13.5865 5.96784C13.3866 5.88106 13.1534 5.93646 13.0139 6.10388L6.46846 13.9584C6.34653 14.1048 6.32024 14.3084 6.40103 14.4809C6.48183 14.6534 6.65511 14.7636 6.8456 14.7636H12.1804L11.5948 19.4482C11.5678 19.6644 11.6866 19.8726 11.8865 19.9594C12.0864 20.0462 12.3196 19.9908 12.4591 19.8233L19.0045 11.9688C19.1265 11.8225 19.1528 11.6188 19.072 11.4463C18.9912 11.2738 18.8179 11.1636 18.6274 11.1636H13.2926L13.8782 6.47904ZM12.7365 13.7818H7.89371L12.6962 8.01874L12.2494 11.5936C12.2319 11.7333 12.2753 11.8738 12.3685 11.9794C12.4617 12.085 12.5957 12.1454 12.7365 12.1454H17.5793L12.7768 17.9085L13.2236 14.3336C13.2411 14.1939 13.1977 14.0534 13.1045 13.9478C13.0113 13.8423 12.8773 13.7818 12.7365 13.7818Z" fill="currentColor"/>				</svg>';
+				break;
+			case 'bolt-round-2':
+				echo '<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg"><g clip-path="url(#clip0_684_107)"><path fill-rule="evenodd" clip-rule="evenodd" d="M256 0C114.615 0 0 114.615 0 256C0 397.385 114.615 512 256 512C397.385 512 512 397.385 512 256C512 114.615 397.385 0 256 0ZM221.581 401.095C222.678 401.568 223.827 401.795 224.96 401.795C226.392 401.796 227.801 401.436 229.058 400.75C230.315 400.064 231.379 399.073 232.152 397.868L351.463 212.098C352.291 210.807 352.757 209.317 352.812 207.785C352.866 206.252 352.507 204.733 351.772 203.387C351.036 202.041 349.952 200.917 348.633 200.135C347.314 199.352 345.809 198.939 344.275 198.939H277.404L311.215 122.192C311.788 120.892 312.027 119.469 311.912 118.053C311.796 116.637 311.329 115.271 310.553 114.081C308.976 111.663 306.284 110.205 303.397 110.205H224.827C223.103 110.205 221.419 110.727 219.997 111.701C218.575 112.676 217.481 114.058 216.859 115.666L159.759 263.285C159.258 264.58 159.08 265.976 159.241 267.355C159.401 268.733 159.895 270.052 160.68 271.197C161.464 272.342 162.516 273.278 163.744 273.925C164.972 274.572 166.339 274.91 167.726 274.91H245.561L216.673 391.191C216.185 393.156 216.411 395.23 217.31 397.044C218.208 398.858 219.722 400.293 221.581 401.095Z" fill="currentColor"/></g><defs><clipPath id="clip0_684_107"><rect width="512" height="512" fill="white"/></clipPath></defs></svg>';
+				break;
+			case 'bolt-round-3':
+				echo '<svg width="1110" height="1510" viewBox="0 0 1110 1510" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M414.731 791.571L414.249 792.164L414.256 792.162L155.948 1109.51L155.945 1109.51L155.942 1109.51L155.939 1109.5C72.0437 1015.21 21.0762 890.974 21.0762 754.834C21.0762 460.038 260.055 221.06 554.85 221.06C589.391 221.06 623.165 224.34 655.878 230.607C657.458 230.211 659.012 229.822 660.538 229.44L658.627 231.141L658.782 231.172L320.809 532.148L1109.84 0.760254L796.511 278.77L796.632 278.831L135.953 865.039L414.731 791.571Z" fill="currentColor"/><path d="M693.852 718.67L954.62 401.5L954.624 401.51L954.632 401.501C1038.01 495.673 1088.62 619.521 1088.62 755.19C1088.62 1049.99 849.646 1288.96 554.85 1288.96C523.049 1288.96 491.896 1286.18 461.623 1280.85H447.757L450.167 1278.7C449.988 1278.67 449.808 1278.63 449.628 1278.6L787.954 977.117L0.00390625 1509.64L975.596 645.224L693.852 718.67Z" fill="currentColor"/></svg>';
 				break;
 			case 'bolt':
-				echo ' <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7.87273 1.45456L1.32727 9.30911H7.21818L6.56363 14.5455L13.1091 6.69092H7.21818L7.87273 1.45456Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>';
+				echo ' <svg width="14" height="16" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">                    <path d="M7.87273 1.45456L1.32727 9.30911H7.21818L6.56363 14.5455L13.1091 6.69092H7.21818L7.87273 1.45456Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>                </svg>';
+				break;
+			case 'bolt-2':
+				echo '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" x="0" y="0" viewBox="0 0 512.002 512.002" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M201.498 512.002c-1.991 0-4.008-.398-5.934-1.229a15 15 0 0 1-8.617-17.39l50.724-204.178h-136.67a15 15 0 0 1-13.99-20.412L187.273 9.589A15 15 0 0 1 201.263 0h137.962c5.069 0 9.795 2.56 12.565 6.806a15.002 15.002 0 0 1 1.162 14.242l-59.369 134.76h117.419a15 15 0 0 1 12.621 23.105L214.126 505.106a15 15 0 0 1-12.628 6.896z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path></g></svg>';
 				break;
 			case 'live':
-				echo '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 13C10.3137 13 13 10.3137 13 7C13 3.68629 10.3137 1 7 1C3.68629 1 1 3.68629 1 7C1 10.3137 3.68629 13 7 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M7 8.8C7.99411 8.8 8.8 7.99411 8.8 7C8.8 6.00589 7.99411 5.2 7 5.2C6.00589 5.2 5.2 6.00589 5.2 7C5.2 7.99411 6.00589 8.8 7 8.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>';
+				echo '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">                    <path d="M7 13C10.3137 13 13 10.3137 13 7C13 3.68629 10.3137 1 7 1C3.68629 1 1 3.68629 1 7C1 10.3137 3.68629 13 7 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>                    <path d="M7 8.8C7.99411 8.8 8.8 7.99411 8.8 7C8.8 6.00589 7.99411 5.2 7 5.2C6.00589 5.2 5.2 6.00589 5.2 7C5.2 7.99411 6.00589 8.8 7 8.8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>                </svg>';
 				break;
 			case 'prev':
-				echo '<svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M6 11L1 5.99998L6 0.999985" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>';
+				echo '<svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">                    <path d="M6 11L1 5.99998L6 0.999985" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>                </svg>';
 				break;
 			case 'next':
-				echo ' <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M1 11L6 5.99998L1 0.999985" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>';
+				echo ' <svg width="7" height="12" viewBox="0 0 7 12" fill="none" xmlns="http://www.w3.org/2000/svg">                    <path d="M1 11L6 5.99998L1 0.999985" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>                </svg>';
 				break;
 			case 'pause':
-				echo '<svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4.5 1H1V15H4.5V1Z" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M11.5 1H8V15H11.5V1Z" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>';
+				echo '<svg width="13" height="16" viewBox="0 0 13 16" fill="none" xmlns="http://www.w3.org/2000/svg">                    <path d="M4.5 1H1V15H4.5V1Z" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/>                    <path d="M11.5 1H8V15H11.5V1Z" stroke="currentColor" stroke-width="1.3125" stroke-linecap="round" stroke-linejoin="round"/>                </svg>';
 				break;
 			case 'star':
-				echo '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M4.02818 0.879112C4.36444 0.197874 5.33587 0.197874 5.67214 0.879112L6.42415 2.4026C6.55756 2.67288 6.81531 2.8603 7.11355 2.90389L8.79674 3.14991C9.54833 3.25977 9.84788 4.18362 9.30375 4.7136L8.08724 5.89849C7.87102 6.10908 7.77233 6.41262 7.82335 6.71011L8.11027 8.38295C8.23871 9.13183 7.45262 9.70288 6.78013 9.34922L5.27682 8.55864C5.00972 8.41818 4.6906 8.41818 4.42349 8.55864L2.92019 9.34922C2.2477 9.70288 1.46161 9.13183 1.59005 8.38294L1.87696 6.71011C1.92798 6.41262 1.82929 6.10908 1.61308 5.89849L0.396561 4.7136C-0.147566 4.18362 0.151985 3.25977 0.903574 3.14991L2.58676 2.90389C2.885 2.8603 3.14276 2.67288 3.27617 2.4026L4.02818 0.879112Z" fill="currentColor"/>
-				</svg>';
+				echo '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">				<path d="M4.02818 0.879112C4.36444 0.197874 5.33587 0.197874 5.67214 0.879112L6.42415 2.4026C6.55756 2.67288 6.81531 2.8603 7.11355 2.90389L8.79674 3.14991C9.54833 3.25977 9.84788 4.18362 9.30375 4.7136L8.08724 5.89849C7.87102 6.10908 7.77233 6.41262 7.82335 6.71011L8.11027 8.38295C8.23871 9.13183 7.45262 9.70288 6.78013 9.34922L5.27682 8.55864C5.00972 8.41818 4.6906 8.41818 4.42349 8.55864L2.92019 9.34922C2.2477 9.70288 1.46161 9.13183 1.59005 8.38294L1.87696 6.71011C1.92798 6.41262 1.82929 6.10908 1.61308 5.89849L0.396561 4.7136C-0.147566 4.18362 0.151985 3.25977 0.903574 3.14991L2.58676 2.90389C2.885 2.8603 3.14276 2.67288 3.27617 2.4026L4.02818 0.879112Z" fill="currentColor"/>				</svg>';
 				break;
 			case 'star-outline':
-				echo '<svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M5.02818 1.71462C5.36444 1.03338 6.33587 1.03338 6.67214 1.71462L7.42415 3.23811C7.55756 3.50839 7.81531 3.69581 8.11355 3.7394L9.79674 3.98542C10.5483 4.09528 10.8479 5.01913 10.3038 5.54911L9.08724 6.734C8.87102 6.94459 8.77233 7.24813 8.82335 7.54562L9.11027 9.21846C9.23871 9.96734 8.45262 10.5384 7.78013 10.1847L6.27682 9.39416C6.00972 9.25369 5.6906 9.25369 5.42349 9.39415L3.92019 10.1847C3.2477 10.5384 2.46161 9.96734 2.59005 9.21845L2.87696 7.54562C2.92798 7.24813 2.82929 6.94459 2.61308 6.734L1.39656 5.54911C0.852434 5.01913 1.15199 4.09528 1.90357 3.98542L3.58676 3.7394C3.885 3.69581 4.14276 3.50839 4.27617 3.23811L5.02818 1.71462Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>';
+				echo '<svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">                <path d="M5.02818 1.71462C5.36444 1.03338 6.33587 1.03338 6.67214 1.71462L7.42415 3.23811C7.55756 3.50839 7.81531 3.69581 8.11355 3.7394L9.79674 3.98542C10.5483 4.09528 10.8479 5.01913 10.3038 5.54911L9.08724 6.734C8.87102 6.94459 8.77233 7.24813 8.82335 7.54562L9.11027 9.21846C9.23871 9.96734 8.45262 10.5384 7.78013 10.1847L6.27682 9.39416C6.00972 9.25369 5.6906 9.25369 5.42349 9.39415L3.92019 10.1847C3.2477 10.5384 2.46161 9.96734 2.59005 9.21845L2.87696 7.54562C2.92798 7.24813 2.82929 6.94459 2.61308 6.734L1.39656 5.54911C0.852434 5.01913 1.15199 4.09528 1.90357 3.98542L3.58676 3.7394C3.885 3.69581 4.14276 3.50839 4.27617 3.23811L5.02818 1.71462Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>                </svg>';
 				break;
 			case 'dot':
-				echo '<svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<rect width="8" height="8" rx="4" fill="currentColor"/>
-				</svg>';
+				echo '<svg width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">				<rect width="8" height="8" rx="4" fill="currentColor"/>				</svg>';
+				break;
+			case 'dot-2':
+				echo '<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" x="0" y="0" viewBox="0 0 24 24" style="enable-background:new 0 0 512 512" xml:space="preserve" class=""><g><path d="M12 0C5.383 0 0 5.383 0 12s5.383 12 12 12 12-5.383 12-12S18.617 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm4-10a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" fill="currentColor" opacity="1" data-original="currentColor" class=""></path></g></svg>';
 				break;
 		}
 	}

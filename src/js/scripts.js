@@ -13,7 +13,7 @@
         },
 
         newsTicker: function () {
-            $('.tpg-news-ticker').each(function () {
+            $('.ant-news-ticker').each(function () {
                 var swiperElement = $(this)
                 // swiperElement.css({ 'opacity': 1, 'transition': 'opacity 0.4s ease-in-out' })
                 var pauseBtn = swiperElement.find('.swiper-pause')
