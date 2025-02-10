@@ -94,6 +94,7 @@ class ElementorController {
 	public function editor_style() {
 		$icon         = Fns::get_assets_url( 'images/icon.svg' );
 		$editor_style = '.elementor-element .icon .ant-el-custom{content: url(' . $icon . ');width: 34px;}';
+		$editor_style = '.elementor-control.elementor-control-type-heading .elementor-control-title{color:#93003f;font-size: 14px;}';
 
 		wp_add_inline_style( 'elementor-editor', $editor_style );
 	}
