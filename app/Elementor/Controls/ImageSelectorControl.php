@@ -38,7 +38,7 @@ class ImageSelectorControl extends Base_Data_Control {
 	 * Enqueue control scripts and styles.
 	 */
 	public function enqueue() {
-		wp_enqueue_style( 'advanced-news-ticker-image-selector', Fns::get_assets_url( 'css/el-image-selector.css' ), [], '1.0' );
+		wp_enqueue_style( 'ant-image-selector', Fns::get_assets_url( 'css/admin/el-image-selector.css' ), [], '1.0' );
 	}
 
 	/**

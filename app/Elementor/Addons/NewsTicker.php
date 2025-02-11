@@ -410,27 +410,27 @@ class NewsTicker extends ElementorBase {
 			]
 		);
 
-        $this->add_group_control(
-            Group_Control_Background::get_type(),
-            [
-                'name'           => 'ticker_background_color',
-                'label'          => esc_html__( 'Title Background', 'the-post-grid' ),
-                'types'          => [ 'classic', 'gradient' ],
-                'selector'       => '{{WRAPPER}} .ant-news-ticker-inner',
-                'exclude'        => [ 'image' ],
-                'fields_options' => [
-                    'background' => [
-                        'label' => esc_html__( 'Title Background', 'the-post-grid' ),
-                    ],
-                    'color'      => [
-                        'label' => 'Background Color',
-                    ],
-                    'color_b'    => [
-                        'label' => 'Background Color 2',
-                    ],
-                ],
-            ]
-        );
+		$this->add_group_control(
+			Group_Control_Background::get_type(),
+			[
+				'name'           => 'ticker_background_color',
+				'label'          => esc_html__( 'Title Background', 'the-post-grid' ),
+				'types'          => [ 'classic', 'gradient' ],
+				'selector'       => '{{WRAPPER}} .ant-news-ticker-inner',
+				'exclude'        => [ 'image' ],
+				'fields_options' => [
+					'background' => [
+						'label' => esc_html__( 'Title Background', 'the-post-grid' ),
+					],
+					'color'      => [
+						'label' => 'Background Color',
+					],
+					'color_b'    => [
+						'label' => 'Background Color 2',
+					],
+				],
+			]
+		);
 		$this->add_control(
 			'height',
 			[
@@ -1101,11 +1101,13 @@ class NewsTicker extends ElementorBase {
 				'delay'                => $data['delay'] ?? 2000,
 				'disableOnInteraction' => true,
 			],
-			'navigation'        => [
-				'nextEl' => '.newsticker-button-next',
-				'prevEl' => '.newsticker-button-prev',
-			],
+
 		];
+
+//		'navigation'        => [
+//			'nextEl' => '.newsticker-button-next',
+//			'prevEl' => '.newsticker-button-prev',
+//		],
 
 		if ( in_array( $data['ticker_animation'], [ 'vertical', 'horizontal' ] ) ) {
 			$swiperConfig['parallax'] = true;
@@ -1118,8 +1120,9 @@ class NewsTicker extends ElementorBase {
 		if ( 'horizontal' === $data['ticker_animation'] ) {
 			$animation = 'data-swiper-parallax=-120';
 		}
+
 		?>
-        <div class="swiper ant-news-ticker ant-swiper" data-swiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
+        <div class="swiper ant-news-ticker ant-swiper" data-antSwiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
 
             <div class="swiper-wrapper">
 				<?php
@@ -1294,32 +1297,16 @@ class NewsTicker extends ElementorBase {
 
 		$breadking_icon = $data['breaking_icon'];
 		if ( 'default' == $breadking_icon ) {
-			switch ( $layout ) {
-				case '1':
-					$breadking_icon = 'bolt';
-					break;
-				case '2':
-					$breadking_icon = 'bolt-round';
-					break;
-				case '3':
-					$breadking_icon = 'bolt-round-2';
-					break;
-
-				case '4':
-					$breadking_icon = 'bolt-round-3';
-					break;
-				case '5':
-					$breadking_icon = 'bolt-2';
-					break;
-				case '6':
-					$breadking_icon = 'live';
-					break;
-				default:
-					$breadking_icon = 'bolt';
-			}
+			$icon_map       = [
+				'1' => 'bolt',
+				'2' => 'bolt-round',
+				'3' => 'bolt-round-2',
+				'4' => 'bolt-round-3',
+				'5' => 'bolt-2',
+				'6' => 'live',
+			];
+			$breadking_icon = $icon_map[ $layout ] ?? 'bolt';
 		}
-
-        error_log(print_r($breadking_icon, true)."\n\n", 3, __DIR__.'/log.txt');
 
 		?>
         <div class="ant-news-tickewr-main clearfix">

@@ -7,6 +7,7 @@
 
 namespace AdvancedNewsTicker\Elementor\Controls;
 
+use AdvancedNewsTicker\Helper\Fns;
 use Elementor\Base_Data_Control;
 
 // Do not allow directly accessing this file.
@@ -28,6 +29,7 @@ class Select2AjaxControl extends Base_Data_Control {
 	}
 
 	public function enqueue() {
+		wp_enqueue_style( 'ant-select2', Fns::get_assets_url( 'css/admin/el-select.css' ), [], '1.0' );
 		wp_enqueue_script( 'ant-editor-script' );
 		wp_localize_script(
 			'ant-editor-script',
@@ -39,25 +41,6 @@ class Select2AjaxControl extends Base_Data_Control {
 			]
 		);
 		?>
-        <style>
-            .ant-select2-main-wrapper ul.select2-selection__rendered li:last-child {
-                pointer-events: none;
-            }
-
-            .ant-select2-main-wrapper ul.select2-selection__rendered li:last-child::before {
-                background: var(--e-a-btn-bg);
-                content: '+';
-                padding: 1px 5px;
-                position: relative;
-                top: 1px;
-                margin-right: 5px;
-                color: #fff;
-            }
-
-            .ant-select2-main-wrapper ul.select2-selection__rendered li[title=search] {
-                display: none;
-            }
-        </style>
 		<?php
 	}
 

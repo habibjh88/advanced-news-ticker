@@ -39,7 +39,6 @@ final class Init {
 	 */
 	public function __construct() {
 		add_action( 'setup_theme', [ $this, 'after_theme_loaded' ] );
-		add_action( 'init', [ $this, 'load_textdomain' ], 20 );
 
 		register_activation_hook( ADVANCED_NEWS_TICKER_BASE_FILE_NAME, [ Install::class, 'activate' ] );
 		register_deactivation_hook( ADVANCED_NEWS_TICKER_BASE_FILE_NAME, [ Install::class, 'deactivate' ] );
@@ -58,17 +57,6 @@ final class Init {
 			Controllers\ElementorController::instance();
 		}
 
-	}
-
-	public function load_textdomain() {
-		load_plugin_textdomain( 'advanced-news-ticker', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
-	}
-
-	/**
-	 * @return string
-	 */
-	public function has_pro() {
-		return class_exists( 'AdvancedNewsTickerPro\\app' );
 	}
 
 }

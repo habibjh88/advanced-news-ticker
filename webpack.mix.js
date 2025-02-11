@@ -38,7 +38,8 @@ if (mix.inProduction()) {
 }
 
 mix.sass('src/sass/style.scss', `assets/css/style${min}.css`)
-mix.sass('src/sass/el-image-selector.scss', `assets/css/el-image-selector.css`)
+mix.sass('src/sass/admin/el-image-selector.scss', `assets/css/admin/el-image-selector.css`)
+mix.sass('src/sass/admin/el-select.scss', `assets/css/admin/el-select.css`)
 .options({
     terser: {
         extractComments: false,

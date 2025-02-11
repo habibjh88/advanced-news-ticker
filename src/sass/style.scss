@@ -1,12 +1,11 @@
 $newsTickerColor: var(--ant-primary-color, #FF0404);
 
+@import "swiper";
 @import "ticker-styles";
 
-//@import "swiper.scss";
 .ant-news-ticker-inner {
     position: relative;
     align-items: center;
-    //height: 50px;
     display: flex;
     gap: 15px;
     overflow: hidden;
@@ -15,8 +14,6 @@ $newsTickerColor: var(--ant-primary-color, #FF0404);
     .control-visible-yes & {
         padding-right: 120px;
     }
-
-
     @media (max-width: 579px) {
         .swiper-button-prev,
         .swiper-pause {
@@ -208,7 +205,7 @@ $newsTickerColor: var(--ant-primary-color, #FF0404);
         width: 0;
         display: inline-block;
         overflow: hidden;
-        transition: var(--transitionDuration, 5000ms) linear;
+        transition: width var(--transitionDuration, 3000ms) steps(150, end);
     }
 
     .swiper-slide-active .post-link {

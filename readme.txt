@@ -88,6 +88,12 @@ Modify: Plugin name modify.
 * Initial release with 8 unique layouts.
 * General Settings, Query Builder, Ticker Style, Breaking Title Settings, Post Title Settings, and Controls Settings included.
 
+== Source Code ==
+The original, unminified source code for JavaScript and CSS is available in the `/src/` folder.
+
+== External Libraries ==
+- Swiper js: Comes from the Elementor
+
 == Upgrade Notice ==
 
 Initial release with comprehensive features for dynamic news ticker displays.
