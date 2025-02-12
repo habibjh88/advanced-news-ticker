@@ -5,15 +5,14 @@
  * @version 1.0
  */
 
-namespace AdvancedNewsTicker\Controllers;
+namespace habibjh88\AdvancedNewsTicker\Controllers;
 
 use Elementor\Plugin;
-use AdvancedNewsTicker\Elementor\Controls\ImageSelectorControl;
-use AdvancedNewsTicker\Elementor\Controls\Select2AjaxControl;
-use AdvancedNewsTicker\Helper\Fns;
-use AdvancedNewsTicker\Traits\SingletonTraits;
-use AdvancedNewsTicker\Modules\IconList;
-use AdvancedNewsTicker\Elementor\Addons\NewsTicker;
+use habibjh88\AdvancedNewsTicker\Elementor\Controls\ImageSelectorControl;
+use habibjh88\AdvancedNewsTicker\Elementor\Controls\Select2AjaxControl;
+use habibjh88\AdvancedNewsTicker\Helper\Fns;
+use habibjh88\AdvancedNewsTicker\Traits\SingletonTraits;
+use habibjh88\AdvancedNewsTicker\Elementor\Addons\NewsTicker;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -31,12 +30,11 @@ class ElementorController {
 		add_action( 'elementor/editor/after_enqueue_styles', [ $this, 'editor_style' ] );
 		add_action( 'elementor/controls/register', [ $this, 'register_new_control' ] );
 		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'editor_scripts' ] );
-		add_action( 'wp_ajax_ant_select2_object_search', [ $this, 'select2_ajax_posts_filter_autocomplete' ] );
-		add_action( 'wp_ajax_nopriv_ant_select2_object_search', [ $this, 'select2_ajax_posts_filter_autocomplete' ] );
+		add_action( 'wp_ajax_advanced_news_ticker_select2_search', [ $this, 'select2_ajax_posts_filter_autocomplete' ] );
+		add_action( 'wp_ajax_nopriv_advanced_news_ticker_select2_search', [ $this, 'select2_ajax_posts_filter_autocomplete' ] );
 		// Select2 ajax save data.
-		add_action( 'wp_ajax_ant_select2_get_title', [ $this, 'select2_ajax_get_posts_value_titles' ] );
-		add_action( 'wp_ajax_nopriv_ant_select2_get_title', [ $this, 'select2_ajax_get_posts_value_titles' ] );
-		add_action( 'elementor/icons_manager/additional_tabs', [ $this, 'fontello_support' ] );
+		add_action( 'wp_ajax_advanced_news_ticker_select2_get_title', [ $this, 'select2_ajax_get_posts_value_titles' ] );
+		add_action( 'wp_ajax_nopriv_advanced_news_ticker_select2_get_title', [ $this, 'select2_ajax_get_posts_value_titles' ] );
 	}
 
 
@@ -49,7 +47,7 @@ class ElementorController {
 		$version = ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ? time() : ADVANCED_NEWS_TICKER;
 
 		wp_enqueue_script(
-			'ant-editor-script',
+			'advanced-news-ticker-editor-script',
 			Fns::get_assets_url( 'js/el-editor.js' ),
 			[
 				'jquery',
@@ -79,7 +77,7 @@ class ElementorController {
 	 * @return void
 	 */
 	public function register_widget() {
-		$widgets = apply_filters( 'raw_addons_elemetor_widgets', [
+		$widgets = apply_filters( 'advanced_news_ticker_elemetor_widgets', [
 			NewsTicker::class,
 		] );
 		foreach ( $widgets as $class ) {
@@ -93,10 +91,10 @@ class ElementorController {
 	 */
 	public function editor_style() {
 		$icon         = Fns::get_assets_url( 'images/icon.svg' );
-		$editor_style = '.elementor-element .icon .ant-el-custom{content: url(' . $icon . ');width: 34px;}';
-		$editor_style = '.elementor-control.elementor-control-type-heading .elementor-control-title{color:#93003f;font-size: 14px;}';
+		$editor_style = '.elementor-element .icon .advanced-news-ticker-el-custom{content: url(' . $icon . ');width: 34px;}';
+		$editor_style .= '.elementor-control.elementor-control-type-heading .elementor-control-title{color:#93003f;font-size: 14px;}';
 
-		wp_add_inline_style( 'elementor-editor', $editor_style );
+		wp_add_inline_style( 'elementor-editor', esc_textarea( $editor_style ) );
 	}
 
 	/**
@@ -109,7 +107,7 @@ class ElementorController {
 	public function widget_category( $elements_manager ) {
 		$id                = ADVANCED_NEWS_TICKER_PREFIX . '-widgets';
 		$categories[ $id ] = [
-			'title' => __( 'Raw Addons', 'advanced-news-ticker' ),
+			'title' => esc_html__( 'Advanced News Ticker Addons', 'advanced-news-ticker' ),
 			'icon'  => 'fa fa-plug',
 		];
 
@@ -123,26 +121,7 @@ class ElementorController {
 	}
 
 	/**
-	 * Adding custom icon to icon control in Elementor
-	 */
-	public function fontello_support( $tabs = [] ) {
-		// Append new icons
-		$tabs['ant-icons'] = [
-			'name'          => 'raw-icons',
-			'label'         => esc_html__( 'Raw Icons', 'advanced-news-ticker' ),
-			'labelIcon'     => 'fab fa-elementor',
-			'prefix'        => '',
-			'displayPrefix' => '',
-			'url'           => ADVANCED_NEWS_TICKER_BASE_URL . '/assets/css/raw-icons.css',
-			'icons'         => array_keys( IconList::raw_icons() ),
-			'ver'           => '1.0',
-		];
-
-		return $tabs;
-	}
-
-	/**
-	 * Ajax callback for ant-select2
+	 * Ajax callback for advanced-news-ticker-select2
 	 *
 	 * @param $post_type
 	 * @param $limit
@@ -199,13 +178,13 @@ class ElementorController {
 	}
 
 	/**
-	 * Ajax callback for ant-select2
+	 * Ajax callback for advanced-news-ticker-select2
 	 *
 	 * @return void
 	 */
 	public function select2_ajax_posts_filter_autocomplete() {
 
-		check_ajax_referer( 'ant-select2-nonce' );
+		check_ajax_referer( 'advanced-news-ticker-select2-nonce' );
 		$query_per_page = 15;
 		$post_type      = 'post';
 		$source_name    = 'post_type';
@@ -274,21 +253,19 @@ class ElementorController {
 
 
 	/**
-	 * Ajax callback for ant-select2
+	 * Ajax callback for advanced-news-ticker-select2
 	 *
 	 * @return void
 	 */
 	public function select2_ajax_get_posts_value_titles() {
-		check_ajax_referer( 'ant-select2-nonce' );
-		if ( empty( $_POST['id'] ) ) {
+		check_ajax_referer( 'advanced-news-ticker-select2-nonce' );
+
+		$pIds = ! empty( $_POST['id'] ) ? array_map( 'intval', wp_unslash( $_POST['id'] ) ) : null;
+
+		if ( ! $pIds ) {
 			wp_send_json_error( [] );
 		}
 
-		//phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-		if ( empty( array_filter( wp_unslash( $_POST['id'] ) ) ) ) {
-			wp_send_json_error( [] );
-		}
-		$ids         = array_map( 'intval', $_POST['id'] );
 		$source_name = ! empty( $_POST['source_name'] ) ? sanitize_text_field( wp_unslash( $_POST['source_name'] ) ) : '';
 
 		switch ( $source_name ) {
@@ -297,10 +274,10 @@ class ElementorController {
 					'hide_empty' => false,
 					'orderby'    => 'name',
 					'order'      => 'ASC',
-					'include'    => implode( ',', $ids ),
+					'include'    => implode( ',', $pIds ),
 				];
 
-				if ( ! empty($_POST['post_type']) && $_POST['post_type'] !== 'all' ) {
+				if ( ! empty( $_POST['post_type'] ) && $_POST['post_type'] !== 'all' ) {
 					$args['taxonomy'] = sanitize_text_field( wp_unslash( $_POST['post_type'] ) );
 				}
 
@@ -309,7 +286,7 @@ class ElementorController {
 			case 'user':
 				$users = [];
 
-				foreach ( get_users( [ 'include' => $ids ] ) as $user ) {
+				foreach ( get_users( [ 'include' => $pIds ] ) as $user ) {
 					$user_id           = $user->ID;
 					$user_name         = $user->display_name . '-' . $user->ID;
 					$users[ $user_id ] = $user_name;
@@ -320,8 +297,8 @@ class ElementorController {
 			default:
 				$post_info = get_posts(
 					[
-						'post_type' => ! empty($_POST['post_type']) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : 'post',
-						'include'   => implode( ',', $ids ),
+						'post_type' => ! empty( $_POST['post_type'] ) ? sanitize_text_field( wp_unslash( $_POST['post_type'] ) ) : 'post',
+						'include'   => implode( ',', $pIds ),
 					]
 				);
 				$response  = wp_list_pluck( $post_info, 'post_title', 'ID' );

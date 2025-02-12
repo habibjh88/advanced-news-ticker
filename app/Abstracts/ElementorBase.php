@@ -5,7 +5,7 @@
  * @version 1.0
  */
 
-namespace AdvancedNewsTicker\Abstracts;
+namespace habibjh88\AdvancedNewsTicker\Abstracts;
 
 use Elementor\Widget_Base;
 
@@ -16,31 +16,31 @@ if ( ! defined( 'ABSPATH' ) ) {
 abstract class ElementorBase extends Widget_Base {
 
 	public $prefix;
-	public $ant_name;
-	public $ant_base;
-	public $ant_category;
-	public $ant_icon;
-	public $ant_translate;
+	public $ticker_name;
+	public $ticker_base;
+	public $ticker_category;
+	public $ticker_icon;
+	public $ticker_translate;
 
 	public function __construct( $data = [], $args = null ) {
-		$this->ant_category = ADVANCED_NEWS_TICKER_PREFIX . '-widgets'; // Category /@dev
-		$this->ant_icon     = 'ant-el-custom';
+		$this->ticker_category = ADVANCED_NEWS_TICKER_PREFIX . '-widgets'; // Category /@dev
+		$this->ticker_icon     = 'advanced-news-ticker-el-custom';
 		parent::__construct( $data, $args );
 	}
 
 	public function get_name() {
-		return $this->ant_base;
+		return $this->ticker_base;
 	}
 
 	public function get_title() {
-		return $this->ant_name;
+		return $this->ticker_name;
 	}
 
 	public function get_icon() {
-		return $this->ant_icon;
+		return $this->ticker_icon;
 	}
 
 	public function get_categories() {
-		return [ $this->ant_category ];
+		return [ $this->ticker_category ];
 	}
 }

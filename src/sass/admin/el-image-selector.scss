@@ -57,7 +57,7 @@
     cursor: not-allowed;
 }
 
-.elementor-control.rawadd-pro-field::before, .elementor-control-image-selector-wrapper .elementor-image-selector-label.is-pro::before {
+.elementor-control.ant-pro-field::before, .elementor-control-image-selector-wrapper .elementor-image-selector-label.is-pro::before {
     content: "";
     position: absolute;
     left: -4px;
@@ -74,7 +74,7 @@
     transition: all 0.3s;
 }
 
-.elementor-control.rawadd-pro-field::before {
+.elementor-control.ant-pro-field::before {
     width: calc(100% - 4px);
     height: calc(100% - 4px);
     top: 0;
@@ -85,23 +85,23 @@
     content: "";
 }
 
-.elementor-control.rawadd-pro-field {
+.elementor-control.ant-pro-field {
     overflow: hidden;
 }
 
-.elementor-control.rawadd-pro-field.is-pro::before {
+.elementor-control.ant-pro-field.is-pro::before {
     background: rgba(255, 255, 255, 0.8);
 }
 
-.elementor-control.rawadd-pro-field > .elementor-control-content {
+.elementor-control.ant-pro-field > .elementor-control-content {
     pointer-events: none;
 }
 
-.elementor-control.rawadd-pro-field > .elementor-control-content > .elementor-control-field > .elementor-control-title {
+.elementor-control.ant-pro-field > .elementor-control-content > .elementor-control-field > .elementor-control-title {
     padding-left: 12px;
 }
 
-.elementor-control .elementor-repeater-fields .rawadd-pro-field > .elementor-control-content::after {
+.elementor-control .elementor-repeater-fields .ant-pro-field > .elementor-control-content::after {
     top: 5px;
     left: -45px;
 }
@@ -124,14 +124,33 @@
     top: 0;
 }
 
-.rawadd-pro-field.is-pro::after, .rawadd-pro.is-pro {
-    animation: rawadd-shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+.ant-pro-field.is-pro::after, .ant-pro.is-pro {
+    animation: ant-shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
     transform: translate3d(0, 0, 0);
     backface-visibility: hidden;
     perspective: 1000px;
 }
 
-@keyframes rawadd-shake {
+//Select2 Style
+.advanced-news-ticker-select2-main-wrapper ul.select2-selection__rendered li:last-child {
+    pointer-events: none;
+}
+
+.advanced-news-ticker-select2-main-wrapper ul.select2-selection__rendered li:last-child::before {
+    background: var(--e-a-btn-bg);
+    content: '+';
+    padding: 1px 5px;
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+    color: #fff;
+}
+
+.advanced-news-ticker-select2-main-wrapper ul.select2-selection__rendered li[title=search] {
+    display: none;
+}
+
+@keyframes ant-shake {
     10%, 90% {
         transform: translate3d(-1px, 0, 0);
     }

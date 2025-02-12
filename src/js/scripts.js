@@ -13,7 +13,7 @@
         },
 
         newsTicker: function () {
-            $('.ant-news-ticker').each(function () {
+            $('.advanced-news-ticker.swiper').each(function () {
                 var swiperElement = $(this)
                 // swiperElement.css({ 'opacity': 1, 'transition': 'opacity 0.4s ease-in-out' })
                 var pauseBtn = swiperElement.find('.swiper-pause')
@@ -23,15 +23,10 @@
 
                 if ('undefined' === typeof Swiper) {
                     var asyncSwiper = elementorFrontend.utils.swiper
-
                     new asyncSwiper(swiperElement[0], swiperConfig).then((newSwiperInstance) => {
-                        console.log('New Swiper instance is ready: ', newSwiperInstance)
-
                         TickerSwiper = newSwiperInstance
                     })
                 } else {
-                    console.log('Swiper global variable is ready, create a new instance: ', Swiper)
-
                     TickerSwiper = new Swiper(swiperElement[0], swiperConfig)
                 }
 
@@ -40,7 +35,6 @@
                     $(this).toggleClass('pause-enable')
                     const isPaused = swiperElement.toggleClass('ticker-pause-enable').hasClass('ticker-pause-enable')
                     TickerSwiper.autoplay[isPaused ? 'stop' : 'start']()
-                    console.log('pause')
                 })
 
                 if (swiperConfig.pauseOnMouseEnter) {

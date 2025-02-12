@@ -5,13 +5,13 @@
  * Every function, hook and action is properly divided and organized inside related folders and files
  * Use the file `config/custom/custom.php` to write your custom functions
  *
- * @package raw_addons
+ * @package AdvancedNewsTicker
  */
 
-namespace AdvancedNewsTicker;
+namespace habibjh88\AdvancedNewsTicker;
 
-use AdvancedNewsTicker\Helper\Install;
-use AdvancedNewsTicker\Traits\SingletonTraits;
+use habibjh88\AdvancedNewsTicker\Helper\Install;
+use habibjh88\AdvancedNewsTicker\Traits\SingletonTraits;
 
 final class Init {
 
@@ -20,19 +20,12 @@ final class Init {
 	/**
 	 * @var string
 	 */
-	public $nonceId = '__raw_wpnonce';
+	public $nonceId = 'advanced_news_ticker_wpnonce';
 
 	/**
 	 * @var string
 	 */
-	public $nonceText = 'raw_nonce_secret';
-
-	/**
-	 * Option settings key
-	 *
-	 * @var string
-	 */
-	public $settingKey = 'raw_addons_options';
+	public $nonceText = 'advanced_news_ticker_nonce_secret';
 
 	/**
 	 * Class constructor
@@ -49,8 +42,6 @@ final class Init {
 	 * @return void
 	 */
 	public function after_theme_loaded() {
-		Hooks\FilterHooks::instance();
-		Hooks\ActionHooks::instance();
 		Controllers\ScriptController::instance();
 
 		if ( did_action( 'elementor/loaded' ) ) {

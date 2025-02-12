@@ -39,7 +39,6 @@ if (mix.inProduction()) {
 
 mix.sass('src/sass/style.scss', `assets/css/style${min}.css`)
 mix.sass('src/sass/admin/el-image-selector.scss', `assets/css/admin/el-image-selector.css`)
-mix.sass('src/sass/admin/el-select.scss', `assets/css/admin/el-select.css`)
 .options({
     terser: {
         extractComments: false,
@@ -53,16 +52,7 @@ mix.js('demo-js/main.js', `demo-js/main-demo.js`)
 mix.scripts('src/js/scripts.js', `assets/js/scripts${min}.js`)
 //Admin
 mix.scripts('src/js/el-editor.js', `assets/js/el-editor.js`)
-//Lib
-// mix.scripts('src/lib/newsticker.js', `assets/js/lib/newsticker.js`)
 
-//Merge all front-end js file
-/*if (mix.inProduction()) {
-    mix.scripts([
-        'src/lib/newsticker.js',
-        'src/js/frontend/scripts.js',
-    ], 'assets/js/frontend/frontend.min.js')
-}*/
 
 // Make package
 if (process.env.npm_config_package) {

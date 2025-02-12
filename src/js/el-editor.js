@@ -8,19 +8,19 @@
 
 
 (function ($, elementor) {
-    $(document).on('ant_select2_event', function (event, obj) {
-        rawEditorHelpers.rawSelect2Init(event, obj, $);
+    $(document).on('advanced_news_ticker_select2_event', function (event, obj) {
+        AdvancedNewsTickerEditorHelpers.AdvancedNewsTickerSelect2Init(event, obj, $);
     });
 })(jQuery, window.elementor);
 
 
-const rawEditorHelpers = {
+const AdvancedNewsTickerEditorHelpers = {
 
-    rawSelect2Init: (event, obj, $) => {
-        const rawSelect = '#elementor-control-default-' + obj.data._cid;
+    AdvancedNewsTickerSelect2Init: (event, obj, $) => {
+        const advancedNewsTickerSelect = '#elementor-control-default-' + obj.data._cid;
 
         setTimeout(function () {
-            const IDSelect2 = $(rawSelect).select2({
+            const IDSelect2 = $(advancedNewsTickerSelect).select2({
                 minimumInputLength: obj.data.minimum_input_length,
                 maximumSelectionLength: obj.data.maximum_selection_length ?? -1,
                 allowClear: true,
@@ -31,7 +31,7 @@ const rawEditorHelpers = {
                     method: 'POST',
                     data(params) {
                         return {
-                            action: 'ant_select2_object_search',
+                            action: 'advanced_news_ticker_select2_search',
                             _ajax_nonce: antSelect2Obj.nonce,
                             post_type: obj.data.source_type,
                             source_name: obj.data.source_name,
@@ -65,10 +65,10 @@ const rawEditorHelpers = {
                             '<span class="elementor-control-spinner">&nbsp;<i class="eicon-spinner eicon-animation-spin"></i>&nbsp;</span>'
                         );
                         $.ajax({
-                            url: antSelect2Obj.ajaxurl, // + '?action=ant_select2_get_title',
+                            url: antSelect2Obj.ajaxurl, // + '?action=advanced_news_ticker_select2_get_title',
                             method: 'POST',
                             data: {
-                                action:'ant_select2_get_title',
+                                action:'advanced_news_ticker_select2_get_title',
                                 post_type: obj.data.source_type,
                                 source_name: obj.data.source_name,
                                 _ajax_nonce: antSelect2Obj.nonce,
@@ -79,7 +79,7 @@ const rawEditorHelpers = {
                                 response.success &&
                                 typeof response.data.results !== 'undefined'
                             ) {
-                                let rawSelect2Options = '';
+                                let advancedNewsTickerSelect2Options = '';
                                 ids.forEach(function (item, index) {
                                     if (
                                         typeof response.data.results[item] !==
@@ -88,11 +88,11 @@ const rawEditorHelpers = {
                                         const key = item;
                                         const value =
                                             response.data.results[item];
-                                        rawSelect2Options += `<option selected="selected" value="${key}">${value}</option>`;
+                                        advancedNewsTickerSelect2Options += `<option selected="selected" value="${key}">${value}</option>`;
                                     }
                                 });
 
-                                element.append(rawSelect2Options);
+                                element.append(advancedNewsTickerSelect2Options);
                             }
                             label
                                 .siblings('.elementor-control-spinner')

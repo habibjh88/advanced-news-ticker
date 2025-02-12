@@ -1,6 +1,6 @@
 <?php
 
-namespace AdvancedNewsTicker\Helper;
+namespace habibjh88\AdvancedNewsTicker\Helper;
 
 class Fns {
 
@@ -30,14 +30,14 @@ class Fns {
 
 		$template_files = trailingslashit( $template_path ) . $template_name;
 
-		$template = locate_template( apply_filters( 'ant_locate_template_files', $template_files, $template_name, $template_path, $default_path ) );
+		$template = locate_template( apply_filters( 'advanced_news_ticker_locate_template_files', $template_files, $template_name, $template_path, $default_path ) );
 
 		// Get default template/.
 		if ( ! $template ) {
 			$template = trailingslashit( $default_path ) . $template_name;
 		}
 
-		return apply_filters( 'ant_locate_template', $template, $template_name );
+		return apply_filters( 'advanced_news_ticker_locate_template', $template, $template_name );
 	}
 
 	/**
@@ -59,19 +59,19 @@ class Fns {
 
 		if ( ! file_exists( $located ) ) {
 			// translators: %s template
-			self::doing_it_wrong( __FUNCTION__, sprintf( __( '%s does not exist.', 'classified-listing' ), '<code>' . $located . '</code>' ), '1.0' );
+			self::doing_it_wrong( __FUNCTION__, sprintf( esc_html__( '%s does not exist.', 'advanced-news-ticker' ), '<code>' . $located . '</code>' ), '1.0' );
 
 			return;
 		}
 
 		// Allow 3rd party plugin filter template file from their plugin.
-		$located = apply_filters( 'ant_get_template', $located, $template_name, $args );
+		$located = apply_filters( 'advanced_news_ticker_get_template', $located, $template_name, $args );
 
-		do_action( 'ant_before_template_part', $template_name, $located, $args );
+		do_action( 'advanced_news_ticker_before_template_part', $template_name, $located, $args );
 
 		include $located;
 
-		do_action( 'ant_after_template_part', $template_name, $located, $args );
+		do_action( 'advanced_news_ticker_after_template_part', $template_name, $located, $args );
 	}
 
 	/**
@@ -95,13 +95,12 @@ class Fns {
 		);
 		$post_types = wp_list_pluck( $post_types, 'label', 'name' );
 
-		$exclude = apply_filters('ant_exclude_post_type', [
+		$exclude = apply_filters('advanced_news_ticker_exclude_post_type', [
 			'attachment',
 			'revision',
 			'nav_menu_item',
 			'elementor_library',
 			'e-landing-page',
-			'elementor-raw_addons',
 			'e-floating-buttons'
 		]);
 		if ( $exc ) {

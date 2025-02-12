@@ -5,11 +5,11 @@
  * @version 1.0
  */
 
-namespace AdvancedNewsTicker\Elementor\Addons;
+namespace habibjh88\AdvancedNewsTicker\Elementor\Addons;
 
 use Elementor\Controls_Manager;
-use AdvancedNewsTicker\Helper\Fns;
-use AdvancedNewsTicker\Abstracts\ElementorBase;
+use habibjh88\AdvancedNewsTicker\Helper\Fns;
+use habibjh88\AdvancedNewsTicker\Abstracts\ElementorBase;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
 use Elementor\Group_Control_Background;
@@ -32,17 +32,17 @@ class NewsTicker extends ElementorBase {
 	 * @throws \Exception
 	 */
 	public function __construct( $data = [], $args = null ) {
-		$this->ant_name = __( 'News Ticker', 'advanced-news-ticker' );
-		$this->ant_base = 'ant-news-ticker';
+		$this->ticker_name = esc_html__( 'News Ticker', 'advanced-news-ticker' );
+		$this->ticker_base = 'advanced-news-ticker';
 		parent::__construct( $data, $args );
 	}
 
 	public function get_script_depends() {
-		return [ 'ant-scripts' ];
+		return [ 'advanced-news-ticker-scripts' ];
 	}
 
 	public function get_style_depends() {
-		return [ 'ant-styles' ];
+		return [ 'advanced-news-ticker-styles' ];
 	}
 
 	/**
@@ -75,35 +75,35 @@ class NewsTicker extends ElementorBase {
 				'label'        => esc_html__( 'Choose Layout', 'advanced-news-ticker' ),
 				'description'  => esc_html__( 'Choose layout', 'advanced-news-ticker' ),
 				'options'      => [
-					'1' => [
+					'1'   => [
 						'title' => esc_html__( 'Layout 1', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-1.svg' ) ),
 					],
-					'2' => [
+					'2'   => [
 						'title' => esc_html__( 'Layout 2', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-2.svg' ) ),
 					],
-					'3' => [
+					'3'   => [
 						'title' => esc_html__( 'Layout 3', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-3.svg' ) ),
 					],
-					'4' => [
+					'4'   => [
 						'title' => esc_html__( 'Layout 4', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-4.svg' ) ),
 					],
-					'5' => [
+					'5'   => [
 						'title' => esc_html__( 'Layout 5', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-5.svg' ) ),
 					],
-					'6' => [
+					'6'   => [
 						'title' => esc_html__( 'Layout 6', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-6.svg' ) ),
 					],
-					'7' => [
+					'7'   => [
 						'title' => esc_html__( 'Layout 7', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-7.svg' ) ),
 					],
-					'8' => [
+					'8'   => [
 						'title' => esc_html__( 'Layout 8', 'advanced-news-ticker' ),
 						'url'   => esc_url( Fns::get_assets_url( 'images/layout/newsticker-8.svg' ) ),
 					],
@@ -128,9 +128,9 @@ class NewsTicker extends ElementorBase {
 			'control_visibility',
 			[
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
-				'label'     => esc_html__( 'Controls Button Visibility', 'raw-addons' ),
-				'label_on'  => esc_html__( 'On', 'raw-addons' ),
-				'label_off' => esc_html__( 'Off', 'raw-addons' ),
+				'label'     => esc_html__( 'Controls Button Visibility', 'advanced-news-ticker' ),
+				'label_on'  => esc_html__( 'On', 'advanced-news-ticker' ),
+				'label_off' => esc_html__( 'Off', 'advanced-news-ticker' ),
 				'default'   => 'yes',
 			]
 		);
@@ -139,9 +139,9 @@ class NewsTicker extends ElementorBase {
 			'pause_visibility',
 			[
 				'type'      => \Elementor\Controls_Manager::SWITCHER,
-				'label'     => esc_html__( 'Pause Button Visibility', 'raw-addons' ),
-				'label_on'  => esc_html__( 'On', 'raw-addons' ),
-				'label_off' => esc_html__( 'Off', 'raw-addons' ),
+				'label'     => esc_html__( 'Pause Button Visibility', 'advanced-news-ticker' ),
+				'label_on'  => esc_html__( 'On', 'advanced-news-ticker' ),
+				'label_off' => esc_html__( 'Off', 'advanced-news-ticker' ),
 				'default'   => 'yes',
 				'condition' => [
 					'control_visibility' => 'yes',
@@ -160,45 +160,96 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'ticker_animation',
 			[
-				'label'   => esc_html__( 'Animation', 'the-post-grid' ),
+				'label'   => esc_html__( 'Animation', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'horizontal',
 				'options' => [
-					'horizontal' => esc_html__( 'Slide Horizontal', 'the-post-grid' ),
-					'vertical'   => esc_html__( 'Slide Vertical', 'the-post-grid' ),
-					'type'       => esc_html__( 'Typing', 'the-post-grid' ),
-					'marquee'    => esc_html__( 'Marquee', 'the-post-grid' ),
+					'horizontal' => esc_html__( 'Slide Horizontal', 'advanced-news-ticker' ),
+					'vertical'   => esc_html__( 'Slide Vertical', 'advanced-news-ticker' ),
+					'type'       => esc_html__( 'Typing', 'advanced-news-ticker' ),
+					'marquee'    => esc_html__( 'Marquee Scroll', 'advanced-news-ticker' ),
 				],
 			]
 		);
 
 		$this->add_control(
+			'marquee_direction',
+			[
+				'label'     => esc_html__( 'Direction', 'advanced-news-ticker' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'right',
+				'options'   => [
+					'right' => esc_html__( 'Right', 'advanced-news-ticker' ),
+					'left'  => esc_html__( 'Left', 'advanced-news-ticker' ),
+				],
+				'condition' => [
+					'ticker_animation' => 'marquee',
+				]
+			]
+		);
+		$this->add_control(
+			'marquee_behavior',
+			[
+				'label'     => esc_html__( 'Behavior', 'advanced-news-ticker' ),
+				'type'      => Controls_Manager::SELECT,
+				'default'   => 'alternate',
+				'options'   => [
+					'alternate' => esc_html__( 'Alternatel', 'advanced-news-ticker' ),
+					'scroll'    => esc_html__( 'Scroll', 'advanced-news-ticker' ),
+				],
+				'condition' => [
+					'ticker_animation' => 'marquee',
+				]
+			]
+		);
+
+		$this->add_control(
+			'scrollamount',
+			[
+				'label'     => esc_html__( 'Speed', 'advanced-news-ticker' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 5,
+				'condition' => [
+					'ticker_animation' => 'marquee',
+				]
+			]
+		);
+		$this->add_control(
 			'speed',
 			[
-				'label'   => esc_html__( 'Speed', 'the-post-grid' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 300,
+				'label'     => esc_html__( 'Speed', 'advanced-news-ticker' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 300,
+				'condition' => [
+					'ticker_animation!' => 'marquee',
+				]
 			]
 		);
 
 		$this->add_control(
 			'delay',
 			[
-				'label'   => esc_html__( 'Delay', 'the-post-grid' ),
-				'type'    => Controls_Manager::NUMBER,
-				'default' => 1500,
+				'label'     => esc_html__( 'Delay', 'advanced-news-ticker' ),
+				'type'      => Controls_Manager::NUMBER,
+				'default'   => 1500,
+				'condition' => [
+					'ticker_animation!' => 'marquee',
+				]
 			]
 		);
 
 		$this->add_control(
 			'pause_on_hover',
 			[
-				'label'        => esc_html__( 'Pause On Hover', 'the-post-grid' ),
+				'label'        => esc_html__( 'Pause On Hover', 'advanced-news-ticker' ),
 				'type'         => Controls_Manager::SWITCHER,
-				'label_on'     => esc_html__( 'On', 'the-post-grid' ),
-				'label_off'    => esc_html__( 'Off', 'the-post-grid' ),
+				'label_on'     => esc_html__( 'On', 'advanced-news-ticker' ),
+				'label_off'    => esc_html__( 'Off', 'advanced-news-ticker' ),
 				'return_value' => 'yes',
 				'default'      => 'yes',
+				'condition'    => [
+					'ticker_animation!' => 'marquee',
+				]
 			]
 		);
 
@@ -226,10 +277,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'post_limit',
 			[
-				'label'       => __( 'Post Per Page', 'advanced-news-ticker' ),
+				'label'       => esc_html__( 'Post Per Page', 'advanced-news-ticker' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter Post Limit', 'advanced-news-ticker' ),
-				'description' => __( 'Enter number of post to show.', 'advanced-news-ticker' ),
+				'placeholder' => esc_html__( 'Enter Post Limit', 'advanced-news-ticker' ),
+				'description' => esc_html__( 'Enter number of post to show.', 'advanced-news-ticker' ),
 				'default'     => '12',
 			]
 		);
@@ -238,8 +289,8 @@ class NewsTicker extends ElementorBase {
 			$this->add_control(
 				$post_type . '_ids',
 				[
-					'type'                 => 'ant-select2',
-					'label'                => __( 'Choose ', 'advanced-news-ticker' ) . $post_label,
+					'type'                 => 'advanced-news-ticker-select2',
+					'label'                => esc_html__( 'Choose ', 'advanced-news-ticker' ) . $post_label,
 					'source_name'          => 'post_type',
 					'source_type'          => $post_type,
 					'multiple'             => true,
@@ -280,11 +331,11 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'tax_relation',
 			[
-				'label'   => __( 'Taxonomy Relation', 'advanced-news-ticker' ),
+				'label'   => esc_html__( 'Taxonomy Relation', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'OR'  => __( 'OR', 'advanced-news-ticker' ),
-					'AND' => __( 'AND', 'advanced-news-ticker' ),
+					'OR'  => esc_html__( 'OR', 'advanced-news-ticker' ),
+					'AND' => esc_html__( 'AND', 'advanced-news-ticker' ),
 				],
 				'default' => 'OR',
 			]
@@ -293,19 +344,19 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'offset',
 			[
-				'label'       => __( 'Post offset', 'advanced-news-ticker' ),
+				'label'       => esc_html__( 'Post offset', 'advanced-news-ticker' ),
 				'type'        => Controls_Manager::TEXT,
-				'placeholder' => __( 'Enter Post offset', 'advanced-news-ticker' ),
-				'description' => __( 'Number of post to displace or pass over. The offset parameter is ignored when post limit => -1 (show all posts) is used.', 'advanced-news-ticker' ),
+				'placeholder' => esc_html__( 'Enter Post offset', 'advanced-news-ticker' ),
+				'description' => esc_html__( 'Number of post to displace or pass over. The offset parameter is ignored when post limit => -1 (show all posts) is used.', 'advanced-news-ticker' ),
 			]
 		);
 
 		$this->add_control(
 			'exclude',
 			[
-				'type'                 => 'ant-select2',
-				'label'                => __( 'Exclude posts', 'advanced-news-ticker' ),
-				'description'          => __( 'Choose posts for exclude', 'advanced-news-ticker' ),
+				'type'                 => 'advanced-news-ticker-select2',
+				'label'                => esc_html__( 'Exclude posts', 'advanced-news-ticker' ),
+				'description'          => esc_html__( 'Choose posts for exclude', 'advanced-news-ticker' ),
 				'source_name'          => 'post',
 				'source_type'          => 'post',
 				'multiple'             => true,
@@ -317,21 +368,21 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'orderby',
 			[
-				'label'   => __( 'Order by', 'advanced-news-ticker' ),
+				'label'   => esc_html__( 'Order by', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'date',
 				'options' => [
-					'date'           => __( 'Date', 'advanced-news-ticker' ),
-					'ID'             => __( 'Order by post ID', 'advanced-news-ticker' ),
-					'author'         => __( 'Author', 'advanced-news-ticker' ),
-					'title'          => __( 'Title', 'advanced-news-ticker' ),
-					'modified'       => __( 'Last modified date', 'advanced-news-ticker' ),
-					'parent'         => __( 'Post parent ID', 'advanced-news-ticker' ),
-					'comment_count'  => __( 'Number of comments', 'advanced-news-ticker' ),
-					'menu_order'     => __( 'Menu order', 'advanced-news-ticker' ),
-					'meta_value'     => __( 'Meta value', 'advanced-news-ticker' ),
-					'meta_value_num' => __( 'Meta value number', 'advanced-news-ticker' ),
-					'rand'           => __( 'Random order', 'advanced-news-ticker' ),
+					'date'           => esc_html__( 'Date', 'advanced-news-ticker' ),
+					'ID'             => esc_html__( 'Order by post ID', 'advanced-news-ticker' ),
+					'author'         => esc_html__( 'Author', 'advanced-news-ticker' ),
+					'title'          => esc_html__( 'Title', 'advanced-news-ticker' ),
+					'modified'       => esc_html__( 'Last modified date', 'advanced-news-ticker' ),
+					'parent'         => esc_html__( 'Post parent ID', 'advanced-news-ticker' ),
+					'comment_count'  => esc_html__( 'Number of comments', 'advanced-news-ticker' ),
+					'menu_order'     => esc_html__( 'Menu order', 'advanced-news-ticker' ),
+					'meta_value'     => esc_html__( 'Meta value', 'advanced-news-ticker' ),
+					'meta_value_num' => esc_html__( 'Meta value number', 'advanced-news-ticker' ),
+					'rand'           => esc_html__( 'Random order', 'advanced-news-ticker' ),
 				],
 			]
 		);
@@ -350,12 +401,12 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'order',
 			[
-				'label'   => __( 'Sort order', 'advanced-news-ticker' ),
+				'label'   => esc_html__( 'Sort order', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'DESC',
 				'options' => [
-					'ASC'  => __( 'ASC', 'advanced-news-ticker' ),
-					'DESC' => __( 'DESC', 'advanced-news-ticker' ),
+					'ASC'  => esc_html__( 'ASC', 'advanced-news-ticker' ),
+					'DESC' => esc_html__( 'DESC', 'advanced-news-ticker' ),
 				],
 			]
 		);
@@ -372,7 +423,7 @@ class NewsTicker extends ElementorBase {
 		$this->start_controls_section(
 			'ticker_style',
 			[
-				'label' => esc_html__( 'News Ticker', 'the-post-grid' ),
+				'label' => esc_html__( 'News Ticker', 'advanced-news-ticker' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -380,11 +431,11 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'border_radius',
 			[
-				'label'      => esc_html__( 'Border Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Border Radius', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} :is(.ant-news-ticker-inner, .ticker-title, .navigation .news-ticker-nav)' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} :is(.advanced-news-ticker-inner, .ticker-title, .navigation .news-ticker-nav)' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -392,11 +443,11 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'padding',
 			[
-				'label'      => esc_html__( 'Padding', 'the-post-grid' ),
+				'label'      => esc_html__( 'Padding', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .advanced-news-ticker-inner' => 'padding:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -405,8 +456,8 @@ class NewsTicker extends ElementorBase {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'     => 'ticker_border',
-				'label'    => esc_html__( 'Border', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .ant-news-ticker-inner',
+				'label'    => esc_html__( 'Border', 'advanced-news-ticker' ),
+				'selector' => '{{WRAPPER}} .advanced-news-ticker-inner',
 			]
 		);
 
@@ -414,13 +465,13 @@ class NewsTicker extends ElementorBase {
 			Group_Control_Background::get_type(),
 			[
 				'name'           => 'ticker_background_color',
-				'label'          => esc_html__( 'Title Background', 'the-post-grid' ),
+				'label'          => esc_html__( 'Title Background', 'advanced-news-ticker' ),
 				'types'          => [ 'classic', 'gradient' ],
-				'selector'       => '{{WRAPPER}} .ant-news-ticker-inner',
+				'selector'       => '{{WRAPPER}} .advanced-news-ticker-inner',
 				'exclude'        => [ 'image' ],
 				'fields_options' => [
 					'background' => [
-						'label' => esc_html__( 'Title Background', 'the-post-grid' ),
+						'label' => esc_html__( 'Title Background', 'advanced-news-ticker' ),
 					],
 					'color'      => [
 						'label' => 'Background Color',
@@ -434,11 +485,11 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'height',
 			[
-				'label'     => esc_html__( 'Height', 'the-post-grid' ),
+				'label'     => esc_html__( 'Height', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::NUMBER,
 				'min'       => 30,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner' => 'height:{{VALUE}}px;',
+					'{{WRAPPER}} .advanced-news-ticker-inner' => 'height:{{VALUE}}px;',
 				],
 			]
 		);
@@ -454,9 +505,9 @@ class NewsTicker extends ElementorBase {
 	 */
 	public function ticker_title() {
 		$this->start_controls_section(
-			'ant_ticker_title',
+			'ticker_title',
 			[
-				'label' => esc_html__( 'Breaking Title', 'the-post-grid' ),
+				'label' => esc_html__( 'Breaking Title', 'advanced-news-ticker' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -465,18 +516,18 @@ class NewsTicker extends ElementorBase {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'breaking_title_typography',
-				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .ant-news-ticker-inner .ticker-title',
+				'label'    => esc_html__( 'Typography', 'advanced-news-ticker' ),
+				'selector' => '{{WRAPPER}} .advanced-news-ticker-inner .ticker-title',
 			]
 		);
 
 		$this->add_control(
 			'breaking_title_color',
 			[
-				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Color', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-title' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-title' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -485,13 +536,13 @@ class NewsTicker extends ElementorBase {
 			Group_Control_Background::get_type(),
 			[
 				'name'           => 'title_background_color',
-				'label'          => esc_html__( 'Title Background', 'the-post-grid' ),
+				'label'          => esc_html__( 'Title Background', 'advanced-news-ticker' ),
 				'types'          => [ 'classic', 'gradient' ],
-				'selector'       => '{{WRAPPER}} .ant-news-ticker-inner .ticker-title',
+				'selector'       => '{{WRAPPER}} .advanced-news-ticker-inner .ticker-title',
 				'exclude'        => [ 'image' ],
 				'fields_options' => [
 					'background' => [
-						'label' => esc_html__( 'Background', 'the-post-grid' ),
+						'label' => esc_html__( 'Title Background', 'advanced-news-ticker' ),
 					],
 					'color'      => [
 						'label' => 'Background Color',
@@ -506,11 +557,11 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'breaking_radius',
 			[
-				'label'      => __( 'Border Radius', 'neuzin-core' ),
+				'label'      => esc_html__( 'Border Radius', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-title' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-title' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
@@ -519,8 +570,8 @@ class NewsTicker extends ElementorBase {
 			\Elementor\Group_Control_Border::get_type(),
 			[
 				'name'     => 'breaking_border',
-				'label'    => __( 'Border', 'raw-addons' ),
-				'selector' => '{{WRAPPER}} .ant-news-ticker-inner .ticker-title',
+				'label'    => esc_html__( 'Border', 'advanced-news-ticker' ),
+				'selector' => '{{WRAPPER}} .advanced-news-ticker-inner .ticker-title',
 			]
 		);
 
@@ -530,7 +581,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'title_icon_heading',
 			[
-				'label' => __( 'Icon Setting', 'raw-addons' ),
+				'label' => esc_html__( 'Icon Setting', 'advanced-news-ticker' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -538,7 +589,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'show_icon',
 			[
-				'label'        => esc_html__( 'Show Icon', 'neuzin-core' ),
+				'label'        => esc_html__( 'Show Icon', 'advanced-news-ticker' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -548,18 +599,18 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'breaking_icon',
 			[
-				'label'     => esc_html__( 'Choose Icon', 'the-post-grid' ),
+				'label'     => esc_html__( 'Choose Icon', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::SELECT,
 				'default'   => 'default',
 				'options'   => [
-					'default'      => esc_html__( 'Default', 'the-post-grid' ),
-					'bolt-round'   => esc_html__( 'Bolt Circle', 'the-post-grid' ),
-					'bolt-round-2' => esc_html__( 'Bolt Circle 2', 'the-post-grid' ),
-					'bolt-round-3' => esc_html__( 'Bolt Circle 3', 'the-post-grid' ),
-					'bolt'         => esc_html__( 'Bolt Light', 'the-post-grid' ),
-					'bolt-2'       => esc_html__( 'Bolt Solid', 'the-post-grid' ),
-					'live'         => esc_html__( 'Live Circle', 'the-post-grid' ),
-					'custom'       => esc_html__( 'Custom Icon', 'the-post-grid' ),
+					'default'      => esc_html__( 'Default', 'advanced-news-ticker' ),
+					'bolt-round'   => esc_html__( 'Bolt Circle', 'advanced-news-ticker' ),
+					'bolt-round-2' => esc_html__( 'Bolt Circle 2', 'advanced-news-ticker' ),
+					'bolt-round-3' => esc_html__( 'Bolt Circle 3', 'advanced-news-ticker' ),
+					'bolt'         => esc_html__( 'Bolt Light', 'advanced-news-ticker' ),
+					'bolt-2'       => esc_html__( 'Bolt Solid', 'advanced-news-ticker' ),
+					'live'         => esc_html__( 'Live Circle', 'advanced-news-ticker' ),
+					'custom'       => esc_html__( 'Custom Icon', 'advanced-news-ticker' ),
 				],
 				'condition' => [
 					'show_icon' => 'yes',
@@ -571,7 +622,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'title_icon',
 			[
-				'label'     => esc_html__( 'Choose Icon', 'textdomain' ),
+				'label'     => esc_html__( 'Choose Icon', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::ICONS,
 				'condition' => [
 					'show_icon'     => 'yes',
@@ -583,7 +634,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'live_animation',
 			[
-				'label'        => esc_html__( 'Live Animation', 'textdomain' ),
+				'label'        => esc_html__( 'Live Animation', 'advanced-news-ticker' ),
 				'type'         => \Elementor\Controls_Manager::SWITCHER,
 				'default'      => false,
 				'return_value' => 'yes',
@@ -597,7 +648,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'breaking_icon_size',
 			[
-				'label'      => esc_html__( 'Icon Size', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Size', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -619,10 +670,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'breaking_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-title :is(i, svg)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-title :is(i, svg)' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'show_icon' => 'yes',
@@ -633,7 +684,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'title_position',
 			[
-				'label' => __( 'Position Tune (optional)', 'raw-addons' ),
+				'label' => esc_html__( 'Position Tune (optional)', 'advanced-news-ticker' ),
 				'type'  => Controls_Manager::HEADING,
 			]
 		);
@@ -641,7 +692,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'title_icon_y_post',
 			[
-				'label'      => esc_html__( 'Icon Vertical Position', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Vertical Position', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -652,7 +703,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-live-icon' => 'transform: translateY({{SIZE}}px)',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-live-icon' => 'transform: translateY({{SIZE}}px)',
 				],
 				'condition'  => [
 					'show_icon' => 'yes',
@@ -663,7 +714,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'title_y_post',
 			[
-				'label'      => esc_html__( 'Title Vertical Position', 'the-post-grid' ),
+				'label'      => esc_html__( 'Title Vertical Position', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -674,7 +725,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .breaking-title' => 'transform: translateY({{SIZE}}px)',
+					'{{WRAPPER}} .advanced-news-ticker-inner .breaking-title' => 'transform: translateY({{SIZE}}px)',
 				],
 			]
 		);
@@ -688,9 +739,9 @@ class NewsTicker extends ElementorBase {
 	 */
 	public function ticker_post_title() {
 		$this->start_controls_section(
-			'ant_ticker_post_title',
+			'ticker_post_title',
 			[
-				'label' => esc_html__( 'Post Title', 'the-post-grid' ),
+				'label' => esc_html__( 'Post Title', 'advanced-news-ticker' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -699,15 +750,15 @@ class NewsTicker extends ElementorBase {
 			Group_Control_Typography::get_type(),
 			[
 				'name'     => 'post_typography',
-				'label'    => esc_html__( 'Typography', 'the-post-grid' ),
-				'selector' => '{{WRAPPER}} .ant-news-ticker-inner .post-link',
+				'label'    => esc_html__( 'Typography', 'advanced-news-ticker' ),
+				'selector' => '{{WRAPPER}} .advanced-news-ticker-inner .post-link',
 			]
 		);
 
 		$this->add_control(
 			'post_title_link',
 			[
-				'label'        => esc_html__( 'Enable Link?', 'the-post-grid' ),
+				'label'        => esc_html__( 'Enable Link?', 'advanced-news-ticker' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -717,19 +768,19 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'post_icon',
 			[
-				'label'   => esc_html__( 'Icon', 'the-post-grid' ),
+				'label'   => esc_html__( 'Icon', 'advanced-news-ticker' ),
 				'type'    => Controls_Manager::SELECT,
 				'options' => [
-					'star'         => esc_html__( 'Star Icon', 'the-post-grid' ),
-					'star-outline' => esc_html__( 'Star-Outline Icon', 'the-post-grid' ),
-					'dot'          => esc_html__( 'Dot Icon', 'the-post-grid' ),
-					'bolt-round'   => esc_html__( 'Bolt Circle', 'the-post-grid' ),
-					'bolt-round-2' => esc_html__( 'Bolt Circle 2', 'the-post-grid' ),
-					'bolt-round-3' => esc_html__( 'Bolt Circle 3', 'the-post-grid' ),
-					'bolt'         => esc_html__( 'Bolt Light', 'the-post-grid' ),
-					'bolt-2'       => esc_html__( 'Bolt Solid', 'the-post-grid' ),
-					'live'         => esc_html__( 'Live Circle', 'the-post-grid' ),
-					'custom'       => esc_html__( 'Custom Icon', 'the-post-grid' ),
+					'star'         => esc_html__( 'Star Icon', 'advanced-news-ticker' ),
+					'star-outline' => esc_html__( 'Star-Outline Icon', 'advanced-news-ticker' ),
+					'dot'          => esc_html__( 'Dot Icon', 'advanced-news-ticker' ),
+					'bolt-round'   => esc_html__( 'Bolt Circle', 'advanced-news-ticker' ),
+					'bolt-round-2' => esc_html__( 'Bolt Circle 2', 'advanced-news-ticker' ),
+					'bolt-round-3' => esc_html__( 'Bolt Circle 3', 'advanced-news-ticker' ),
+					'bolt'         => esc_html__( 'Bolt Light', 'advanced-news-ticker' ),
+					'bolt-2'       => esc_html__( 'Bolt Solid', 'advanced-news-ticker' ),
+					'live'         => esc_html__( 'Live Circle', 'advanced-news-ticker' ),
+					'custom'       => esc_html__( 'Custom Icon', 'advanced-news-ticker' ),
 				],
 				'default' => 'live',
 			]
@@ -738,7 +789,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'custom_post_icon',
 			[
-				'label'     => esc_html__( 'Custom Icon', 'textdomain' ),
+				'label'     => esc_html__( 'Custom Icon', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::ICONS,
 				'default'   => [
 					'value'   => 'far fa-circle',
@@ -753,7 +804,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'post_icon_size',
 			[
-				'label'      => esc_html__( 'Icon Size', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Size', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -764,7 +815,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content :is(svg, i)' => 'font-size: {{SIZE}}px;',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-content :is(svg, i)' => 'font-size: {{SIZE}}px;',
 				],
 				'condition'  => [
 					'post_icon!' => 'none',
@@ -775,7 +826,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'post_icon_gap',
 			[
-				'label'      => esc_html__( 'Icon Gap', 'the-post-grid' ),
+				'label'      => esc_html__( 'Icon Gap', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -786,8 +837,8 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content :is(svg, i)' => 'margin-right: {{SIZE}}px;',
-					'{{WRAPPER}} .ant-news-ticker-inner .post-link'                  => 'margin-right: {{SIZE}}px;',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-content :is(svg, i)' => 'margin-right: {{SIZE}}px;',
+					'{{WRAPPER}} .advanced-news-ticker-inner .post-link'                  => 'margin-right: {{SIZE}}px;',
 				],
 				'condition'  => [
 					'post_icon!' => 'none',
@@ -798,10 +849,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'post_title_color',
 			[
-				'label'     => esc_html__( 'Title Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Color', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .post-link' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .post-link' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -809,10 +860,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'post_title_color_hover',
 			[
-				'label'     => esc_html__( 'Title Color:hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Title Color:hover', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .post-link:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .post-link:hover' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'post_title_link' => 'yes',
@@ -823,10 +874,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'post_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content :is(i, svg)' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-content :is(i, svg)' => 'color: {{VALUE}}',
 				],
 				'condition' => [
 					'post_icon!' => 'none',
@@ -837,7 +888,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'post_title_icon_pos',
 			[
-				'label'      => __( 'Icon Vertical Position', 'neuzin-core' ),
+				'label'      => esc_html__( 'Icon Vertical Position', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -848,7 +899,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content .post-icon' => 'transform:translateY({{SIZE}}{{UNIT}});',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-content .post-icon' => 'transform:translateY({{SIZE}}{{UNIT}});',
 				],
 			]
 		);
@@ -856,7 +907,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'post_title_pos',
 			[
-				'label'      => __( 'Title Vertical Position', 'neuzin-core' ),
+				'label'      => esc_html__( 'Title Vertical Position', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -867,7 +918,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .ticker-content .post-link' => 'transform:translateY({{SIZE}}{{UNIT}});',
+					'{{WRAPPER}} .advanced-news-ticker-inner .ticker-content .post-link' => 'transform:translateY({{SIZE}}{{UNIT}});',
 				],
 			]
 		);
@@ -881,9 +932,9 @@ class NewsTicker extends ElementorBase {
 	 */
 	public function ticker_control() {
 		$this->start_controls_section(
-			'ant_ticker_control',
+			'ticker_control',
 			[
-				'label'     => esc_html__( 'Control Button', 'the-post-grid' ),
+				'label'     => esc_html__( 'Control Button', 'advanced-news-ticker' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'ticker_animation!'  => 'marquee',
@@ -895,7 +946,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_prev_icon',
 			[
-				'label'            => __( 'Prev Icon', 'raw-addons' ),
+				'label'            => esc_html__( 'Prev Icon', 'advanced-news-ticker' ),
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'recommended'      => [
@@ -921,7 +972,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_next_icon',
 			[
-				'label'            => __( 'Next Icon', 'raw-addons' ),
+				'label'            => esc_html__( 'Next Icon', 'advanced-news-ticker' ),
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'recommended'      => [
@@ -947,7 +998,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_pause_icon',
 			[
-				'label'            => __( 'Pause Icon', 'raw-addons' ),
+				'label'            => esc_html__( 'Pause Icon', 'advanced-news-ticker' ),
 				'type'             => Controls_Manager::ICONS,
 				'fa4compatibility' => 'icon',
 				'recommended'      => [
@@ -967,18 +1018,18 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'control_radius',
 			[
-				'label'      => esc_html__( 'Border Radius', 'the-post-grid' ),
+				'label'      => esc_html__( 'Border Radius', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px' ],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav' => 'border-radius:{{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
 			]
 		);
 		$this->add_responsive_control(
 			'icon_size',
 			[
-				'label'      => __( 'Icon Size', 'neuzin-core' ),
+				'label'      => esc_html__( 'Icon Size', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -989,7 +1040,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .news-ticker-nav :is(svg, i)' => 'font-size:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .advanced-news-ticker-inner .news-ticker-nav :is(svg, i)' => 'font-size:{{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -997,7 +1048,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'icon_width',
 			[
-				'label'      => __( 'Icon Width', 'neuzin-core' ),
+				'label'      => esc_html__( 'Icon Width', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -1008,7 +1059,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'width:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav' => 'width:{{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1017,7 +1068,7 @@ class NewsTicker extends ElementorBase {
 		$this->add_responsive_control(
 			'icon_height',
 			[
-				'label'      => __( 'Icon Height', 'neuzin-core' ),
+				'label'      => esc_html__( 'Icon Height', 'advanced-news-ticker' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [
@@ -1028,7 +1079,7 @@ class NewsTicker extends ElementorBase {
 					],
 				],
 				'selectors'  => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'height:{{SIZE}}{{UNIT}};',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav' => 'height:{{SIZE}}{{UNIT}};',
 				],
 			]
 		);
@@ -1037,10 +1088,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon Color', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1048,10 +1099,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_color_h',
 			[
-				'label'     => esc_html__( 'Icon color:hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Icon color:hover', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav:hover' => 'color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav:hover' => 'color: {{VALUE}}',
 				],
 			]
 		);
@@ -1059,10 +1110,10 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_bg',
 			[
-				'label'     => esc_html__( 'Control Background', 'the-post-grid' ),
+				'label'     => esc_html__( 'Control Background', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
@@ -1070,17 +1121,16 @@ class NewsTicker extends ElementorBase {
 		$this->add_control(
 			'control_bg_h',
 			[
-				'label'     => esc_html__( 'Control Background:hover', 'the-post-grid' ),
+				'label'     => esc_html__( 'Control Background:hover', 'advanced-news-ticker' ),
 				'type'      => Controls_Manager::COLOR,
 				'selectors' => [
-					'{{WRAPPER}} .ant-news-ticker-inner .navigation .news-ticker-nav:hover' => 'background-color: {{VALUE}}',
+					'{{WRAPPER}} .advanced-news-ticker-inner .navigation .news-ticker-nav:hover' => 'background-color: {{VALUE}}',
 				],
 			]
 		);
 
 		$this->end_controls_section();
 	}
-
 
 	public function swiper_slider( $query, $data ) {
 
@@ -1096,18 +1146,16 @@ class NewsTicker extends ElementorBase {
 			'effect'            => 'fade',
 			'loop'              => true,
 			'allowTouchMove'    => false,
-			'pauseOnMouseEnter' => (bool) $data['pause_on_hover'],
+			'pauseOnMouseEnter' => boolval( $data['pause_on_hover'] ),
 			'autoplay'          => [
 				'delay'                => $data['delay'] ?? 2000,
 				'disableOnInteraction' => true,
 			],
-
+			'navigation'        => [
+				'nextEl' => '.newsticker-button-next',
+				'prevEl' => '.newsticker-button-prev',
+			],
 		];
-
-//		'navigation'        => [
-//			'nextEl' => '.newsticker-button-next',
-//			'prevEl' => '.newsticker-button-prev',
-//		],
 
 		if ( in_array( $data['ticker_animation'], [ 'vertical', 'horizontal' ] ) ) {
 			$swiperConfig['parallax'] = true;
@@ -1122,7 +1170,7 @@ class NewsTicker extends ElementorBase {
 		}
 
 		?>
-        <div class="swiper ant-news-ticker ant-swiper" data-antSwiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
+        <div class="swiper advanced-news-ticker" data-swiper='<?php echo wp_json_encode( $swiperConfig ); ?>'>
 
             <div class="swiper-wrapper">
 				<?php
@@ -1140,7 +1188,7 @@ class NewsTicker extends ElementorBase {
                         </div>
                     </div>
 				<?php endwhile; ?>
-				<?php wp_reset_query(); ?>
+				<?php wp_reset_postdata(); ?>
             </div>
 			<?php if ( 'yes' == $data['control_visibility'] ) : ?>
                 <div class="navigation">
@@ -1189,10 +1237,11 @@ class NewsTicker extends ElementorBase {
 			$hoverEffect = 'onmouseover=this.stop() onmouseout=this.start()';
 		}
 		?>
-        <div class="ant-news-ticker ant-marquee-ticker">
+        <div class="advanced-news-ticker advanced-news-ticker-marquee">
             <marquee class="news-scroll ticker-content"
-                     behavior="alternate"
-                     direction="right"
+                     behavior="<?php echo esc_attr( $data['marquee_behavior'] ) ?>"
+                     direction="<?php echo esc_attr( $data['marquee_direction'] ) ?>"
+                     scrollamount="<?php echo esc_attr( $data['scrollamount'] ) ?>"
 				<?php echo esc_attr( $hoverEffect ); ?>
             >
                 <div class="marquee-inner">
@@ -1209,7 +1258,7 @@ class NewsTicker extends ElementorBase {
 						}
 					endwhile;
 					?>
-					<?php wp_reset_query(); ?>
+					<?php wp_reset_postdata(); ?>
                 </div>
             </marquee>
         </div>
@@ -1298,19 +1347,20 @@ class NewsTicker extends ElementorBase {
 		$breadking_icon = $data['breaking_icon'];
 		if ( 'default' == $breadking_icon ) {
 			$icon_map       = [
-				'1' => 'bolt',
-				'2' => 'bolt-round',
-				'3' => 'bolt-round-2',
-				'4' => 'bolt-round-3',
-				'5' => 'bolt-2',
-				'6' => 'live',
+				'1'   => 'bolt',
+				'1-2' => 'bolt',
+				'2'   => 'bolt-round',
+				'3'   => 'bolt-round-2',
+				'4'   => 'bolt-round-3',
+				'5'   => 'bolt-2',
+				'6'   => 'live',
 			];
 			$breadking_icon = $icon_map[ $layout ] ?? 'bolt';
 		}
 
 		?>
-        <div class="ant-news-tickewr-main clearfix">
-            <div class="ant-news-ticker-inner animation-<?php echo esc_attr( $data['ticker_animation'] ); ?>">
+        <div class="advanced-news-ticker-main clearfix">
+            <div class="advanced-news-ticker-inner animation-<?php echo esc_attr( $data['ticker_animation'] ); ?>">
 				<?php if ( $data['title'] ) : ?>
                     <div class="ticker-title">
 						<?php

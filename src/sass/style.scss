@@ -3,7 +3,7 @@ $newsTickerColor: var(--ant-primary-color, #FF0404);
 @import "swiper";
 @import "ticker-styles";
 
-.ant-news-ticker-inner {
+.advanced-news-ticker-inner {
     position: relative;
     align-items: center;
     display: flex;
@@ -34,7 +34,7 @@ $newsTickerColor: var(--ant-primary-color, #FF0404);
         fill: currentColor;
     }
 
-    .ant-news-ticker {
+    .advanced-news-ticker {
         position: static;
         flex: 1;
         height: 100%;
@@ -179,9 +179,14 @@ $newsTickerColor: var(--ant-primary-color, #FF0404);
 }
 
 
-.ant-marquee-ticker {
+.advanced-news-ticker-marquee {
     padding-right: 15px;
     display: flex;
+
+    .news-scroll {
+        display: flex;
+        align-items: center;
+    }
 
     .marquee-inner {
         display: flex;
