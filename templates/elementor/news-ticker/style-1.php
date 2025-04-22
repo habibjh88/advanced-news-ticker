@@ -8,7 +8,7 @@
  * @var $ticker_item
  * @var $catid
  * @var $query_type
- * @author  habibjh88
+ * @author  devofwp
  * @since   1.0
  * @version 1.0
  *

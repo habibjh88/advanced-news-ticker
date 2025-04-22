@@ -1,6 +1,6 @@
 <?php
 
-namespace habibjh88\AdvancedNewsTicker\Helper;
+namespace devofwp\AdvancedNewsTicker\Helper;
 /**
  * Installer Class
  */

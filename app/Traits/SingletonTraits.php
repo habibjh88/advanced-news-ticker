@@ -3,7 +3,7 @@
  * SingletonTraits
  */
 
-namespace habibjh88\AdvancedNewsTicker\Traits;
+namespace devofwp\AdvancedNewsTicker\Traits;
 
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {

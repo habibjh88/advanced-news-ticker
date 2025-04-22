@@ -8,10 +8,10 @@
  * @package AdvancedNewsTicker
  */
 
-namespace habibjh88\AdvancedNewsTicker;
+namespace devofwp\AdvancedNewsTicker;
 
-use habibjh88\AdvancedNewsTicker\Helper\Install;
-use habibjh88\AdvancedNewsTicker\Traits\SingletonTraits;
+use devofwp\AdvancedNewsTicker\Helper\Install;
+use devofwp\AdvancedNewsTicker\Traits\SingletonTraits;
 
 final class Init {
 
@@ -43,6 +43,7 @@ final class Init {
 	 */
 	public function after_theme_loaded() {
 		Controllers\ScriptController::instance();
+		Controllers\NoticeController::instance();
 
 		if ( did_action( 'elementor/loaded' ) ) {
 			Controllers\ElementorController::instance();

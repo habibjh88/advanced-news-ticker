@@ -1,8 +1,8 @@
 <?php
 
-namespace habibjh88\AdvancedNewsTicker\Controllers;
+namespace devofwp\AdvancedNewsTicker\Controllers;
 
-use habibjh88\AdvancedNewsTicker\Traits\SingletonTraits;
+use devofwp\AdvancedNewsTicker\Traits\SingletonTraits;
 
 /**
  * Enqueue.

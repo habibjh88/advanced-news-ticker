@@ -1,15 +1,15 @@
 <?php
 /**
- * @author  habibjh88
+ * @author  devofwp
  * @since   1.0
  * @version 1.0
  */
 
-namespace habibjh88\AdvancedNewsTicker\Elementor\Addons;
+namespace devofwp\AdvancedNewsTicker\Elementor\Addons;
 
 use Elementor\Controls_Manager;
-use habibjh88\AdvancedNewsTicker\Helper\Fns;
-use habibjh88\AdvancedNewsTicker\Abstracts\ElementorBase;
+use devofwp\AdvancedNewsTicker\Helper\Fns;
+use devofwp\AdvancedNewsTicker\Abstracts\ElementorBase;
 use Elementor\Group_Control_Typography;
 use Elementor\Icons_Manager;
 use Elementor\Group_Control_Background;

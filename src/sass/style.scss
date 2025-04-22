@@ -64,8 +64,8 @@ $newsTickerColor: var(--ant-primary-color, #FF0404);
         color: #212121;
         white-space: nowrap;
         margin-right: 10px;
-        text-decoration: none;
         transition: 0.4s;
+        text-decoration: none;
         &:hover {
             color: $newsTickerColor
         }

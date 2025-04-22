@@ -1,14 +1,14 @@
 <?php
 /**
- * @author  habibjh88
+ * @author  devofwp
  * @since   1.0
  * @version 1.0
  */
 
-namespace habibjh88\AdvancedNewsTicker\Elementor\Controls;
+namespace devofwp\AdvancedNewsTicker\Elementor\Controls;
 
 use Elementor\Base_Data_Control;
-use habibjh88\AdvancedNewsTicker\Helper\Fns;
+use devofwp\AdvancedNewsTicker\Helper\Fns;
 
 // Do not allow directly accessing this file.
 if ( ! defined( 'ABSPATH' ) ) {

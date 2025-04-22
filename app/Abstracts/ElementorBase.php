@@ -1,11 +1,11 @@
 <?php
 /**
- * @author  habibjh88
+ * @author  devofwp
  * @since   1.0
  * @version 1.0
  */
 
-namespace habibjh88\AdvancedNewsTicker\Abstracts;
+namespace devofwp\AdvancedNewsTicker\Abstracts;
 
 use Elementor\Widget_Base;
 

@@ -6,5 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'habibjh88\\AdvancedNewsTicker\\' => array($baseDir . '/app'),
+    'devofwp\\AdvancedNewsTicker\\' => array($baseDir . '/app'),
 );

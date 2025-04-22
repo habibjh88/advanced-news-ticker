@@ -1,18 +1,18 @@
 <?php
 /**
- * @author  habibjh88
+ * @author  devofwp
  * @since   1.0
  * @version 1.0
  */
 
-namespace habibjh88\AdvancedNewsTicker\Controllers;
+namespace devofwp\AdvancedNewsTicker\Controllers;
 
 use Elementor\Plugin;
-use habibjh88\AdvancedNewsTicker\Elementor\Controls\ImageSelectorControl;
-use habibjh88\AdvancedNewsTicker\Elementor\Controls\Select2AjaxControl;
-use habibjh88\AdvancedNewsTicker\Helper\Fns;
-use habibjh88\AdvancedNewsTicker\Traits\SingletonTraits;
-use habibjh88\AdvancedNewsTicker\Elementor\Addons\NewsTicker;
+use devofwp\AdvancedNewsTicker\Elementor\Controls\ImageSelectorControl;
+use devofwp\AdvancedNewsTicker\Elementor\Controls\Select2AjaxControl;
+use devofwp\AdvancedNewsTicker\Helper\Fns;
+use devofwp\AdvancedNewsTicker\Traits\SingletonTraits;
+use devofwp\AdvancedNewsTicker\Elementor\Addons\NewsTicker;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

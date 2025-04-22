@@ -1,10 +1,10 @@
-=== Advanced News Ticker ===
+=== News Ticker for Elementor ===
 
-Contributors: habibjh88
+Contributors: devofwp, habibjh
 Tags: News Ticker, Ticker, Breaking News, Post Ticker, Scrolling News
 Requires at least: 5.9
-Tested up to: 6.7
-Stable tag: 1.0.2
+Tested up to: 6.8
+Stable tag: 1.0.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,11 +78,16 @@ A: The plugin offers extensive styling options under Ticker Style, Breaking Titl
 
 == Changelog ==
 
+= 1.0.3 =
+Fixed: WordPress update compatibility
+Fixed: Plugin namespace changed
+
 = 1.0.2 =
-Fixed: Text domain issue fixed.
+* Fixed: Text domain issue fixed.
+* Updated: readme file modify
 
 = 1.0.1 =
-Modify: Plugin name modify.
+* Modify: Plugin name modify.
 
 = 1.0.0 =
 * Initial release with 8 unique layouts.
