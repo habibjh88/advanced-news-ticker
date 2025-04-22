@@ -4,7 +4,7 @@ Contributors: devofwp, habibjh
 Tags: News Ticker, Ticker, Breaking News, Post Ticker, Scrolling News
 Requires at least: 5.9
 Tested up to: 6.8
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -78,9 +78,14 @@ A: The plugin offers extensive styling options under Ticker Style, Breaking Titl
 
 == Changelog ==
 
-= 1.0.3 =
+= 1.0.4 =
 Fixed: WordPress update compatibility
 Fixed: Plugin namespace changed
+
+= 1.0.3 =
+* Updated: Readme file updated
+* Change: Plugin Name changed
+* Added: Elementor missing notice added
 
 = 1.0.2 =
 * Fixed: Text domain issue fixed.

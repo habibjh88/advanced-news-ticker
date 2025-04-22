@@ -63,14 +63,10 @@ if (process.env.npm_config_package) {
             'app',
             'assets',
             'languages',
-            'src',
             'templates',
             'vendor',
             'index.php',
             'readme.txt',
-            'composer.json',
-            'package.json',
-            'webpack.mix.js',
             `${package_slug}.php`,
         ]
         fs.ensureDir(copyTo, function (err) {
